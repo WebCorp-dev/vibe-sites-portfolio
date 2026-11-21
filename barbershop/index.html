@@ -6,19 +6,20 @@
   <title>Барбершоп «Бритва» — стрижки и запись</title>
   <style>
     :root {
-      --bg:#12161c; --panel:#1b212a; --line:#2e3742;
-      --text:#ece5d8; --muted:#9a958c;
-      --amber:#e0a869; --amber-dark:#8c5a24;
-      --teal:#7fb0a3; --cream:#f3ead9;
+      --bg:#dde5eb; --panel:#edf2f6; --line:#a9b9c6;
+      --text:#16242f; --muted:#4f6473;
+      --amber:#2e5f7d; --amber-dark:#17384d;
+      --teal:#487e86; --cream:#e7eef3;
+      --rail:#1d2b36; --on-dark:#f4f9fc;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+    body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#e7edf2 0%,var(--bg) 55%,#d3dee6 100%); color:var(--text); overflow-x:hidden; }
     img { display:block; width:100%; height:100%; object-fit:cover; }
 
-    .rail { position:fixed; inset:0 auto 0 0; width:74px; background:#0e1217; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
-    .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:var(--amber); }
-    .rail span { font-size:10px; color:#6f7883; writing-mode:vertical-rl; }
+    .rail { position:fixed; inset:0 auto 0 0; width:74px; background:var(--rail); border-right:1px solid #314553; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
+    .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:#9fc4da; }
+    .rail span { font-size:10px; color:#8ea3b2; writing-mode:vertical-rl; }
     .wrap { margin-left:74px; }
 
     header { display:flex; justify-content:space-between; align-items:center; padding:20px 6%; border-bottom:1px solid var(--line); }
@@ -35,23 +36,23 @@
     /* 3D-КНОПКА (оставляем по твоей просьбе). */
     .btn3d {
       display:inline-flex; align-items:center; gap:14px; position:relative;
-      background:linear-gradient(145deg,#f0b876,#c98b3f); color:#241704;
+      background:linear-gradient(145deg,#4b7691,#24485f); color:var(--on-dark);
       font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:1px;
       text-decoration:none; padding:19px 36px; border-radius:16px;
-      box-shadow:0 10px 0 var(--amber-dark), 0 20px 34px rgba(224,168,105,.28), inset 0 2px 2px rgba(255,255,255,.55);
+      box-shadow:0 10px 0 var(--amber-dark), 0 20px 34px rgba(31,72,99,.28), inset 0 2px 2px rgba(255,255,255,.35);
       transform:translateY(0); transition:transform .16s, box-shadow .16s;
     }
-    .btn3d::after { content:""; position:absolute; left:16px; right:16px; top:5px; height:6px; border-radius:10px; background:rgba(255,255,255,.35); filter:blur(1px); }
-    .btn3d:hover { transform:translateY(-4px); box-shadow:0 14px 0 var(--amber-dark), 0 26px 40px rgba(224,168,105,.34), inset 0 2px 2px rgba(255,255,255,.55); }
-    .btn3d:active { transform:translateY(8px); box-shadow:0 2px 0 var(--amber-dark), 0 8px 16px rgba(224,168,105,.25); }
+    .btn3d::after { content:""; position:absolute; left:16px; right:16px; top:5px; height:6px; border-radius:10px; background:rgba(255,255,255,.28); filter:blur(1px); }
+    .btn3d:hover { transform:translateY(-4px); box-shadow:0 14px 0 var(--amber-dark), 0 26px 40px rgba(31,72,99,.34), inset 0 2px 2px rgba(255,255,255,.35); }
+    .btn3d:active { transform:translateY(8px); box-shadow:0 2px 0 var(--amber-dark), 0 8px 16px rgba(31,72,99,.25); }
     .btn3d span { font-size:20px; }
 
     /* ВМЕСТО 3D-РИСУНКА — настроящее 4K-фото мастера за работой. */
-    .hero-photo { position:relative; height:390px; border-radius:34px 34px 120px 34px; overflow:hidden; transform:rotate(-3deg); box-shadow:24px 30px 60px rgba(0,0,0,.45); animation:photoFloat 7s ease-in-out infinite; }
-    .hero-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,rgba(18,22,28,.72)); }
-    .hero-photo .badge { position:absolute; z-index:2; background:var(--teal); color:#0c1512; font-size:11px; font-weight:800; padding:8px 12px; transform:rotate(-8deg); box-shadow:6px 6px 0 rgba(127,176,163,.25); }
+    .hero-photo { position:relative; height:390px; border-radius:34px 34px 120px 34px; overflow:hidden; transform:rotate(-3deg); box-shadow:24px 30px 60px rgba(21,44,61,.28); animation:photoFloat 7s ease-in-out infinite; }
+    .hero-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,rgba(13,27,38,.68)); }
+    .hero-photo .badge { position:absolute; z-index:2; background:var(--teal); color:var(--on-dark); font-size:11px; font-weight:800; padding:8px 12px; transform:rotate(-8deg); box-shadow:6px 6px 0 rgba(72,126,134,.3); }
     .hero-photo .badge--a { left:18px; top:22px; }
-    .hero-photo .badge--b { right:18px; bottom:22px; background:var(--cream); color:#241704; transform:rotate(7deg); }
+    .hero-photo .badge--b { right:18px; bottom:22px; background:var(--cream); color:var(--text); transform:rotate(7deg); }
     .hero-photo .caption { position:absolute; z-index:2; left:22px; bottom:20px; color:#fff; font-size:15px; font-weight:800; }
     @keyframes photoFloat { 50% { transform:translateY(-14px) rotate(-1deg); } }
 
@@ -62,7 +63,7 @@
 
     /* БОЛЬШОЙ РАЗДЕЛ СТРИЖЕК — 4K-фото работ. */
     .cuts-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .cut { position:relative; height:300px; border-radius:24px; overflow:hidden; box-shadow:0 18px 38px rgba(0,0,0,.32); transition:transform .5s cubic-bezier(.2,1.3,.4,1); }
+    .cut { position:relative; height:300px; border-radius:24px; overflow:hidden; box-shadow:0 18px 38px rgba(21,44,61,.18); transition:transform .5s cubic-bezier(.2,1.3,.4,1); }
     .cut:nth-child(2) { margin-top:42px; } .cut:nth-child(3) { margin-top:16px; }
     .cut:nth-child(5) { margin-top:42px; } .cut:nth-child(6) { margin-top:16px; }
     .cut img { transition:transform .7s; }
@@ -84,18 +85,18 @@
     .orbs { display:grid; grid-template-columns:1fr 1fr; gap:22px; justify-items:center; }
     .orb {
       position:relative; width:140px; height:140px; border-radius:50%; cursor:pointer;
-      display:grid; place-items:center; text-align:center; border:none; color:#241704;
-      background:radial-gradient(circle at 30% 25%, #f6dfb9 0%, var(--amber) 48%, #a86e2c 100%);
-      box-shadow:inset -14px -18px 30px rgba(90,50,15,.32), 14px 20px 30px rgba(0,0,0,.35);
+      display:grid; place-items:center; text-align:center; border:none; color:var(--on-dark);
+      background:radial-gradient(circle at 30% 25%,#a9c9dc 0%,var(--amber) 48%,#17384d 100%);
+      box-shadow:inset -14px -18px 30px rgba(10,30,45,.4), 14px 20px 30px rgba(21,44,61,.28);
       animation:orbFloat 5s ease-in-out infinite; transition:transform .4s, box-shadow .4s;
     }
-    .orb:nth-child(2) { background:radial-gradient(circle at 30% 25%,#dff1ea 0%,var(--teal) 48%,#4a7d70 100%); color:#0c1512; animation-delay:-1.2s; }
-    .orb:nth-child(3) { background:radial-gradient(circle at 30% 25%,#f6dfb9 0%,#d59a5e 48%,#8c5a24 100%); animation-delay:-2.5s; }
-    .orb:nth-child(4) { background:radial-gradient(circle at 30% 25%,#e0d6c6 0%,#b9ab97 48%,#7d7161 100%); animation-delay:-3.7s; }
+    .orb:nth-child(2) { background:radial-gradient(circle at 30% 25%,#bcd9db 0%,var(--teal) 48%,#2c5b63 100%); color:var(--on-dark); animation-delay:-1.2s; }
+    .orb:nth-child(3) { background:radial-gradient(circle at 30% 25%,#9fb9c9 0%,#527d98 48%,#24485f 100%); animation-delay:-2.5s; }
+    .orb:nth-child(4) { background:radial-gradient(circle at 30% 25%,#c2d0d9 0%,#8ba3b3 48%,#556e7d 100%); animation-delay:-3.7s; }
     .orb b { display:block; font-size:30px; line-height:1; }
     .orb small { display:block; font-size:11px; font-weight:800; margin-top:6px; }
     .orb:hover { transform:translateY(-10px) scale(1.05); }
-    .orb.active { transform:translateY(-10px) scale(1.1); box-shadow:inset -14px -18px 30px rgba(90,50,15,.32), 0 0 0 4px var(--cream), 0 0 0 8px var(--amber), 18px 24px 36px rgba(0,0,0,.4); }
+    .orb.active { transform:translateY(-10px) scale(1.1); box-shadow:inset -14px -18px 30px rgba(10,30,45,.4), 0 0 0 4px var(--cream), 0 0 0 8px var(--amber), 18px 24px 36px rgba(21,44,61,.32); }
     @keyframes orbFloat { 50% { transform:translateY(-12px) rotate(4deg); } }
 
     .sphere-info { background:var(--panel); border:1px solid var(--line); border-radius:24px; padding:32px; animation:fadeIn .35s; }
@@ -109,7 +110,7 @@
 
     .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:640px; }
     label { font-size:11px; letter-spacing:2px; color:var(--muted); display:block; margin-bottom:6px; text-transform:uppercase; }
-    input { width:100%; padding:14px; background:#0e1217; border:1px solid var(--line); color:var(--text); font-family:inherit; font-size:16px; border-radius:8px; }
+    input { width:100%; padding:14px; background:#f6f9fb; border:1px solid var(--line); color:var(--text); font-family:inherit; font-size:16px; border-radius:8px; }
     input:focus { outline:2px solid var(--amber); }
     .msg { color:var(--teal); font-weight:800; margin-top:14px; min-height:22px; }
     footer { padding:26px 6%; border-top:1px solid var(--line); color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
