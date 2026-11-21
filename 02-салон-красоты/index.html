@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Салон красоты «Локон» — подбери свою процедуру</title>
   <style>
-    /* СЦЕНАРИЙ: колесо подбора → палитра → галерея → история → запись. Нет отзывов и карточек мастеров. */
     :root { --bg:#fbf5f2; --ink:#463a41; --muted:#94848d; --rose:#d98aa4; --lav:#a89ad2; --sand:#e9c9a8; --glass:rgba(255,255,255,.65); }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { font-family:Georgia,'Times New Roman',serif; background:var(--bg); color:var(--ink); line-height:1.6; overflow-x:hidden; }
+    img { display:block; width:100%; height:100%; object-fit:cover; }
     .blob { position:fixed; border-radius:50%; filter:blur(70px); opacity:.32; z-index:0; pointer-events:none; animation:drift 16s ease-in-out infinite; }
     .blob--a { width:340px; height:340px; background:var(--rose); top:-90px; right:-70px; }
     .blob--b { width:300px; height:300px; background:var(--lav); bottom:-80px; left:-60px; animation-delay:-7s; }
@@ -17,7 +17,7 @@
 
     header { position:relative; z-index:10; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:20px 6%; border-bottom:1px solid rgba(217,138,164,.2); }
     .brand { font-size:22px; letter-spacing:4px; } .brand span { color:var(--rose); }
-    header nav { display:flex; gap:24px; }
+    header nav { display:flex; gap:22px; }
     header nav a { color:var(--muted); text-decoration:none; font-family:Arial,sans-serif; font-size:12px; letter-spacing:1px; }
     header nav a:hover { color:var(--rose); }
     .hint { justify-self:end; font-family:Arial,sans-serif; font-size:11px; color:var(--rose); }
@@ -29,7 +29,6 @@
     .drop { display:inline-flex; align-items:center; gap:12px; background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; text-decoration:none; font-family:Arial,sans-serif; font-weight:700; padding:15px 26px; border-radius:18px 40px 40px 18px; transition:border-radius .45s,padding .45s,transform .45s; box-shadow:0 12px 30px rgba(217,138,164,.28); }
     .drop:hover { border-radius:40px; padding-left:38px; transform:translateY(-4px) rotate(-1deg); }
     .drop i { font-style:normal; animation:twinkle 2s infinite; } @keyframes twinkle { 50% { transform:rotate(90deg) scale(1.3); } }
-
     .spheres { position:relative; height:380px; perspective:800px; }
     .sphere { position:absolute; border-radius:50%; box-shadow:inset -20px -25px 50px rgba(90,50,70,.2),18px 25px 45px rgba(120,80,100,.15); animation:levitate 7s ease-in-out infinite; }
     .sphere--1 { width:220px; height:220px; left:6%; top:12%; background:radial-gradient(circle at 32% 28%,#fff,#f0c2cf 45%,var(--rose)); }
@@ -42,7 +41,6 @@
     h2 { font-size:clamp(28px,4vw,42px); font-weight:400; margin-bottom:6px; }
     .lead { color:var(--muted); font-family:Arial,sans-serif; font-size:13px; margin-bottom:26px; letter-spacing:1px; text-transform:uppercase; }
 
-    /* Колесо подбора —独一无二ный элемент взаимодействия. */
     .picker { display:grid; grid-template-columns:360px 1fr; gap:40px; align-items:center; }
     .wheel { position:relative; width:340px; height:340px; margin:auto; }
     .wheel__core { position:absolute; inset:112px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--lav)); color:#fff; display:grid; place-items:center; text-align:center; font-family:Arial,sans-serif; font-weight:800; font-size:13px; box-shadow:0 15px 35px rgba(168,154,210,.4); }
@@ -51,43 +49,59 @@
     .opt:hover, .opt.active { background:#fff; transform:scale(1.12) rotate(-6deg); box-shadow:0 18px 35px rgba(217,138,164,.3); }
     .opt--1 { left:0; top:20px; } .opt--2 { right:0; top:20px; animation-delay:-2s; } .opt--3 { left:50%; bottom:0; margin-left:-56px; animation-delay:-4s; }
     @keyframes optFloat { 50% { transform:translateY(-12px); } }
-
     .panel { background:var(--glass); border:1px solid #fff; border-radius:28px; padding:30px; box-shadow:0 16px 40px rgba(120,80,100,.08); animation:fadeIn .4s; }
-    .panel h3 { font-size:26px; margin-bottom:8px; }
-    .panel p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; }
+    .panel h3 { font-size:26px; margin-bottom:8px; } .panel p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; }
     .panel .cost { display:inline-block; margin-top:16px; background:var(--rose); color:#fff; font-family:Arial,sans-serif; font-weight:800; padding:10px 18px; border-radius:20px; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } }
 
-    /* Палитра — 3D-шары с подписями. */
-    .palette { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .swatch { background:rgba(255,255,255,.7); border:1px solid #fff; border-radius:26px; padding:26px 18px; text-align:center; transition:.4s; }
-    .swatch:hover { transform:translateY(-10px) rotate(2deg); }
-    .swatch .ball { width:80px; height:80px; border-radius:50%; margin:0 auto 14px; box-shadow:inset -12px -14px 25px rgba(0,0,0,.16),12px 16px 25px rgba(120,80,100,.18); animation:ballFloat 5s ease-in-out infinite; }
-    .swatch:nth-child(2) .ball { animation-delay:-1.6s; } .swatch:nth-child(3) .ball { animation-delay:-3.2s; }
-    @keyframes ballFloat { 50% { transform:translateY(-12px) rotate(12deg); } }
-    .swatch b { display:block; } .swatch span { color:var(--muted); font-family:Arial,sans-serif; font-size:13px; }
+    /* ПАМЯТКА вместо палитры — реальная польза после процедуры. */
+    .memo { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .tip { background:var(--glass); border:1px solid #fff; border-radius:26px; padding:28px 22px; box-shadow:0 16px 40px rgba(120,80,100,.08); transition:.4s; }
+    .tip:nth-child(2) { transform:translateY(18px); }
+    .tip:hover { transform:translateY(-10px) rotate(2deg); }
+    .tip .ico { width:66px; height:66px; border-radius:50%; display:grid; place-items:center; font-size:28px; margin-bottom:16px; background:linear-gradient(145deg,var(--rose),var(--lav)); color:#fff; box-shadow:0 12px 24px rgba(217,138,164,.3), inset -6px -6px 12px rgba(0,0,0,.12); animation:ballFloat 5s ease-in-out infinite; }
+    .tip:nth-child(2) .ico { animation-delay:-1.6s; } .tip:nth-child(3) .ico { animation-delay:-3.2s; }
+    @keyframes ballFloat { 50% { transform:translateY(-10px) rotate(10deg); } }
+    .tip h3 { font-family:Arial,sans-serif; font-size:17px; margin-bottom:8px; }
+    .tip p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; line-height:1.6; }
 
-    /* Галерея работ — только на этом сайте, плиткой разной высоты. */
-    .gallery { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:130px; gap:14px; }
-    .shot { border-radius:22px; display:grid; place-items:end start; padding:16px; color:#fff; font-family:Arial,sans-serif; font-weight:800; background:linear-gradient(135deg,#c987a0,#9d7ec2); transition:.45s; }
-    .shot:nth-child(1) { grid-row:span 2; } .shot:nth-child(2) { grid-column:span 2; background:linear-gradient(135deg,#b3947e,#d8aa8b); } .shot:nth-child(3) { background:linear-gradient(135deg,#8fa994,#b7c9a6); } .shot:nth-child(4) { grid-row:span 2; background:linear-gradient(135deg,#a98fb8,#d2b4c8); } .shot:nth-child(5) { grid-column:span 2; background:linear-gradient(135deg,#c08f89,#e0b5a6); }
+    /* ГАЛЕРЕЯ с реальными фотографиями. */
+    .gallery { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:150px; gap:14px; }
+    .shot { position:relative; border-radius:22px; overflow:hidden; transition:.45s; box-shadow:0 14px 30px rgba(120,80,100,.12); }
+    .shot img { transition:transform .6s; }
+    .shot::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,rgba(50,30,40,.7)); }
+    .shot span { position:absolute; left:16px; bottom:14px; z-index:2; color:#fff; font-family:Arial,sans-serif; font-weight:800; }
+    .shot:nth-child(1) { grid-row:span 2; } .shot:nth-child(2) { grid-column:span 2; } .shot:nth-child(5) { grid-column:span 2; }
     .shot:hover { transform:scale(1.04) rotate(-1deg); border-radius:40px; }
+    .shot:hover img { transform:scale(1.1); }
 
-    /* История одной клиентки — не список отзывов, а timeline. */
-    .story { max-width:760px; border-left:2px solid var(--rose); padding-left:28px; }
-    .moment { position:relative; padding-bottom:26px; }
-    .moment::before { content:""; position:absolute; left:-36px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--rose); box-shadow:0 0 0 5px var(--bg); }
-    .moment b { color:var(--rose); font-family:Arial,sans-serif; font-size:12px; letter-spacing:2px; }
-    .moment p { margin-top:6px; font-size:18px; }
+    /* ОТЗЫВЫ: красивое меню с фильтром. */
+    .rev-tabs { display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap; }
+    .rev-tabs button { font-family:Arial,sans-serif; border:1px solid rgba(217,138,164,.4); background:rgba(255,255,255,.7); color:var(--muted); padding:10px 18px; border-radius:22px; font-size:13px; font-weight:700; cursor:pointer; transition:.3s; }
+    .rev-tabs button.active { background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; border-color:transparent; transform:translateY(-3px); box-shadow:0 8px 18px rgba(217,138,164,.25); }
+    .rev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .rev { background:var(--glass); border:1px solid #fff; border-radius:24px; padding:24px; box-shadow:0 14px 35px rgba(120,80,100,.08); animation:fadeIn .4s; }
+    .rev-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .ava { width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg,var(--rose),var(--lav)); color:#fff; font-family:Arial,sans-serif; font-weight:800; flex:none; }
+    .rev-head b { font-family:Arial,sans-serif; font-size:15px; display:block; }
+    .stars { color:var(--rose); font-size:14px; letter-spacing:2px; }
+    .rev p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; line-height:1.6; }
+    .rev .tag { display:inline-block; margin-top:12px; font-family:Arial,sans-serif; font-size:11px; color:var(--rose); border:1px solid rgba(217,138,164,.4); border-radius:14px; padding:4px 10px; }
+    .hide { display:none; }
 
+    /* ЗАПИСЬ с выбором любого направления. */
     .booking { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
     .booking h2 { font-size:clamp(32px,5vw,56px); font-weight:400; }
+    .dirs { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 18px; }
+    .dirs button { font-family:Arial,sans-serif; border:1px solid rgba(217,138,164,.4); background:rgba(255,255,255,.7); color:var(--muted); padding:10px 16px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:.3s; }
+    .dirs button.active { background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; border-color:transparent; transform:translateY(-3px); box-shadow:0 8px 18px rgba(217,138,164,.25); }
+    .chosen { font-family:Arial,sans-serif; font-size:13px; color:var(--rose); margin-bottom:8px; font-weight:700; }
     label { display:block; font-family:Arial,sans-serif; font-size:12px; color:var(--muted); margin:14px 0 6px; }
     input { width:100%; padding:14px; border:1px solid rgba(217,138,164,.35); border-radius:16px; background:rgba(255,255,255,.75); font-family:Arial,sans-serif; font-size:16px; color:var(--ink); }
     input:focus { outline:2px solid var(--rose); }
     .msg { color:var(--rose); font-family:Arial,sans-serif; font-weight:800; min-height:22px; margin-top:12px; }
     footer { position:relative; z-index:2; padding:26px 6%; border-top:1px solid rgba(217,138,164,.2); color:var(--muted); font-family:Arial,sans-serif; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    @media (max-width:900px) { header{grid-template-columns:1fr auto} header nav{display:none} .hero{grid-template-columns:1fr} .spheres{height:300px} .picker,.booking{grid-template-columns:1fr} .palette{grid-template-columns:1fr} .gallery{grid-template-columns:repeat(2,1fr)} .shot:nth-child(n){grid-column:auto;grid-row:auto} }
+    @media (max-width:900px) { header{grid-template-columns:1fr auto} header nav{display:none} .hero{grid-template-columns:1fr} .spheres{height:300px} .picker,.booking{grid-template-columns:1fr} .memo,.rev-grid{grid-template-columns:1fr} .tip:nth-child(2){transform:none} .gallery{grid-template-columns:repeat(2,1fr)} .shot:nth-child(n){grid-column:auto;grid-row:auto} }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
@@ -95,7 +109,7 @@
   <div class="blob blob--a"></div><div class="blob blob--b"></div>
   <header>
     <div class="brand">ЛОКО<span>Н</span></div>
-    <nav><a href="#pick">Подбор</a><a href="#palette">Палитра</a><a href="#works">Работы</a><a href="#story">История</a><a href="#book">Запись</a></nav>
+    <nav><a href="#pick">Подбор</a><a href="#memo">Памятка</a><a href="#works">Работы</a><a href="#reviews">Отзывы</a><a href="#book">Запись</a></nav>
     <div class="hint">НАЖМИ НА ШАР, ЧТОБЫ ВЫБРАТЬ</div>
   </header>
 
@@ -105,7 +119,7 @@
   </section>
 
   <section id="pick">
-    <div class="lead">ШАГ 1 · КОЛЕСО ПОДБОРА</div>
+    <div class="lead">Шаг 1 · колесо подбора</div>
     <h2>Что тебя интересует?</h2>
     <div class="picker">
       <div class="wheel">
@@ -122,40 +136,62 @@
     </div>
   </section>
 
-  <section id="palette">
-    <div class="lead">ШАГ 2 · ПАЛИТРА</div>
-    <h2>Цвет, который подходит</h2>
-    <div class="palette">
-      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#d98aa4)"></div><b>Розовый гранат</b><span>тёплые оттенки</span></div>
-      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#a89ad2)"></div><b>Лаванда</b><span>холодные оттенки</span></div>
-      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#e9c9a8)"></div><b>Песок</b><span>натуральные оттенки</span></div>
+  <section id="memo">
+    <div class="lead">Шаг 2 · памятка</div>
+    <h2>Как сохранить результат</h2>
+    <div class="memo">
+      <div class="tip"><div class="ico">🧴</div><h3>Первые 48 часов</h3><p>Не мой голову после окрашивания — пигмент успеет закрепиться и цвет продержится дольше.</p></div>
+      <div class="tip"><div class="ico">💧</div><h3>Правильный уход</h3><p>Шампунь и маска для окрашенных волос — в подарок после процедуры. Используй их 2 раза в неделю.</p></div>
+      <div class="tip"><div class="ico">📅</div><h3>Коррекция через 6 недель</h3><p>Запишись заранее — форма и цвет будут выглядеть свежими без перерывов.</p></div>
     </div>
   </section>
 
   <section id="works">
-    <div class="lead">ШАГ 3 · РАБОТЫ</div>
+    <div class="lead">Шаг 3 · работы</div>
     <h2>Что у нас получается</h2>
     <div class="gallery">
-      <div class="shot">Стрижка</div><div class="shot">Окрашивание</div><div class="shot">Укладка</div><div class="shot">Маникюр</div><div class="shot">Уход</div>
+      <div class="shot"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=700&q=80" alt="Стрижка"><span>Стрижка</span></div>
+      <div class="shot"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=900&q=80" alt="Окрашивание"><span>Окрашивание</span></div>
+      <div class="shot"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&q=80" alt="Укладка"><span>Укладка</span></div>
+      <div class="shot"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=700&q=80" alt="Маникюр"><span>Маникюр</span></div>
+      <div class="shot"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80" alt="Интерьер салона"><span>Наш салон</span></div>
     </div>
   </section>
 
-  <section id="story">
-    <div class="lead">ШАГ 4 · ИСТОРИЯ</div>
-    <h2>Одна клиентка, три визита</h2>
-    <div class="story">
-      <div class="moment"><b>ВИЗИТ 01</b><p>«Пришла с идеей, но без понимания, как она выглядит. Мастер нарисовал план на листе.»</p></div>
-      <div class="moment"><b>ВИЗИТ 02</b><p>«Через месяц пришла на коррекцию — форма держалась ровно, как обещали.»</p></div>
-      <div class="moment"><b>ВИЗИТ 03</b><p>«Теперь прихожу просто на поддержание: подправляю длину и цвет раз в шесть недель.»</p></div>
+  <section id="reviews">
+    <div class="lead">Шаг 4 · отзывы</div>
+    <h2>Нам доверяют</h2>
+    <div class="rev-tabs">
+      <button class="active" data-filter="all">Все отзывы</button>
+      <button data-filter="cut">Стрижки</button>
+      <button data-filter="color">Окрашивание</button>
+      <button data-filter="nails">Маникюр</button>
+    </div>
+    <div class="rev-grid" id="rev-grid">
+      <div class="rev" data-cat="cut"><div class="rev-head"><div class="ava">О</div><div><b>Ольга, 31 год</b><div class="stars">★★★★★</div></div></div><p>«Пришла с растрепанными волосами, ушла с укладкой, которая держится неделю. Мастер внимательно выслушала и предложила именно ту форму, которую я искала.»</p><span class="tag">Стрижка</span></div>
+      <div class="rev" data-cat="color"><div class="rev-head"><div class="ava">К</div><div><b>Кристина, 26 лет</b><div class="stars">★★★★★</div></div></div><p>«Впервые окрашивание без сюрпризов — цвет получился именно таким, как на фото. Подобрали оттенок под мою кожу, очень довольна.»</p><span class="tag">Окрашивание</span></div>
+      <div class="rev" data-cat="nails"><div class="rev-head"><div class="ava">М</div><div><b>Мария, 34 года</b><div class="stars">★★★★★</div></div></div><p>«Аккуратный маникюр, который держится три недели. Отдельное спасибо за спокойную атмосферу и кофе.»</p><span class="tag">Маникюр</span></div>
+      <div class="rev" data-cat="cut"><div class="rev-head"><div class="ava">А</div><div><b>Анна, 29 лет</b><div class="stars">★★★★★</div></div></div><p>«Хожу сюда полгода. Каждый раз одно и то же качество — прихожу, как в гости, а не на процедуру.»</p><span class="tag">Стрижка</span></div>
+      <div class="rev" data-cat="color"><div class="rev-head"><div class="ava">Д</div><div><b>Дарья, 23 года</b><div class="stars">★★★★★</div></div></div><p>«Сделали балаяж, который выглядит естественно и не требует частого обновления. Очень рекомендую.»</p><span class="tag">Окрашивание</span></div>
+      <div class="rev" data-cat="nails"><div class="rev-head"><div class="ava">Е</div><div><b>Елена, 38 лет</b><div class="stars">★★★★★</div></div></div><p>«Записалась в последнюю минуту — нашли окошко в тот же день. Сделали быстро и красиво.»</p><span class="tag">Маникюр</span></div>
     </div>
   </section>
 
   <section id="book" class="booking">
-    <div><div class="lead">ШАГ 5 · ЗАПИСЬ</div><h2>Твоя очередь<br> за тобой</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Оставь телефон — подтвердим время и подберём мастера.</p></div>
+    <div><div class="lead">Шаг 5 · запись</div><h2>Твоя очередь<br> за тобой</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Выбери направление — мы подберём мастера и удобное время.</p></div>
     <form id="booking-form">
-      <label for="name">ИМЯ</label><input id="name" name="name" type="text" placeholder="Алина" required>
-      <label for="phone">ТЕЛЕФОН</label><input id="phone" name="phone" type="tel" placeholder="+7 999 111-22-33" required>
-      <div style="margin-top:22px"><a class="drop" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;"><i>✦</i> Записаться</a></div>
+      <input type="hidden" id="direction" name="direction" value="Женская стрижка">
+      <div class="dirs">
+        <button type="button" class="active" data-dir="Женская стрижка">✂ Стрижка</button>
+        <button type="button" data-dir="Окрашивание">◈ Окрашивание</button>
+        <button type="button" data-dir="Маникюр">✧ Маникюр</button>
+        <button type="button" data-dir="Уход и маски">❋ Уход</button>
+        <button type="button" data-dir="Брови">◕ Брови</button>
+      </div>
+      <div class="chosen" id="chosen">Выбрано: Женская стрижка</div>
+      <label for="name">Имя</label><input id="name" name="name" type="text" placeholder="Алина" required>
+      <label for="phone">Телефон</label><input id="phone" name="phone" type="tel" placeholder="+7 999 111-22-33" required>
+      <div style="margin-top:22px"><button class="drop" type="submit"><i>✦</i> Записаться</button></div>
       <div class="msg" id="form-message"></div>
     </form>
   </section>
@@ -176,8 +212,28 @@
         document.querySelector('#panel').innerHTML = `<h3>${item.title}</h3><p>${item.text}</p><div class="cost">${item.price}</div>`;
       });
     });
+    document.querySelectorAll('.rev-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.rev-tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.rev').forEach(r => r.classList.toggle('hide', btn.dataset.filter !== 'all' && r.dataset.cat !== btn.dataset.filter));
+      });
+    });
+    document.querySelectorAll('.dirs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.dirs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector('#chosen').textContent = 'Выбрано: ' + btn.dataset.dir;
+        document.querySelector('#direction').value = btn.dataset.dir;
+      });
+    });
     const form = document.querySelector('#booking-form');
-    form.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-message').textContent = 'Заявка отправлена! Мы свяжемся с вами.'; form.reset(); });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const dir = document.querySelector('#direction').value;
+      document.querySelector('#form-message').textContent = `Готово! Запись на «${dir}» принята — мы свяжемся с вами.`;
+      form.reset();
+    });
   </script>
 </body>
 </html>

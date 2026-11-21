@@ -5,78 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Барбершоп «Бритва» — запись на стрижку</title>
   <style>
-    /* СЦЕНАРИЙ: шаги визита → прайс → что входит → запись. Никаких отзывов и мастеров. */
-    :root { --bg:#0c0c0c; --panel:#161616; --line:#2d2d2d; --text:#f6f1e7; --muted:#958d81; --hot:#ff5a24; --gold:#ffb224; }
+    /* МЯГКАЯ ПАЛИТРА: тёмный сланец + тёплый янтарь + спокойный бирюзовый. */
+    :root {
+      --bg:#12161c; --panel:#1b212a; --line:#2e3742;
+      --text:#ece5d8; --muted:#9a958c;
+      --amber:#e0a869; --amber-dark:#8c5a24;
+      --teal:#7fb0a3; --cream:#f3ead9;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { font-family:'Arial Black',Arial,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+    body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-    .rail { position:fixed; inset:0 auto 0 0; width:74px; background:#101010; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
-    .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:var(--hot); }
-    .rail span { font-family:Arial,sans-serif; font-size:10px; color:#666; writing-mode:vertical-rl; }
+    .rail { position:fixed; inset:0 auto 0 0; width:74px; background:#0e1217; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
+    .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:var(--amber); }
+    .rail span { font-size:10px; color:#6f7883; writing-mode:vertical-rl; }
     .wrap { margin-left:74px; }
 
     header { display:flex; justify-content:space-between; align-items:center; padding:20px 6%; border-bottom:1px solid var(--line); }
     header nav { display:flex; gap:28px; }
-    header nav a { color:var(--muted); font-family:Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
-    header nav a:hover { color:var(--hot); }
-    .slot { font-family:Arial,sans-serif; font-size:11px; color:var(--gold); border:1px solid var(--gold); padding:6px 12px; border-radius:20px; }
+    header nav a { color:var(--muted); font-size:11px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:.3s; }
+    header nav a:hover { color:var(--amber); }
+    .slot { font-size:11px; color:var(--teal); border:1px solid var(--teal); padding:6px 12px; border-radius:20px; }
 
     .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:30px; align-items:center; padding:75px 6% 55px; min-height:76vh; }
-    .hero h1 { font-size:clamp(48px,8vw,106px); line-height:.84; letter-spacing:-4px; text-transform:uppercase; }
-    .hero h1 i { display:block; font-style:normal; color:transparent; -webkit-text-stroke:2px var(--hot); transform:translateX(24px); }
-    .hero p { max-width:420px; margin:24px 0; color:var(--muted); font-family:Arial,sans-serif; font-size:16px; line-height:1.7; }
-    .textlink { display:inline-flex; gap:12px; align-items:center; color:var(--hot); font-family:Arial,sans-serif; font-weight:800; text-transform:uppercase; text-decoration:none; border-bottom:2px solid var(--hot); padding-bottom:5px; transition:gap .3s; }
-    .textlink:hover { gap:26px; }
+    .hero h1 { font-size:clamp(46px,7vw,94px); line-height:.9; letter-spacing:-2px; text-transform:uppercase; font-weight:800; }
+    .hero h1 i { display:block; font-style:normal; color:transparent; -webkit-text-stroke:2px var(--amber); transform:translateX(22px); }
+    .hero p { max-width:420px; margin:24px 0; color:var(--muted); font-size:16px; line-height:1.7; }
+
+    /* ВЫРАЖЕННАЯ 3D-КНОПКА: глубина, блик, нажатие. */
+    .btn3d {
+      display:inline-flex; align-items:center; gap:14px; position:relative;
+      background:linear-gradient(145deg,#f0b876,#c98b3f); color:#241704;
+      font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:1px;
+      text-decoration:none; padding:19px 36px; border-radius:16px;
+      box-shadow:0 10px 0 var(--amber-dark), 0 20px 34px rgba(224,168,105,.28), inset 0 2px 2px rgba(255,255,255,.55);
+      transform:translateY(0); transition:transform .16s, box-shadow .16s;
+    }
+    .btn3d::after { content:""; position:absolute; left:16px; right:16px; top:5px; height:6px; border-radius:10px; background:rgba(255,255,255,.35); filter:blur(1px); }
+    .btn3d:hover { transform:translateY(-4px); box-shadow:0 14px 0 var(--amber-dark), 0 26px 40px rgba(224,168,105,.34), inset 0 2px 2px rgba(255,255,255,.55); }
+    .btn3d:active { transform:translateY(8px); box-shadow:0 2px 0 var(--amber-dark), 0 8px 16px rgba(224,168,105,.25); }
+    .btn3d span { font-size:20px; }
+
     .visual { position:relative; height:350px; display:grid; place-items:center; perspective:800px; }
-    .ring { position:absolute; width:300px; height:300px; border:1px dashed #3a3a3a; border-radius:50%; animation:spin 20s linear infinite; }
-    .ring--in { width:210px; height:210px; border-style:solid; border-color:#262626; animation-direction:reverse; }
+    .ring { position:absolute; width:310px; height:310px; border:1px dashed #38424d; border-radius:50%; animation:spin 22s linear infinite; }
+    .ring--in { width:215px; height:215px; border-style:solid; border-color:#27303a; animation-direction:reverse; }
     @keyframes spin { to { transform:rotate(360deg); } }
-    .blade { position:relative; width:170px; height:170px; transform-style:preserve-3d; animation:bladeSpin 12s ease-in-out infinite; }
-    .blade div { position:absolute; inset:0; display:grid; place-items:center; font-size:54px; border:2px solid var(--hot); background:rgba(255,90,36,.07); }
+    .blade { position:relative; width:170px; height:170px; transform-style:preserve-3d; animation:bladeSpin 13s ease-in-out infinite; }
+    .blade div { position:absolute; inset:0; display:grid; place-items:center; font-size:54px; border:2px solid var(--amber); background:rgba(224,168,105,.08); box-shadow:inset 0 0 40px rgba(224,168,105,.15); }
     .blade div:nth-child(1){transform:translateZ(85px)} .blade div:nth-child(2){transform:rotateY(90deg) translateZ(85px)} .blade div:nth-child(3){transform:rotateY(180deg) translateZ(85px)} .blade div:nth-child(4){transform:rotateY(-90deg) translateZ(85px)}
     @keyframes bladeSpin { 50% { transform:rotateX(-16deg) rotateY(180deg); } }
-    .sticker { position:absolute; background:var(--gold); color:#111; font-family:Arial,sans-serif; font-size:11px; font-weight:800; padding:7px 12px; transform:rotate(-9deg); box-shadow:6px 6px 0 rgba(255,178,36,.25); animation:float 4s ease-in-out infinite; }
-    .sticker--2 { bottom:35px; right:8%; background:#fff; transform:rotate(8deg); animation-delay:-2s; }
+    .sticker { position:absolute; background:var(--teal); color:#0c1512; font-size:11px; font-weight:800; padding:7px 12px; transform:rotate(-9deg); box-shadow:6px 6px 0 rgba(127,176,163,.25); animation:float 4s ease-in-out infinite; }
+    .sticker--2 { bottom:35px; right:8%; background:var(--cream); color:#241704; transform:rotate(8deg); animation-delay:-2s; }
     @keyframes float { 50% { transform:translateY(-14px) rotate(-5deg); } }
 
     section { padding:60px 6%; }
-    .kicker { font-family:Arial,sans-serif; font-size:11px; letter-spacing:3px; color:var(--hot); margin-bottom:8px; }
-    h2 { font-size:clamp(28px,4vw,46px); text-transform:uppercase; margin-bottom:26px; letter-spacing:-1px; }
+    .kicker { font-size:11px; letter-spacing:3px; color:var(--teal); text-transform:uppercase; margin-bottom:8px; }
+    h2 { font-size:clamp(28px,4vw,44px); text-transform:uppercase; margin-bottom:26px; letter-spacing:-1px; font-weight:800; }
 
-    /* 3 шага — наклонные 3D-плитки с огромными номерами. */
     .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .step { position:relative; background:var(--panel); border:1px solid var(--line); padding:28px; transform:perspective(700px) rotateY(-9deg); transition:transform .45s, border-color .45s; }
+    .step { background:var(--panel); border:1px solid var(--line); padding:28px; transform:perspective(700px) rotateY(-9deg); transition:transform .45s, border-color .45s; }
     .step:nth-child(2) { transform:perspective(700px) rotateY(0) translateY(-14px); }
     .step:nth-child(3) { transform:perspective(700px) rotateY(9deg); }
-    .step:hover { transform:perspective(700px) rotateY(0) translateY(-8px); border-color:var(--hot); }
-    .step b { display:block; font-size:64px; line-height:.9; color:transparent; -webkit-text-stroke:2px var(--hot); margin-bottom:14px; }
-    .step h3 { font-size:20px; text-transform:uppercase; }
-    .step p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; margin-top:8px; }
+    .step:hover { transform:perspective(700px) rotateY(0) translateY(-8px); border-color:var(--amber); }
+    .step b { display:block; font-size:60px; line-height:.9; color:transparent; -webkit-text-stroke:2px var(--amber); margin-bottom:14px; }
+    .step h3 { font-size:19px; text-transform:uppercase; }
+    .step p { color:var(--muted); font-size:14px; margin-top:8px; line-height:1.5; }
 
-    .price-row { display:grid; grid-template-columns:40px 1fr auto 90px; gap:14px; align-items:center; padding:20px 12px; border-bottom:1px solid var(--line); transition:.35s; }
-    .price-row:hover { transform:translateX(18px); background:var(--panel); }
-    .price-row em { font-style:normal; color:var(--hot); font-family:Arial,sans-serif; }
-    .price-row .dash { height:1px; background:repeating-linear-gradient(90deg,#444 0 4px,transparent 4px 9px); }
-    .price-row strong { color:var(--gold); font-size:22px; }
+    /* СФЕРЫ СТРИЖКИ: кликабельные 3D-шары, каждый = отдельная услуга для записи. */
+    .sphere-grid { display:grid; grid-template-columns:360px 1fr; gap:40px; align-items:center; }
+    .orbs { display:grid; grid-template-columns:1fr 1fr; gap:22px; justify-items:center; }
+    .orb {
+      position:relative; width:140px; height:140px; border-radius:50%; cursor:pointer;
+      display:grid; place-items:center; text-align:center; border:none; color:#241704;
+      background:radial-gradient(circle at 30% 25%, #f6dfb9 0%, var(--amber) 48%, #a86e2c 100%);
+      box-shadow:inset -14px -18px 30px rgba(90,50,15,.32), 14px 20px 30px rgba(0,0,0,.35);
+      animation:orbFloat 5s ease-in-out infinite; transition:transform .4s, box-shadow .4s;
+    }
+    .orb:nth-child(2) { background:radial-gradient(circle at 30% 25%,#dff1ea 0%,var(--teal) 48%,#4a7d70 100%); color:#0c1512; animation-delay:-1.2s; }
+    .orb:nth-child(3) { background:radial-gradient(circle at 30% 25%,#f6dfb9 0%,#d59a5e 48%,#8c5a24 100%); animation-delay:-2.5s; }
+    .orb:nth-child(4) { background:radial-gradient(circle at 30% 25%,#e0d6c6 0%,#b9ab97 48%,#7d7161 100%); animation-delay:-3.7s; }
+    .orb b { display:block; font-size:30px; line-height:1; }
+    .orb small { display:block; font-size:11px; font-weight:800; margin-top:6px; }
+    .orb:hover { transform:translateY(-10px) scale(1.05); }
+    .orb.active { transform:translateY(-10px) scale(1.1); box-shadow:inset -14px -18px 30px rgba(90,50,15,.32), 0 0 0 4px var(--cream), 0 0 0 8px var(--amber), 18px 24px 36px rgba(0,0,0,.4); }
+    @keyframes orbFloat { 50% { transform:translateY(-12px) rotate(4deg); } }
+
+    .sphere-info { background:var(--panel); border:1px solid var(--line); border-radius:24px; padding:32px; animation:fadeIn .35s; }
+    .sphere-info .num { font-size:12px; letter-spacing:2px; color:var(--teal); }
+    .sphere-info h3 { font-size:28px; margin:8px 0 12px; }
+    .sphere-info p { color:var(--muted); line-height:1.6; }
+    .sphere-info .meta { display:flex; gap:24px; margin-top:20px; flex-wrap:wrap; }
+    .sphere-info .meta div span { display:block; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+    .sphere-info .meta div b { display:block; font-size:22px; color:var(--amber); margin-top:4px; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } }
 
     .chips { display:flex; gap:12px; flex-wrap:wrap; }
-    .chip { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--line); padding:14px 18px; font-family:Arial,sans-serif; font-size:14px; transition:.35s; }
+    .chip { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--line); padding:14px 18px; font-size:14px; transition:.35s; }
     .chip i { font-style:normal; font-size:22px; animation:wobble 3s infinite; }
-    .chip:hover { border-color:var(--gold); transform:translateY(-6px) rotate(-2deg); }
+    .chip:hover { border-color:var(--teal); transform:translateY(-6px) rotate(-2deg); }
     @keyframes wobble { 50% { transform:rotate(20deg); } }
 
-    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:620px; }
-    label { font-family:Arial,sans-serif; font-size:11px; letter-spacing:2px; color:var(--muted); display:block; margin-bottom:6px; }
-    input { width:100%; padding:14px; background:#111; border:1px solid var(--line); color:var(--text); font-family:Arial,sans-serif; font-size:16px; }
-    input:focus { outline:2px solid var(--hot); }
-    .msg { color:var(--gold); font-family:Arial,sans-serif; font-weight:800; margin-top:14px; min-height:22px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:640px; }
+    label { font-size:11px; letter-spacing:2px; color:var(--muted); display:block; margin-bottom:6px; text-transform:uppercase; }
+    input { width:100%; padding:14px; background:#0e1217; border:1px solid var(--line); color:var(--text); font-family:inherit; font-size:16px; border-radius:8px; }
+    input:focus { outline:2px solid var(--amber); }
+    .msg { color:var(--teal); font-weight:800; margin-top:14px; min-height:22px; }
+    footer { padding:26px 6%; border-top:1px solid var(--line); color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 
-    .fab { position:fixed; right:26px; bottom:26px; width:72px; height:72px; border-radius:50%; background:var(--hot); color:#111; display:grid; place-items:center; font-size:28px; text-decoration:none; z-index:60; box-shadow:0 10px 30px rgba(255,90,36,.4); animation:pulse 2.5s infinite; }
-    .fab::before { content:""; position:absolute; inset:-10px; border:2px solid var(--hot); border-radius:50%; opacity:.5; animation:ring 2.5s infinite; }
-    @keyframes pulse { 50% { transform:scale(1.08); } } @keyframes ring { to { transform:scale(1.5); opacity:0; } }
-    footer { padding:26px 6%; border-top:1px solid var(--line); color:var(--muted); font-family:Arial,sans-serif; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    @media (max-width:800px) { .rail{display:none} .wrap{margin-left:0} .hero{grid-template-columns:1fr} .visual{height:300px} .steps,.form-grid{grid-template-columns:1fr} header nav a{display:none} }
+    @media (max-width:900px) { .rail{display:none} .wrap{margin-left:0} .hero,.sphere-grid{grid-template-columns:1fr} .visual{height:300px} .steps,.form-grid{grid-template-columns:1fr} header nav a{display:none} }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
@@ -84,21 +120,21 @@
   <aside class="rail"><b>БРИТВА / MEN'S CLUB</b><span>01 — ЗАПИСЬ</span></aside>
   <div class="wrap">
     <header>
-      <nav><a href="#steps">Как это работает</a><a href="#price">Прайс</a><a href="#book">Запись</a></nav>
+      <nav><a href="#steps">Как это работает</a><a href="#spheres">Сферы стрижки</a><a href="#book">Запись</a></nav>
       <div class="slot">СВОБОДНЫЕ ОКНА НА СЕГОДНЯ</div>
     </header>
 
     <section class="hero">
       <div>
         <h1>Стрижка,<br><i>которая говорит</i><br>за тебя</h1>
-        <p>Записывайся за минуту: выбираешь время, приходишь, уходишь с аккуратной линией и кофе в руке.</p>
-        <a class="textlink" href="#book">Записаться <span>→</span></a>
+        <p>Выбери свою сферу, нажми кнопку — и мы подберём время. Аккуратная линия, ровная борода и кофе в ожидании.</p>
+        <a class="btn3d" href="#spheres">Выбрать стрижку <span>→</span></a>
       </div>
       <div class="visual"><div class="ring"></div><div class="ring ring--in"></div><div class="blade"><div>✂</div><div>🪒</div><div>💈</div><div>★</div></div><div class="sticker">ТОЧНОСТЬ 1 ММ</div><div class="sticker sticker--2">45 МИНУТ</div></div>
     </section>
 
     <section id="steps">
-      <div class="kicker">СЦЕНАРИЙ ВИЗИТА</div>
+      <div class="kicker">Сценарий визита</div>
       <h2>Как это работает</h2>
       <div class="steps">
         <div class="step"><b>01</b><h3>Выбираешь время</h3><p>Оставляешь телефон — мы подбираем свободный слот и подтверждаем.</p></div>
@@ -107,16 +143,27 @@
       </div>
     </section>
 
-    <section id="price">
-      <div class="kicker">ПРАЙС</div>
-      <h2>Сколько стоит</h2>
-      <div class="price-row"><em>01</em><span>Мужская стрижка</span><div class="dash"></div><strong>1 500 ₽</strong></div>
-      <div class="price-row"><em>02</em><span>Борода</span><div class="dash"></div><strong>900 ₽</strong></div>
-      <div class="price-row"><em>03</em><span>Стрижка + борода</span><div class="dash"></div><strong>2 200 ₽</strong></div>
+    <section id="spheres">
+      <div class="kicker">Нажми на сферу</div>
+      <h2>Сферы стрижки</h2>
+      <div class="sphere-grid">
+        <div class="orbs">
+          <button class="orb active" type="button" data-key="cut"><span><b>✂</b><small>Классика</small></span></button>
+          <button class="orb" type="button" data-key="beard"><span><b>🪒</b><small>Борода</small></span></button>
+          <button class="orb" type="button" data-key="fade"><span><b>💠</b><small>Фейд</small></span></button>
+          <button class="orb" type="button" data-key="kids"><span><b>🧒</b><small>Детская</small></span></button>
+        </div>
+        <div class="sphere-info" id="sphere-info">
+          <div class="num">СФЕРА 01 / 04</div>
+          <h3>Классическая стрижка</h3>
+          <p>Точная форма, аккуратные линии и укладка. Подойдёт, если нужно выглядеть собранно каждый день.</p>
+          <div class="meta"><div><span>Цена</span><b>1 500 ₽</b></div><div><span>Время</span><b>45 мин</b></div></div>
+        </div>
+      </div>
     </section>
 
     <section>
-      <div class="kicker">ВКЛЮЧЕНО В КАЖДЫЙ ВИЗИТ</div>
+      <div class="kicker">Включено в каждый визит</div>
       <h2>Не просто стрижка</h2>
       <div class="chips">
         <div class="chip"><i>☕</i> Кофе в ожидании</div>
@@ -127,20 +174,42 @@
     </section>
 
     <section id="book">
-      <div class="kicker">ЗАПИСЬ</div>
+      <div class="kicker">Запись</div>
       <h2>Забери себе время</h2>
       <form class="form-grid" id="booking-form">
-        <div><label for="name">ИМЯ</label><input id="name" name="name" type="text" placeholder="Иван" required></div>
-        <div><label for="phone">ТЕЛЕФОН</label><input id="phone" name="phone" type="tel" placeholder="+7 999 000-00-00" required></div>
-        <div style="grid-column:1/-1"><a class="textlink" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;">Подтвердить запись →</a><div class="msg" id="form-message"></div></div>
+        <input type="hidden" id="service" name="service" value="Классическая стрижка">
+        <div><label for="name">Имя</label><input id="name" name="name" type="text" placeholder="Иван" required></div>
+        <div><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" placeholder="+7 999 000-00-00" required></div>
+        <div style="grid-column:1/-1"><button class="btn3d" type="submit">Подтвердить запись <span>✓</span></button><div class="msg" id="form-message"></div></div>
       </form>
     </section>
     <footer><div>© 2026 Барбершоп «Бритва»</div><div>ул. Центральная, 12 · +7 999 000-00-00</div></footer>
   </div>
-  <a class="fab" href="#book" aria-label="Записаться">✎</a>
+
   <script>
+    const services = {
+      cut:   { num:'СФЕРА 01 / 04', title:'Классическая стрижка', text:'Точная форма, аккуратные линии и укладка. Подойдёт, если нужно выглядеть собранно каждый день.', price:'1 500 ₽', time:'45 мин' },
+      beard: { num:'СФЕРА 02 / 04', title:'Оформление бороды', text:'Чистая линия, симметрия и уход за щетиной. Горячее полотенце и масло — в подарок.', price:'900 ₽', time:'30 мин' },
+      fade:  { num:'СФЕРА 03 / 04', title:'Фейд / андеркат', text:'Плавный переход и чёткий контур. Держит форму дольше и подчёркивает стиль.', price:'1 800 ₽', time:'60 мин' },
+      kids:  { num:'СФЕРА 04 / 04', title:'Детская стрижка', text:'Спокойно, без спешки и с терпением. Мастер найдёт общий язык с маленьким клиентом.', price:'1 200 ₽', time:'40 мин' }
+    };
+    document.querySelectorAll('.orb').forEach(orb => {
+      orb.addEventListener('click', () => {
+        document.querySelectorAll('.orb').forEach(o => o.classList.remove('active'));
+        orb.classList.add('active');
+        const s = services[orb.dataset.key];
+        document.querySelector('#sphere-info').innerHTML =
+          `<div class="num">${s.num}</div><h3>${s.title}</h3><p>${s.text}</p><div class="meta"><div><span>Цена</span><b>${s.price}</b></div><div><span>Время</span><b>${s.time}</b></div></div>`;
+        document.querySelector('#service').value = s.title;
+      });
+    });
     const form = document.querySelector('#booking-form');
-    form.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-message').textContent = 'Готово! Мы свяжемся с вами.'; form.reset(); });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const service = document.querySelector('#service').value;
+      document.querySelector('#form-message').textContent = `Готово! Запись на «${service}» принята — мы свяжемся с вами.`;
+      form.reset();
+    });
   </script>
 </body>
 </html>
