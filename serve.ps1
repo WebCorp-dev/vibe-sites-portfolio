@@ -12,6 +12,7 @@ while ($listener.IsListening) {
     $relative = [Uri]::UnescapeDataString($context.Request.Url.AbsolutePath).TrimStart('/')
     if (-not $relative) { $relative = 'index.html' }
     $file = Join-Path $root $relative
+    if (Test-Path -LiteralPath $file -PathType Container) { $file = Join-Path $file 'index.html' }
 
     if (Test-Path -LiteralPath $file -PathType Leaf) {
         $bytes = [System.IO.File]::ReadAllBytes($file)
