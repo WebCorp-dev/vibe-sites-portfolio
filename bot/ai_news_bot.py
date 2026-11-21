@@ -181,22 +181,37 @@ def main() -> int:
     sent_set = set(sent)
 
     items = collect_items()
-    fresh = [item for item in items if item["link"] not in sent_set][:MAX_PER_RUN]
-    print(f"[bot] свежих новостей: {len(fresh)}")
+    unseen = [item for item in items if item["link"] not in sent_set]
+    to_send = unseen[:MAX_PER_RUN]
+    skipped = unseen[MAX_PER_RUN:]
+    skipped_links = {item["link"] for item in skipped}
 
-    if not fresh:
+    print(
+        f"[bot] новых: {len(unseen)}, отправляем: {len(to_send)}, "
+        f"пропускаем старых: {len(skipped)}"
+    )
+
+    if not to_send:
         print("[bot] новых новостей нет")
         return 0
 
+    delivered = set()
+
     # Отправляем от старых к новым, чтобы свежая оказалась внизу чата.
-    for item in reversed(fresh):
+    for item in reversed(to_send):
         try:
             send_message(format_message(item))
-            sent.append(item["link"])
+            delivered.add(item["link"])
             print(f"[bot] отправлено: {item['title'][:80]}")
             time.sleep(1.2)
         except Exception as error:  # noqa: BLE001 — не роняем весь запуск
             print(f"[bot] ошибка отправки: {error}")
+
+    # Помечаем отправленные и пропущенные (устаревшие) ссылки,
+    # чтобы не копить очередь из старых новостей.
+    for item in unseen:
+        if item["link"] in delivered or item["link"] in skipped_links:
+            sent.append(item["link"])
 
     save_state(sent)
     return 0
