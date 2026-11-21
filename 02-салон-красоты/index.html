@@ -65,15 +65,20 @@
     .tip h3 { font-family:Arial,sans-serif; font-size:17px; margin-bottom:8px; }
     .tip p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; line-height:1.6; }
 
-    /* ГАЛЕРЕЯ с реальными фотографиями. */
+    /* ГАЛЕРЕЯ: на каждом фото сразу цена, длительность и часы работы. */
     .gallery { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:150px; gap:14px; }
     .shot { position:relative; border-radius:22px; overflow:hidden; transition:.45s; box-shadow:0 14px 30px rgba(120,80,100,.12); }
     .shot img { transition:transform .6s; }
-    .shot::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,rgba(50,30,40,.7)); }
-    .shot span { position:absolute; left:16px; bottom:14px; z-index:2; color:#fff; font-family:Arial,sans-serif; font-weight:800; }
+    .shot::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 30%,rgba(50,30,40,.82)); }
+    .shot .info { position:absolute; z-index:2; left:16px; right:16px; bottom:14px; color:#fff; font-family:Arial,sans-serif; }
+    .shot .info .tag { display:inline-block; background:var(--rose); border-radius:12px; padding:3px 9px; font-size:10px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; margin-bottom:6px; }
+    .shot .info b { display:block; font-size:18px; line-height:1.2; }
+    .shot .info small { display:block; font-size:11px; opacity:.92; margin-top:2px; }
     .shot:nth-child(1) { grid-row:span 2; } .shot:nth-child(2) { grid-column:span 2; } .shot:nth-child(5) { grid-column:span 2; }
     .shot:hover { transform:scale(1.04) rotate(-1deg); border-radius:40px; }
     .shot:hover img { transform:scale(1.1); }
+    .hours-strip { display:flex; gap:10px 22px; flex-wrap:wrap; align-items:center; margin-top:18px; background:var(--glass); border:1px solid #fff; border-radius:20px; padding:15px 22px; box-shadow:0 14px 35px rgba(120,80,100,.08); font-family:Arial,sans-serif; font-size:13px; }
+    .hours-strip b { color:var(--rose); font-size:15px; } .hours-strip span { color:var(--muted); }
 
     /* ОТЗЫВЫ: красивое меню с фильтром. */
     .rev-tabs { display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap; }
@@ -89,13 +94,14 @@
     .rev .tag { display:inline-block; margin-top:12px; font-family:Arial,sans-serif; font-size:11px; color:var(--rose); border:1px solid rgba(217,138,164,.4); border-radius:14px; padding:4px 10px; }
     .hide { display:none; }
 
-    /* ЗАПИСЬ с выбором любого направления. */
+    /* ЗАПИСЬ с выбором любого направления и ценой. */
     .booking { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
     .booking h2 { font-size:clamp(32px,5vw,56px); font-weight:400; }
     .dirs { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 18px; }
     .dirs button { font-family:Arial,sans-serif; border:1px solid rgba(217,138,164,.4); background:rgba(255,255,255,.7); color:var(--muted); padding:10px 16px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; transition:.3s; }
     .dirs button.active { background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; border-color:transparent; transform:translateY(-3px); box-shadow:0 8px 18px rgba(217,138,164,.25); }
-    .chosen { font-family:Arial,sans-serif; font-size:13px; color:var(--rose); margin-bottom:8px; font-weight:700; }
+    .chosen { font-family:Arial,sans-serif; font-size:13px; color:var(--rose); margin-bottom:2px; font-weight:700; }
+    .chosen-meta { font-family:Arial,sans-serif; font-size:12px; color:var(--muted); margin-bottom:8px; }
     label { display:block; font-family:Arial,sans-serif; font-size:12px; color:var(--muted); margin:14px 0 6px; }
     input { width:100%; padding:14px; border:1px solid rgba(217,138,164,.35); border-radius:16px; background:rgba(255,255,255,.75); font-family:Arial,sans-serif; font-size:16px; color:var(--ink); }
     input:focus { outline:2px solid var(--rose); }
@@ -109,7 +115,7 @@
   <div class="blob blob--a"></div><div class="blob blob--b"></div>
   <header>
     <div class="brand">ЛОКО<span>Н</span></div>
-    <nav><a href="#pick">Подбор</a><a href="#memo">Памятка</a><a href="#works">Работы</a><a href="#reviews">Отзывы</a><a href="#book">Запись</a></nav>
+    <nav><a href="#pick">Подбор</a><a href="#memo">Памятка</a><a href="#works">Работы и цены</a><a href="#reviews">Отзывы</a><a href="#book">Запись</a></nav>
     <div class="hint">НАЖМИ НА ШАР, ЧТОБЫ ВЫБРАТЬ</div>
   </header>
 
@@ -147,15 +153,16 @@
   </section>
 
   <section id="works">
-    <div class="lead">Шаг 3 · работы</div>
+    <div class="lead">Шаг 3 · работы и расценки</div>
     <h2>Что у нас получается</h2>
     <div class="gallery">
-      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1280&q=75" srcset="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=640&q=70 640w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1280&q=75 1280w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1920&q=80 1920w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Стрижка"><span>Стрижка</span></div>
-      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1280&q=75" srcset="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=640&q=70 640w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1280&q=75 1280w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1920&q=80 1920w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Окрашивание"><span>Окрашивание</span></div>
-      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1280&q=75" srcset="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=640&q=70 640w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1280&q=75 1280w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80 1920w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Укладка"><span>Укладка</span></div>
-      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1280&q=75" srcset="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=640&q=70 640w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1280&q=75 1280w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1920&q=80 1920w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Маникюр"><span>Маникюр</span></div>
-      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1280&q=75" srcset="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=640&q=70 640w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1280&q=75 1280w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80 1920w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Интерьер салона"><span>Наш салон</span></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1280&q=75" srcset="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=640&q=70 640w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1280&q=75 1280w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1920&q=80 1920w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Женская стрижка"><div class="info"><span class="tag">Стрижка</span><b>2 500 ₽</b><small>90 минут · 10:00–21:00</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1280&q=75" srcset="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=640&q=70 640w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1280&q=75 1280w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1920&q=80 1920w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Окрашивание"><div class="info"><span class="tag">Окрашивание</span><b>4 200 ₽</b><small>2,5 часа · 10:00–21:00</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1280&q=75" srcset="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=640&q=70 640w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1280&q=75 1280w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80 1920w, https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Укладка"><div class="info"><span class="tag">Укладка</span><b>1 500 ₽</b><small>45 минут · 10:00–21:00</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1280&q=75" srcset="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=640&q=70 640w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1280&q=75 1280w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=1920&q=80 1920w, https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Маникюр"><div class="info"><span class="tag">Маникюр</span><b>1 800 ₽</b><small>90 минут · 10:00–21:00</small></div></div>
+      <div class="shot"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1280&q=75" srcset="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=640&q=70 640w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1280&q=75 1280w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80 1920w, https://images.unsplash.com/photo-1560066984-138dadb4c035?w=3840&q=84 3840w" sizes="(max-width:900px) 50vw, 25vw" alt="Интерьер салона"><div class="info"><span class="tag">Наш салон</span><b>Открыты каждый день</b><small>Ежедневно 10:00–21:00 · ул. Мира, 8</small></div></div>
     </div>
+    <div class="hours-strip"><b>🕒 Ежедневно 10:00–21:00</b><span>ул. Мира, 8 · центр города</span><span>Запись онлайн — без ожидания в очереди</span></div>
   </section>
 
   <section id="reviews">
@@ -178,17 +185,18 @@
   </section>
 
   <section id="book" class="booking">
-    <div><div class="lead">Шаг 5 · запись</div><h2>Твоя очередь<br> за тобой</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Выбери направление — мы подберём мастера и удобное время.</p></div>
+    <div><div class="lead">Шаг 5 · запись</div><h2>Твоя очередь<br> за тобой</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Выбери направление — мы подберём мастера и удобное время. Ежедневно с 10:00 до 21:00.</p></div>
     <form id="booking-form">
       <input type="hidden" id="direction" name="direction" value="Женская стрижка">
       <div class="dirs">
-        <button type="button" class="active" data-dir="Женская стрижка">✂ Стрижка</button>
-        <button type="button" data-dir="Окрашивание">◈ Окрашивание</button>
-        <button type="button" data-dir="Маникюр">✧ Маникюр</button>
-        <button type="button" data-dir="Уход и маски">❋ Уход</button>
-        <button type="button" data-dir="Брови">◕ Брови</button>
+        <button type="button" class="active" data-dir="Женская стрижка" data-meta="2 500 ₽ · 90 мин">✂ Стрижка</button>
+        <button type="button" data-dir="Окрашивание" data-meta="4 200 ₽ · 2,5 часа">◈ Окрашивание</button>
+        <button type="button" data-dir="Маникюр" data-meta="1 800 ₽ · 90 мин">✧ Маникюр</button>
+        <button type="button" data-dir="Уход и маски" data-meta="2 000 ₽ · 60 мин">❋ Уход</button>
+        <button type="button" data-dir="Брови" data-meta="900 ₽ · 30 мин">◕ Брови</button>
       </div>
       <div class="chosen" id="chosen">Выбрано: Женская стрижка</div>
+      <div class="chosen-meta" id="chosen-meta">2 500 ₽ · 90 мин · Ежедневно 10:00–21:00</div>
       <label for="name">Имя</label><input id="name" name="name" type="text" placeholder="Алина" required>
       <label for="phone">Телефон</label><input id="phone" name="phone" type="tel" placeholder="+7 999 111-22-33" required>
       <div style="margin-top:22px"><button class="drop" type="submit"><i>✦</i> Записаться</button></div>
@@ -209,7 +217,7 @@
         opt.classList.add('active');
         const item = data[opt.dataset.key];
         document.querySelector('#wheel-core').innerHTML = item.title.toUpperCase();
-        document.querySelector('#panel').innerHTML = `<h3>${item.title}</h3><p>${item.text}</p><div class="cost">${item.price}</div>`;
+        document.querySelector('#panel').innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p><div class="cost">' + item.price + '</div>';
       });
     });
     document.querySelectorAll('.rev-tabs button').forEach(btn => {
@@ -224,6 +232,7 @@
         document.querySelectorAll('.dirs button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         document.querySelector('#chosen').textContent = 'Выбрано: ' + btn.dataset.dir;
+        document.querySelector('#chosen-meta').textContent = btn.dataset.meta + ' · Ежедневно 10:00–21:00';
         document.querySelector('#direction').value = btn.dataset.dir;
       });
     });
@@ -231,7 +240,8 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       const dir = document.querySelector('#direction').value;
-      document.querySelector('#form-message').textContent = `Готово! Запись на «${dir}» принята — мы свяжемся с вами.`;
+      const meta = document.querySelector('.dirs button.active').dataset.meta;
+      document.querySelector('#form-message').textContent = 'Готово! Запись на «' + dir + '» (' + meta + ') принята — мы свяжемся с вами.';
       form.reset();
     });
   </script>

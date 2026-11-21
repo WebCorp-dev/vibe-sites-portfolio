@@ -37,10 +37,11 @@
     h2 { font-size:clamp(27px,4vw,40px); margin-bottom:6px; letter-spacing:-.5px; }
     .lead { color:var(--muted); font-size:13px; margin-bottom:26px; letter-spacing:1px; text-transform:uppercase; font-weight:700; }
 
-    /* ВКЛАДКИ МЕНЮ с реальными фото. */
-    .tabs { display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap; }
+    /* ВКЛАДКИ МЕНЮ: 26 позиций, карточки создаются из одного списка в JS. */
+    .tabs { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
     .tabs button { border:1px solid var(--line); background:#fff; color:var(--muted); padding:11px 22px; border-radius:30px; font-weight:800; font-family:inherit; cursor:pointer; transition:.3s; font-size:14px; }
     .tabs button.active { background:var(--terra); border-color:var(--terra); color:#fff; transform:translateY(-3px) rotate(-2deg); box-shadow:0 8px 18px rgba(194,112,77,.25); }
+    .count { color:var(--muted); font-size:13px; margin-bottom:20px; }
     .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
     .dish { display:grid; grid-template-columns:120px 1fr; gap:16px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:22px; padding:12px; transition:.4s cubic-bezier(.2,1.3,.4,1); animation:dishIn .45s; }
     .dish:hover { transform:translateY(-8px) rotate(-1deg); box-shadow:0 18px 35px rgba(91,70,54,.12); }
@@ -60,16 +61,18 @@
     @keyframes orbFloat { 50% { transform:translateY(-10px) rotate(10deg); } }
     .stage b { display:block; } .stage span { color:var(--muted); font-size:12px; }
 
-    /* БРОНИРОВАНИЕ кофе / завтрака / десерта. */
+    /* БРОНИРОВАНИЕ: все 26 позиций из меню доступны здесь. */
     .book-wrap { background:#fff; border:1px solid var(--line); border-radius:30px; padding:34px; box-shadow:0 22px 50px rgba(91,70,54,.1); }
     .book-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
-    .pick-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .pick-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
     .pick-tabs button { border:1px solid var(--line); background:var(--bg); color:var(--muted); padding:9px 16px; border-radius:20px; font-family:inherit; font-weight:800; font-size:13px; cursor:pointer; transition:.3s; }
     .pick-tabs button.active { background:var(--espresso); color:#fff; border-color:var(--espresso); }
-    .items { display:flex; flex-wrap:wrap; gap:8px; min-height:46px; }
-    .items button { border:1px solid var(--line); background:#fff; color:var(--ink); padding:10px 14px; border-radius:14px; font-family:inherit; font-size:13px; cursor:pointer; transition:.3s; text-align:left; }
+    .items { display:flex; flex-wrap:wrap; align-content:flex-start; gap:8px; min-height:46px; max-height:250px; overflow-y:auto; padding:4px 6px 4px 2px; }
+    .items::-webkit-scrollbar { width:6px; } .items::-webkit-scrollbar-thumb { background:var(--line); border-radius:6px; }
+    .items button { border:1px solid var(--line); background:#fff; color:var(--ink); padding:9px 13px; border-radius:14px; font-family:inherit; font-size:13px; cursor:pointer; transition:.3s; text-align:left; }
     .items button b { display:block; font-size:13px; } .items button small { color:var(--terra); font-weight:800; }
     .items button.active { border-color:var(--terra); background:#fdf2ea; box-shadow:0 6px 14px rgba(194,112,77,.15); }
+    .current { color:var(--espresso); font-weight:800; font-size:13px; min-height:20px; margin:12px 0 4px; }
     .book-side label { display:block; font-size:11px; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin:0 0 6px; }
     .book-side input { width:100%; padding:13px; border:1px solid var(--line); border-radius:12px; font-family:inherit; font-size:15px; margin-bottom:12px; background:var(--bg); }
     .book-side input:focus { outline:2px solid var(--terra); }
@@ -113,18 +116,12 @@
     <div class="lead">Выбери категорию</div>
     <h2>Наше меню</h2>
     <div class="tabs">
-      <button class="active" data-cat="coffee">☕ Кофе</button>
-      <button data-cat="food">🥞 Завтраки</button>
-      <button data-cat="sweet">🥐 Десерты</button>
+      <button class="active" data-cat="coffee">☕ Кофе · 6</button>
+      <button data-cat="food">🥞 Завтраки · 10</button>
+      <button data-cat="sweet">🥐 Десерты · 10</button>
     </div>
-    <div class="menu-grid" id="menu-grid">
-      <div class="dish" data-cat="coffee"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1280&q=75" srcset="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=640&q=70 640w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1280&q=75 1280w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&q=80 1920w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=3840&q=84 3840w" sizes="120px" alt="Капучино"><div><b>Капучино</b><small>Эспрессо + молочная пена с узором, 300 мл</small><span class="cost">290 ₽</span></div></div>
-      <div class="dish" data-cat="coffee"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1280&q=75" srcset="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=640&q=70 640w, https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1280&q=75 1280w, https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920&q=80 1920w, https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=3840&q=84 3840w" sizes="120px" alt="Американо"><div><b>Американо</b><small>Насыщенный, 300 мл</small><span class="cost">220 ₽</span></div></div>
-      <div class="dish hide" data-cat="food"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1280&q=75" srcset="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=640&q=70 640w, https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1280&q=75 1280w, https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1920&q=80 1920w, https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=3840&q=84 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Сырники"><div><b>Сырники</b><small>Со сметаной и ягодным соусом</small><span class="cost">420 ₽</span></div></div>
-      <div class="dish hide" data-cat="food"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1280&q=75" srcset="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=640&q=70 640w, https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1280&q=75 1280w, https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1920&q=80 1920w, https://images.unsplash.com/photo-1525351484163-7529414344d8?w=3840&q=84 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Завтрак"><div><b>Омлет</b><small>С зеленью и сыром, свежий тост</small><span class="cost">390 ₽</span></div></div>
-      <div class="dish hide" data-cat="sweet"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1280&q=75" srcset="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=640&q=70 640w, https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1280&q=75 1280w, https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1920&q=80 1920w, https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=3840&q=84 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Круассан"><div><b>Круассан</b><small>Слоёный, свежая выпечка каждое утро</small><span class="cost">190 ₽</span></div></div>
-      <div class="dish hide" data-cat="sweet"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1280&q=75" srcset="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=640&q=70 640w, https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1280&q=75 1280w, https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1920&q=80 1920w, https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=3840&q=84 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Чизкейк"><div><b>Чизкейк</b><small>Нежный, с ягодным toppingом</small><span class="cost">350 ₽</span></div></div>
-    </div>
+    <p class="count">26 позиций — всё можно добавить в бронирование ниже.</p>
+    <div class="menu-grid" id="menu-grid"></div>
   </section>
 
   <section id="path">
@@ -140,16 +137,17 @@
 
   <section id="booking">
     <div class="lead">Бронирование</div>
-    <h2>Выбери кофе или десерт</h2>
+    <h2>Выбери кофе, завтрак или десерт</h2>
     <div class="book-wrap">
       <div class="book-grid">
         <div>
           <div class="pick-tabs">
             <button type="button" class="active" data-group="coffee">☕ Кофе</button>
-            <button type="button" data-group="food">🥞 Завтрак</button>
-            <button type="button" data-group="sweet">🥐 Десерт</button>
+            <button type="button" data-group="food">🥞 Завтраки</button>
+            <button type="button" data-group="sweet">🥐 Десерты</button>
           </div>
           <div class="items" id="items"></div>
+          <div class="current" id="current"></div>
         </div>
         <div class="book-side">
           <label for="bk-name">Имя</label><input id="bk-name" type="text" placeholder="Ваше имя">
@@ -176,49 +174,103 @@
   <a class="float-book" href="#booking" title="Забронировать">☕</a>
 
   <script>
-    const menu = {
-      coffee: [ {n:'Капучино',p:290}, {n:'Американо',p:220}, {n:'Латте',p:300} ],
-      food:   [ {n:'Сырники',p:420}, {n:'Омлет',p:390} ],
-      sweet:  [ {n:'Круассан',p:190}, {n:'Чизкейк',p:350} ]
-    };
-    let group = 'coffee', chosen = menu.coffee[0], qty = 1;
+    /* ОДИН СПИСОК на всё меню и бронирование: добавь позицию здесь — она появится в двух местах сразу. */
+    const catalog = [
+      // Кофе — 6 видов
+      { cat:'coffee', n:'Капучино', d:'Эспрессо + бархатная пена с узором, 300 мл', p:290, img:'photo-1509042239860-f550ce710b93' },
+      { cat:'coffee', n:'Американо', d:'Насыщенный и бодрый, 300 мл', p:220, img:'photo-1442512595331-e89e73853f31' },
+      { cat:'coffee', n:'Латте', d:'Мягкий молочный вкус, 350 мл', p:300, img:'photo-1514432324607-a09d9b4aefdd' },
+      { cat:'coffee', n:'Флэт уайт', d:'Двойной эспрессо + микропена, 250 мл', p:320, img:'photo-1495474472287-4d71bcdd2085' },
+      { cat:'coffee', n:'Эспрессо', d:'Классический, плотный, 30 мл', p:180, img:'photo-1511920170033-f8396924c348' },
+      { cat:'coffee', n:'Мока', d:'Эспрессо, молоко и шоколад, 350 мл', p:340, img:'photo-1461023058943-07fcbe16d735' },
+      // Завтраки — 10 позиций
+      { cat:'food', n:'Сырники', d:'Со сметаной и ягодным соусом', p:420, img:'photo-1567620905732-2d1ec7ab7445' },
+      { cat:'food', n:'Омлет', d:'С зеленью, сыром и свежим тостом', p:390, img:'photo-1525351484163-7529414344d8' },
+      { cat:'food', n:'Авокадо-тост', d:'Авокадо, яйцо, свежая зелень', p:450, img:'photo-1540189549336-e6e99c3679fe' },
+      { cat:'food', n:'Панкейки', d:'С кленовым сиропом и ягодами', p:440, img:'photo-1533089860892-a7c6f0a88666' },
+      { cat:'food', n:'Французские тосты', d:'С корицей и свежими ягодами', p:430, img:'photo-1484723091739-30a097e8f929' },
+      { cat:'food', n:'Гранола с йогуртом', d:'Лёгкий старт дня, с фруктами', p:360, img:'photo-1490645935967-10de6ba17061' },
+      { cat:'food', n:'Салат с киноа', d:'Овощи, зелень, лимонная заправка', p:480, img:'photo-1512621776951-a57141f2eefd' },
+      { cat:'food', n:'Сэндвич с индейкой', d:'Мягкий хлеб, овощи, соус', p:460, img:'photo-1528735602780-2552fd46c7af' },
+      { cat:'food', n:'Вафли с ягодами', d:'Хрустящие, с ягодным соусом', p:410, img:'photo-1498837167922-ddd27525d352' },
+      { cat:'food', n:'Фермерский завтрак', d:'Яйца, тосты, овощи и чашка кофе', p:490, img:'photo-1547592180-85f173990554' },
+      // Десерты — 10 позиций
+      { cat:'sweet', n:'Круассан', d:'Слоёный, свежая выпечка каждое утро', p:190, img:'photo-1555507036-ab1f4038808a' },
+      { cat:'sweet', n:'Чизкейк', d:'Нежный, с ягодным топпингом', p:350, img:'photo-1565958011703-44f9829ba187' },
+      { cat:'sweet', n:'Брауни', d:'Шоколадный, с орехами', p:290, img:'photo-1606313564200-e75d5e30476c' },
+      { cat:'sweet', n:'Торт «Медовик»', d:'Кусочек домашнего торта', p:380, img:'photo-1578985545062-69928b1d9587' },
+      { cat:'sweet', n:'Донат', d:'С глазурью и посыпкой', p:240, img:'photo-1551024506-0bccd828d307' },
+      { cat:'sweet', n:'Панна кота', d:'Сливочный десерт с ягодами', p:320, img:'photo-1488477181946-6428a0291777' },
+      { cat:'sweet', n:'Домашнее печенье', d:'С шоколадными каплями', p:180, img:'photo-1499636136210-6f4ee915583e' },
+      { cat:'sweet', n:'Маффин', d:'С ягодами, свежая выпечка', p:230, img:'photo-1509365465985-25d11c17e812' },
+      { cat:'sweet', n:'Булка с корицей', d:'Тёплая, с ароматной корицей', p:250, img:'photo-1549931319-a545dcf3bc73' },
+      { cat:'sweet', n:'Мороженое', d:'Сливковое, с шоколадным соусом', p:300, img:'photo-1563805042-7684c019e1cb' }
+    ];
+
+    /* Адаптивные фото: лёгкие размеры на обычных экранах, 4K — только для больших мониторов. */
+    const photoUrl = (id, w, q) => 'https://images.unsplash.com/' + id + '?w=' + w + '&q=' + q;
+    const srcset = id => [[640,70],[1280,75],[1920,80],[3840,84]].map(([w,q]) => photoUrl(id, w, q) + ' ' + w + 'w').join(', ');
+
+    const grid = document.querySelector('#menu-grid');
+    function renderMenu(cat) {
+      grid.innerHTML = '';
+      catalog.filter(item => item.cat === cat).forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'dish';
+        const img = document.createElement('img');
+        img.loading = 'lazy'; img.decoding = 'async'; img.alt = item.n; img.sizes = '120px';
+        img.srcset = srcset(item.img);
+        img.src = photoUrl(item.img, 1280, 75);
+        const info = document.createElement('div');
+        info.innerHTML = '<b>' + item.n + '</b><small>' + item.d + '</small><span class="cost">' + item.p + ' ₽</span>';
+        card.append(img, info);
+        grid.appendChild(card);
+      });
+    }
+    renderMenu('coffee');
+
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderMenu(btn.dataset.cat);
+      });
+    });
+
+    let group = 'coffee', chosen = catalog[0], qty = 1;
     const itemsBox = document.querySelector('#items');
+    const current = document.querySelector('#current');
     function renderItems() {
       itemsBox.innerHTML = '';
-      menu[group].forEach(item => {
+      catalog.filter(item => item.cat === group).forEach(item => {
         const b = document.createElement('button');
         b.type = 'button';
-        b.innerHTML = `<b>${item.n}</b><small>${item.p} ₽</small>`;
-        if (item.n === chosen.n && item.p === chosen.p) b.classList.add('active');
+        b.innerHTML = '<b>' + item.n + '</b><small>' + item.p + ' ₽</small>';
+        if (item === chosen) b.classList.add('active');
         b.addEventListener('click', () => { chosen = item; renderItems(); });
         itemsBox.appendChild(b);
       });
+      current.textContent = 'Выбрано: ' + chosen.n + ' · ' + chosen.p + ' ₽';
     }
     renderItems();
+
     document.querySelectorAll('.pick-tabs button').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.pick-tabs button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         group = btn.dataset.group;
-        chosen = menu[group][0];
+        chosen = catalog.find(item => item.cat === group);
         renderItems();
       });
     });
     document.querySelector('#plus').addEventListener('click', () => { qty++; document.querySelector('#qty').textContent = qty; });
     document.querySelector('#minus').addEventListener('click', () => { if (qty > 1) qty--; document.querySelector('#qty').textContent = qty; });
-    document.querySelectorAll('.tabs button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.dish').forEach(d => d.classList.toggle('hide', d.dataset.cat !== btn.dataset.cat));
-      });
-    });
     document.querySelector('#submit-book').addEventListener('click', () => {
       const name = document.querySelector('#bk-name').value.trim();
       const phone = document.querySelector('#bk-phone').value.trim();
       if (!name || !phone) { document.querySelector('#book-msg').textContent = 'Заполни имя и телефон'; return; }
       const total = chosen.p * qty;
-      document.querySelector('#book-msg').textContent = `Готово, ${name}! ${chosen.n} × ${qty} = ${total} ₽. Мы свяжемся с тобой.`;
+      document.querySelector('#book-msg').textContent = 'Готово, ' + name + '! ' + chosen.n + ' × ' + qty + ' = ' + total + ' ₽. Мы свяжемся с тобой.';
     });
   </script>
 </body>
