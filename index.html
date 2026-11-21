@@ -35,8 +35,8 @@
     .brand { font-weight:800; letter-spacing:3px; font-size:14px; }
     .brand b { color:var(--ice); }
     /* КНОПКИ-СТЕКЛО: полупрозрачный фон + размытие, как на iOS. */
-    .pill { font-size:12px; color:var(--muted); background:rgba(255,255,255,.55); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(255,255,255,.9); padding:8px 14px; border-radius:20px; box-shadow:0 6px 18px rgba(40,75,110,.10), inset 0 1px 0 rgba(255,255,255,.95); transition:.3s; }
-    .pill:hover { color:var(--ice); background:rgba(255,255,255,.85); border-color:rgba(47,111,158,.55); transform:translateY(-2px); box-shadow:0 10px 24px rgba(40,75,110,.16), inset 0 1px 0 rgba(255,255,255,.95); }
+    .pill { font-size:12px; color:var(--ice); font-weight:800; background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(224,238,249,.82)); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(47,111,158,.75); padding:8px 14px; border-radius:20px; box-shadow:0 8px 22px rgba(40,75,110,.20), 0 0 0 3px rgba(47,111,158,.10), inset 0 1px 0 #fff; transition:.3s; }
+    .pill:hover { color:#fff; background:linear-gradient(135deg,rgba(47,111,158,.95),rgba(75,127,164,.92)); border-color:var(--ice); transform:translateY(-2px); box-shadow:0 14px 30px rgba(40,75,110,.26), 0 0 0 4px rgba(47,111,158,.16), inset 0 1px 0 rgba(255,255,255,.45); }
 
     .hero { padding:80px 6% 46px; max-width:1000px; }
     .kicker { color:var(--ice); font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
@@ -72,8 +72,8 @@
     .body p { color:var(--muted); font-size:14px; line-height:1.6; min-height:68px; }
     .tags { display:flex; gap:7px; flex-wrap:wrap; margin:16px 0 20px; }
     .tags span { font-size:11px; color:var(--accent); background:rgba(255,255,255,.7); border:1px solid var(--line); padding:5px 10px; border-radius:12px; }
-    .go { display:inline-flex; align-items:center; gap:10px; color:var(--accent); background:rgba(255,255,255,.58); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(255,255,255,.92); font-weight:800; font-size:13px; padding:13px 20px; border-radius:14px; box-shadow:0 8px 20px rgba(40,75,110,.12), inset 0 1px 0 rgba(255,255,255,.95); transition:.25s; }
-    .go:hover { transform:translateY(-3px); background:rgba(255,255,255,.88); border-color:var(--accent); box-shadow:0 14px 26px rgba(40,75,110,.18), inset 0 1px 0 rgba(255,255,255,.95); }
+    .go { display:inline-flex; align-items:center; gap:10px; color:var(--accent); background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1.5px solid var(--accent); font-weight:800; font-size:13px; padding:13px 20px; border-radius:14px; box-shadow:0 10px 24px rgba(40,75,110,.18), 0 0 0 3px rgba(255,255,255,.9), inset 0 1px 0 #fff; transition:.25s; }
+    .go:hover { transform:translateY(-3px); background:rgba(255,255,255,.98); box-shadow:0 16px 32px rgba(40,75,110,.26), 0 0 0 4px rgba(255,255,255,.95), inset 0 1px 0 #fff; }
     .card--barber { --accent:var(--ice); } .card--salon { --accent:var(--mint); } .card--cafe { --accent:var(--steel); }
 
     .note { margin:0 6% 60px; padding:22px 26px; background:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.9); border-radius:18px; box-shadow:0 10px 30px rgba(40,75,110,.06); color:var(--muted); font-size:14px; line-height:1.6; }
