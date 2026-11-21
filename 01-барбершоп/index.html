@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Барбершоп «Бритва» — запись на стрижку</title>
+  <title>Барбершоп «Бритва» — стрижки и запись</title>
   <style>
-    /* МЯГКАЯ ПАЛИТРА: тёмный сланец + тёплый янтарь + спокойный бирюзовый. */
     :root {
       --bg:#12161c; --panel:#1b212a; --line:#2e3742;
       --text:#ece5d8; --muted:#9a958c;
@@ -15,6 +14,7 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+    img { display:block; width:100%; height:100%; object-fit:cover; }
 
     .rail { position:fixed; inset:0 auto 0 0; width:74px; background:#0e1217; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
     .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:var(--amber); }
@@ -32,7 +32,7 @@
     .hero h1 i { display:block; font-style:normal; color:transparent; -webkit-text-stroke:2px var(--amber); transform:translateX(22px); }
     .hero p { max-width:420px; margin:24px 0; color:var(--muted); font-size:16px; line-height:1.7; }
 
-    /* ВЫРАЖЕННАЯ 3D-КНОПКА: глубина, блик, нажатие. */
+    /* 3D-КНОПКА (оставляем по твоей просьбе). */
     .btn3d {
       display:inline-flex; align-items:center; gap:14px; position:relative;
       background:linear-gradient(145deg,#f0b876,#c98b3f); color:#241704;
@@ -46,32 +46,40 @@
     .btn3d:active { transform:translateY(8px); box-shadow:0 2px 0 var(--amber-dark), 0 8px 16px rgba(224,168,105,.25); }
     .btn3d span { font-size:20px; }
 
-    .visual { position:relative; height:350px; display:grid; place-items:center; perspective:800px; }
-    .ring { position:absolute; width:310px; height:310px; border:1px dashed #38424d; border-radius:50%; animation:spin 22s linear infinite; }
-    .ring--in { width:215px; height:215px; border-style:solid; border-color:#27303a; animation-direction:reverse; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .blade { position:relative; width:170px; height:170px; transform-style:preserve-3d; animation:bladeSpin 13s ease-in-out infinite; }
-    .blade div { position:absolute; inset:0; display:grid; place-items:center; font-size:54px; border:2px solid var(--amber); background:rgba(224,168,105,.08); box-shadow:inset 0 0 40px rgba(224,168,105,.15); }
-    .blade div:nth-child(1){transform:translateZ(85px)} .blade div:nth-child(2){transform:rotateY(90deg) translateZ(85px)} .blade div:nth-child(3){transform:rotateY(180deg) translateZ(85px)} .blade div:nth-child(4){transform:rotateY(-90deg) translateZ(85px)}
-    @keyframes bladeSpin { 50% { transform:rotateX(-16deg) rotateY(180deg); } }
-    .sticker { position:absolute; background:var(--teal); color:#0c1512; font-size:11px; font-weight:800; padding:7px 12px; transform:rotate(-9deg); box-shadow:6px 6px 0 rgba(127,176,163,.25); animation:float 4s ease-in-out infinite; }
-    .sticker--2 { bottom:35px; right:8%; background:var(--cream); color:#241704; transform:rotate(8deg); animation-delay:-2s; }
-    @keyframes float { 50% { transform:translateY(-14px) rotate(-5deg); } }
+    /* ВМЕСТО 3D-РИСУНКА — настроящее 4K-фото мастера за работой. */
+    .hero-photo { position:relative; height:390px; border-radius:34px 34px 120px 34px; overflow:hidden; transform:rotate(-3deg); box-shadow:24px 30px 60px rgba(0,0,0,.45); animation:photoFloat 7s ease-in-out infinite; }
+    .hero-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,rgba(18,22,28,.72)); }
+    .hero-photo .badge { position:absolute; z-index:2; background:var(--teal); color:#0c1512; font-size:11px; font-weight:800; padding:8px 12px; transform:rotate(-8deg); box-shadow:6px 6px 0 rgba(127,176,163,.25); }
+    .hero-photo .badge--a { left:18px; top:22px; }
+    .hero-photo .badge--b { right:18px; bottom:22px; background:var(--cream); color:#241704; transform:rotate(7deg); }
+    .hero-photo .caption { position:absolute; z-index:2; left:22px; bottom:20px; color:#fff; font-size:15px; font-weight:800; }
+    @keyframes photoFloat { 50% { transform:translateY(-14px) rotate(-1deg); } }
 
     section { padding:60px 6%; }
     .kicker { font-size:11px; letter-spacing:3px; color:var(--teal); text-transform:uppercase; margin-bottom:8px; }
-    h2 { font-size:clamp(28px,4vw,44px); text-transform:uppercase; margin-bottom:26px; letter-spacing:-1px; font-weight:800; }
+    h2 { font-size:clamp(28px,4vw,44px); text-transform:uppercase; margin-bottom:10px; letter-spacing:-1px; font-weight:800; }
+    .sub { color:var(--muted); font-size:15px; margin-bottom:28px; }
+
+    /* БОЛЬШОЙ РАЗДЕЛ СТРИЖЕК — 4K-фото работ. */
+    .cuts-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .cut { position:relative; height:300px; border-radius:24px; overflow:hidden; box-shadow:0 18px 38px rgba(0,0,0,.32); transition:transform .5s cubic-bezier(.2,1.3,.4,1); }
+    .cut:nth-child(2) { margin-top:42px; } .cut:nth-child(3) { margin-top:16px; }
+    .cut:nth-child(5) { margin-top:42px; } .cut:nth-child(6) { margin-top:16px; }
+    .cut img { transition:transform .7s; }
+    .cut::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 40%,rgba(10,12,16,.85)); }
+    .cut .label { position:absolute; z-index:2; left:20px; right:20px; bottom:18px; color:#fff; }
+    .cut .label b { display:block; font-size:20px; text-transform:uppercase; }
+    .cut .label span { font-size:13px; color:var(--amber); font-weight:700; }
+    .cut:hover { transform:translateY(-10px) rotate(-1deg); }
+    .cut:hover img { transform:scale(1.12); }
 
     .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .step { background:var(--panel); border:1px solid var(--line); padding:28px; transform:perspective(700px) rotateY(-9deg); transition:transform .45s, border-color .45s; }
-    .step:nth-child(2) { transform:perspective(700px) rotateY(0) translateY(-14px); }
-    .step:nth-child(3) { transform:perspective(700px) rotateY(9deg); }
-    .step:hover { transform:perspective(700px) rotateY(0) translateY(-8px); border-color:var(--amber); }
+    .step { background:var(--panel); border:1px solid var(--line); padding:28px; transition:transform .45s, border-color .45s; }
+    .step:hover { transform:translateY(-8px); border-color:var(--amber); }
     .step b { display:block; font-size:60px; line-height:.9; color:transparent; -webkit-text-stroke:2px var(--amber); margin-bottom:14px; }
     .step h3 { font-size:19px; text-transform:uppercase; }
     .step p { color:var(--muted); font-size:14px; margin-top:8px; line-height:1.5; }
 
-    /* СФЕРЫ СТРИЖКИ: кликабельные 3D-шары, каждый = отдельная услуга для записи. */
     .sphere-grid { display:grid; grid-template-columns:360px 1fr; gap:40px; align-items:center; }
     .orbs { display:grid; grid-template-columns:1fr 1fr; gap:22px; justify-items:center; }
     .orb {
@@ -99,12 +107,6 @@
     .sphere-info .meta div b { display:block; font-size:22px; color:var(--amber); margin-top:4px; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } }
 
-    .chips { display:flex; gap:12px; flex-wrap:wrap; }
-    .chip { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--line); padding:14px 18px; font-size:14px; transition:.35s; }
-    .chip i { font-style:normal; font-size:22px; animation:wobble 3s infinite; }
-    .chip:hover { border-color:var(--teal); transform:translateY(-6px) rotate(-2deg); }
-    @keyframes wobble { 50% { transform:rotate(20deg); } }
-
     .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:640px; }
     label { font-size:11px; letter-spacing:2px; color:var(--muted); display:block; margin-bottom:6px; text-transform:uppercase; }
     input { width:100%; padding:14px; background:#0e1217; border:1px solid var(--line); color:var(--text); font-family:inherit; font-size:16px; border-radius:8px; }
@@ -112,7 +114,7 @@
     .msg { color:var(--teal); font-weight:800; margin-top:14px; min-height:22px; }
     footer { padding:26px 6%; border-top:1px solid var(--line); color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 
-    @media (max-width:900px) { .rail{display:none} .wrap{margin-left:0} .hero,.sphere-grid{grid-template-columns:1fr} .visual{height:300px} .steps,.form-grid{grid-template-columns:1fr} header nav a{display:none} }
+    @media (max-width:900px) { .rail{display:none} .wrap{margin-left:0} .hero,.sphere-grid{grid-template-columns:1fr} .hero-photo{height:300px} .cuts-grid,.steps,.form-grid{grid-template-columns:1fr} .cut:nth-child(n){margin-top:0} header nav a{display:none} }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
@@ -120,7 +122,7 @@
   <aside class="rail"><b>БРИТВА / MEN'S CLUB</b><span>01 — ЗАПИСЬ</span></aside>
   <div class="wrap">
     <header>
-      <nav><a href="#steps">Как это работает</a><a href="#spheres">Сферы стрижки</a><a href="#book">Запись</a></nav>
+      <nav><a href="#cuts">Стрижки</a><a href="#steps">Как это работает</a><a href="#spheres">Сферы стрижки</a><a href="#book">Запись</a></nav>
       <div class="slot">СВОБОДНЫЕ ОКНА НА СЕГОДНЯ</div>
     </header>
 
@@ -128,9 +130,28 @@
       <div>
         <h1>Стрижка,<br><i>которая говорит</i><br>за тебя</h1>
         <p>Выбери свою сферу, нажми кнопку — и мы подберём время. Аккуратная линия, ровная борода и кофе в ожидании.</p>
-        <a class="btn3d" href="#spheres">Выбрать стрижку <span>→</span></a>
+        <a class="btn3d" href="#cuts">Смотреть стрижки <span>→</span></a>
       </div>
-      <div class="visual"><div class="ring"></div><div class="ring ring--in"></div><div class="blade"><div>✂</div><div>🪒</div><div>💈</div><div>★</div></div><div class="sticker">ТОЧНОСТЬ 1 ММ</div><div class="sticker sticker--2">45 МИНУТ</div></div>
+      <div class="hero-photo">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=3840&q=90" alt="Мастер барбершопа за работой">
+        <div class="badge badge--a">ТОЧНОСТЬ 1 ММ</div>
+        <div class="badge badge--b">45 МИНУТ</div>
+        <div class="caption">Мастерская «Бритва»</div>
+      </div>
+    </section>
+
+    <section id="cuts">
+      <div class="kicker">Наши работы · фото 4K</div>
+      <h2>Стрижки, которые мы делаем</h2>
+      <p class="sub">Классика, фейды, борода и длинные волосы — посмотри, как выглядит наш результат.</p>
+      <div class="cuts-grid">
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=3840&q=90" alt="Классическая мужская стрижка"><div class="label"><b>Классика</b><span>1 500 ₽ · 45 минут</span></div></div>
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=3840&q=90" alt="Фейд"><div class="label"><b>Фейд</b><span>1 800 ₽ · 60 минут</span></div></div>
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=3840&q=90" alt="Борода"><div class="label"><b>Борода</b><span>900 ₽ · 30 минут</span></div></div>
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=3840&q=90" alt="Андеркат"><div class="label"><b>Андеркат</b><span>1 800 ₽ · 60 минут</span></div></div>
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?w=3840&q=90" alt="Стрижка у мастера"><div class="label"><b>Укладка</b><span>700 ₽ · 20 минут</span></div></div>
+        <div class="cut"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=3840&q=90" alt="Интерьер барбершопа"><div class="label"><b>Детская стрижка</b><span>1 200 ₽ · 40 минут</span></div></div>
+      </div>
     </section>
 
     <section id="steps">
@@ -159,17 +180,6 @@
           <p>Точная форма, аккуратные линии и укладка. Подойдёт, если нужно выглядеть собранно каждый день.</p>
           <div class="meta"><div><span>Цена</span><b>1 500 ₽</b></div><div><span>Время</span><b>45 мин</b></div></div>
         </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="kicker">Включено в каждый визит</div>
-      <h2>Не просто стрижка</h2>
-      <div class="chips">
-        <div class="chip"><i>☕</i> Кофе в ожидании</div>
-        <div class="chip"><i>🪒</i> Горячее полотенце</div>
-        <div class="chip"><i>✂</i> Укладка после</div>
-        <div class="chip"><i>📋</i> Консультация мастера</div>
       </div>
     </section>
 
