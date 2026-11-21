@@ -3,186 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Салон красоты «Локон» — стрижки, окрашивание, уход</title>
+  <title>Салон красоты «Локон» — подбери свою процедуру</title>
   <style>
-    /* САЛОН: редакционный стиль, стекло, карусель с стрелками, аккордеон отзывов, «цветок» статистики. */
-    :root { --bg:#fbf5f2; --ink:#463a41; --muted:#94848d; --rose:#d98aa4; --lav:#a89ad2; --sand:#e9c9a8; --glass:rgba(255,255,255,.62); }
+    /* СЦЕНАРИЙ: колесо подбора → палитра → галерея → история → запись. Нет отзывов и карточек мастеров. */
+    :root { --bg:#fbf5f2; --ink:#463a41; --muted:#94848d; --rose:#d98aa4; --lav:#a89ad2; --sand:#e9c9a8; --glass:rgba(255,255,255,.65); }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { font-family:Georgia,'Times New Roman',serif; background:var(--bg); color:var(--ink); line-height:1.6; overflow-x:hidden; }
-
-    /* Мягкие пятна, но они не главный приём — главное здесь композиция. */
-    .blob { position:fixed; border-radius:50%; filter:blur(70px); opacity:.35; z-index:0; pointer-events:none; animation:drift 16s ease-in-out infinite; }
-    .blob--a { width:360px; height:360px; background:var(--rose); top:-100px; right:-80px; }
-    .blob--b { width:320px; height:320px; background:var(--lav); bottom:-90px; left:-70px; animation-delay:-7s; }
-    @keyframes drift { 50% { transform:translate(35px,-30px) scale(1.15); } }
+    .blob { position:fixed; border-radius:50%; filter:blur(70px); opacity:.32; z-index:0; pointer-events:none; animation:drift 16s ease-in-out infinite; }
+    .blob--a { width:340px; height:340px; background:var(--rose); top:-90px; right:-70px; }
+    .blob--b { width:300px; height:300px; background:var(--lav); bottom:-80px; left:-60px; animation-delay:-7s; }
+    @keyframes drift { 50% { transform:translate(30px,-25px) scale(1.15); } }
 
     header { position:relative; z-index:10; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:20px 6%; border-bottom:1px solid rgba(217,138,164,.2); }
-    .brand { font-size:22px; letter-spacing:4px; }
-    .brand span { color:var(--rose); }
-    header nav { display:flex; gap:26px; }
+    .brand { font-size:22px; letter-spacing:4px; } .brand span { color:var(--rose); }
+    header nav { display:flex; gap:24px; }
     header nav a { color:var(--muted); text-decoration:none; font-family:Arial,sans-serif; font-size:12px; letter-spacing:1px; }
     header nav a:hover { color:var(--rose); }
-    .clock { justify-self:end; font-family:Arial,sans-serif; font-size:11px; color:var(--rose); }
+    .hint { justify-self:end; font-family:Arial,sans-serif; font-size:11px; color:var(--rose); }
 
-    .hero { position:relative; z-index:2; display:grid; grid-template-columns:.95fr 1.05fr; gap:50px; align-items:center; padding:80px 6% 60px; }
-    .hero h1 { font-size:clamp(40px,5.6vw,72px); font-weight:400; line-height:1.1; letter-spacing:1px; }
+    .hero { position:relative; z-index:2; display:grid; grid-template-columns:.95fr 1.05fr; gap:45px; align-items:center; padding:75px 6% 55px; }
+    .hero h1 { font-size:clamp(40px,5.6vw,72px); font-weight:400; line-height:1.1; }
     .hero h1 em { color:var(--rose); font-style:italic; }
-    .hero p { max-width:430px; margin:22px 0 28px; color:var(--muted); font-family:Arial,sans-serif; font-size:16px; }
-    /* Кнопка-«капля»: при наведении округляется и вытягивается. */
-    .drop { display:inline-flex; align-items:center; gap:12px; background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; text-decoration:none; font-family:Arial,sans-serif; font-size:14px; font-weight:700; padding:15px 26px; border-radius:18px 40px 40px 18px; transition:border-radius .45s, padding .45s, transform .45s; box-shadow:0 12px 30px rgba(217,138,164,.28); }
+    .hero p { max-width:420px; margin:20px 0 26px; color:var(--muted); font-family:Arial,sans-serif; font-size:16px; }
+    .drop { display:inline-flex; align-items:center; gap:12px; background:linear-gradient(120deg,var(--rose),var(--lav)); color:#fff; text-decoration:none; font-family:Arial,sans-serif; font-weight:700; padding:15px 26px; border-radius:18px 40px 40px 18px; transition:border-radius .45s,padding .45s,transform .45s; box-shadow:0 12px 30px rgba(217,138,164,.28); }
     .drop:hover { border-radius:40px; padding-left:38px; transform:translateY(-4px) rotate(-1deg); }
-    .drop i { font-style:normal; font-size:19px; animation:twinkle 2s infinite; }
-    @keyframes twinkle { 50% { transform:rotate(90deg) scale(1.3); } }
+    .drop i { font-style:normal; animation:twinkle 2s infinite; } @keyframes twinkle { 50% { transform:rotate(90deg) scale(1.3); } }
 
-    /* 3D-коллаж из трёх прозрачных сфер. */
-    .spheres { position:relative; height:400px; perspective:800px; }
-    .sphere { position:absolute; border-radius:50%; box-shadow:inset -20px -25px 50px rgba(90,50,70,.2), 18px 25px 45px rgba(120,80,100,.15); animation:levitate 7s ease-in-out infinite; }
-    .sphere--1 { width:230px; height:230px; left:6%; top:12%; background:radial-gradient(circle at 32% 28%,#fff 0%,#f0c2cf 45%,#d98aa4 100%); }
-    .sphere--2 { width:150px; height:150px; right:10%; top:2%; background:radial-gradient(circle at 30% 25%,#fff 0%,#d8cdf0 50%,#a89ad2 100%); animation-delay:-2.5s; }
-    .sphere--3 { width:120px; height:120px; right:20%; bottom:6%; background:radial-gradient(circle at 30% 25%,#fff 0%,#f3ddc2 50%,#e9c9a8 100%); animation-delay:-5s; }
-    .sphere span { position:absolute; inset:0; display:grid; place-items:center; font-size:38px; }
-    @keyframes levitate { 50% { transform:translateY(-24px) rotateY(18deg); } }
+    .spheres { position:relative; height:380px; perspective:800px; }
+    .sphere { position:absolute; border-radius:50%; box-shadow:inset -20px -25px 50px rgba(90,50,70,.2),18px 25px 45px rgba(120,80,100,.15); animation:levitate 7s ease-in-out infinite; }
+    .sphere--1 { width:220px; height:220px; left:6%; top:12%; background:radial-gradient(circle at 32% 28%,#fff,#f0c2cf 45%,var(--rose)); }
+    .sphere--2 { width:145px; height:145px; right:10%; top:2%; background:radial-gradient(circle at 30% 25%,#fff,#d8cdf0 50%,var(--lav)); animation-delay:-2.5s; }
+    .sphere--3 { width:115px; height:115px; right:20%; bottom:6%; background:radial-gradient(circle at 30% 25%,#fff,#f3ddc2 50%,var(--sand)); animation-delay:-5s; }
+    .sphere span { position:absolute; inset:0; display:grid; place-items:center; font-size:36px; }
+    @keyframes levitate { 50% { transform:translateY(-22px) rotateY(18deg); } }
 
     section { position:relative; z-index:2; padding:70px 6%; }
     h2 { font-size:clamp(28px,4vw,42px); font-weight:400; margin-bottom:6px; }
-    .lead { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; margin-bottom:30px; }
+    .lead { color:var(--muted); font-family:Arial,sans-serif; font-size:13px; margin-bottom:26px; letter-spacing:1px; text-transform:uppercase; }
 
-    /* Карусель: единственный сайт со стрелками листания. */
-    .carousel { position:relative; }
-    .track { display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 2px 20px; scrollbar-width:none; }
-    .track::-webkit-scrollbar { display:none; }
-    .card { min-width:280px; scroll-snap-align:start; background:var(--glass); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.85); border-radius:26px; padding:28px; box-shadow:0 16px 40px rgba(120,80,100,.08); transition:transform .45s cubic-bezier(.2,1.3,.4,1); }
-    .card:hover { transform:translateY(-12px) rotate(2deg); }
-    .card .ico { width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:24px; background:linear-gradient(135deg,var(--rose),var(--lav)); color:#fff; margin-bottom:16px; }
-    .card h3 { font-size:21px; margin-bottom:8px; }
-    .card p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; min-height:42px; }
-    .card strong { display:block; color:var(--rose); font-family:Arial,sans-serif; font-size:24px; margin-top:14px; }
-    .arrows { display:flex; gap:10px; margin-top:8px; }
-    .arrows button { width:46px; height:46px; border-radius:50%; border:1px solid var(--rose); background:transparent; color:var(--rose); font-size:22px; cursor:pointer; transition:.3s; }
-    .arrows button:hover { background:var(--rose); color:#fff; transform:scale(1.1); }
+    /* Колесо подбора —独一无二ный элемент взаимодействия. */
+    .picker { display:grid; grid-template-columns:360px 1fr; gap:40px; align-items:center; }
+    .wheel { position:relative; width:340px; height:340px; margin:auto; }
+    .wheel__core { position:absolute; inset:112px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--lav)); color:#fff; display:grid; place-items:center; text-align:center; font-family:Arial,sans-serif; font-weight:800; font-size:13px; box-shadow:0 15px 35px rgba(168,154,210,.4); }
+    .opt { position:absolute; width:112px; height:112px; border-radius:50%; border:1px solid #fff; background:var(--glass); box-shadow:0 12px 28px rgba(217,138,164,.16); display:grid; place-items:center; text-align:center; font-family:Arial,sans-serif; font-size:12px; cursor:pointer; transition:.45s cubic-bezier(.2,1.3,.4,1); animation:optFloat 6s ease-in-out infinite; }
+    .opt b { display:block; font-size:24px; }
+    .opt:hover, .opt.active { background:#fff; transform:scale(1.12) rotate(-6deg); box-shadow:0 18px 35px rgba(217,138,164,.3); }
+    .opt--1 { left:0; top:20px; } .opt--2 { right:0; top:20px; animation-delay:-2s; } .opt--3 { left:50%; bottom:0; margin-left:-56px; animation-delay:-4s; }
+    @keyframes optFloat { 50% { transform:translateY(-12px); } }
 
-    /* «Цветок»_stats — отдельная инфографика, не плитки как в барбершопе. */
-    .flower { position:relative; width:340px; height:340px; margin:10px auto 0; }
-    .flower__core { position:absolute; inset:118px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--lav)); display:grid; place-items:center; color:#fff; font-family:Arial,sans-serif; font-weight:800; text-align:center; font-size:13px; box-shadow:0 15px 35px rgba(168,154,210,.4); }
-    .petal { position:absolute; width:118px; height:118px; border-radius:50%; display:grid; place-items:center; text-align:center; background:rgba(255,255,255,.75); border:1px solid #fff; box-shadow:0 12px 28px rgba(217,138,164,.16); font-family:Arial,sans-serif; animation:orbitFloat 6s ease-in-out infinite; }
-    .petal b { display:block; font-size:22px; color:var(--rose); }
-    .petal small { color:var(--muted); font-size:10px; }
-    .petal--1 { left:0; top:20px; }
-    .petal--2 { right:0; top:20px; animation-delay:-2s; }
-    .petal--3 { left:50%; bottom:0; transform:translateX(-50%); animation-delay:-4s; }
-    @keyframes orbitFloat { 50% { transform:translateY(-14px) rotate(6deg); } }
-    .petal--3 { animation-name:orbitFloatCenter; }
-    @keyframes orbitFloatCenter { 0%,100% { transform:translateX(-50%); } 50% { transform:translateX(-50%) translateY(-14px); } }
+    .panel { background:var(--glass); border:1px solid #fff; border-radius:28px; padding:30px; box-shadow:0 16px 40px rgba(120,80,100,.08); animation:fadeIn .4s; }
+    .panel h3 { font-size:26px; margin-bottom:8px; }
+    .panel p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; }
+    .panel .cost { display:inline-block; margin-top:16px; background:var(--rose); color:#fff; font-family:Arial,sans-serif; font-weight:800; padding:10px 18px; border-radius:20px; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } }
 
-    /* Мастера — лесенкой, с разными отступами. */
-    .masters { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start; }
-    .master { background:rgba(255,255,255,.7); border:1px solid #fff; border-radius:30px 30px 12px 30px; padding:24px; box-shadow:0 14px 35px rgba(120,80,100,.07); }
-    .master:nth-child(2) { margin-top:46px; border-radius:30px 12px 30px 30px; }
-    .master:nth-child(3) { margin-top:20px; border-radius:12px 30px 30px 30px; }
-    .avatar { width:70px; height:70px; border-radius:50%; background:conic-gradient(from 0deg,var(--rose),var(--lav),var(--sand),var(--rose)); padding:4px; animation:spin 9s linear infinite; margin-bottom:14px; }
-    .avatar div { width:100%; height:100%; border-radius:50%; background:var(--bg); display:grid; place-items:center; font-size:26px; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .master h3 { font-size:19px; }
-    .master p { color:var(--muted); font-family:Arial,sans-serif; font-size:13px; }
+    /* Палитра — 3D-шары с подписями. */
+    .palette { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .swatch { background:rgba(255,255,255,.7); border:1px solid #fff; border-radius:26px; padding:26px 18px; text-align:center; transition:.4s; }
+    .swatch:hover { transform:translateY(-10px) rotate(2deg); }
+    .swatch .ball { width:80px; height:80px; border-radius:50%; margin:0 auto 14px; box-shadow:inset -12px -14px 25px rgba(0,0,0,.16),12px 16px 25px rgba(120,80,100,.18); animation:ballFloat 5s ease-in-out infinite; }
+    .swatch:nth-child(2) .ball { animation-delay:-1.6s; } .swatch:nth-child(3) .ball { animation-delay:-3.2s; }
+    @keyframes ballFloat { 50% { transform:translateY(-12px) rotate(12deg); } }
+    .swatch b { display:block; } .swatch span { color:var(--muted); font-family:Arial,sans-serif; font-size:13px; }
 
-    /* Отзывы-аккордеон: раскрываются по клику. */
-    details { background:rgba(255,255,255,.7); border:1px solid #fff; border-radius:20px; padding:18px 22px; margin-bottom:12px; cursor:pointer; }
-    summary { font-family:Arial,sans-serif; font-weight:700; list-style:none; display:flex; justify-content:space-between; }
-    summary::-webkit-details-marker { display:none; }
-    summary::after { content:"+"; color:var(--rose); font-size:22px; }
-    details[open] summary::after { content:"–"; }
-    details p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; margin-top:12px; animation:fadeIn .4s; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(-6px); } }
+    /* Галерея работ — только на этом сайте, плиткой разной высоты. */
+    .gallery { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:130px; gap:14px; }
+    .shot { border-radius:22px; display:grid; place-items:end start; padding:16px; color:#fff; font-family:Arial,sans-serif; font-weight:800; background:linear-gradient(135deg,#c987a0,#9d7ec2); transition:.45s; }
+    .shot:nth-child(1) { grid-row:span 2; } .shot:nth-child(2) { grid-column:span 2; background:linear-gradient(135deg,#b3947e,#d8aa8b); } .shot:nth-child(3) { background:linear-gradient(135deg,#8fa994,#b7c9a6); } .shot:nth-child(4) { grid-row:span 2; background:linear-gradient(135deg,#a98fb8,#d2b4c8); } .shot:nth-child(5) { grid-column:span 2; background:linear-gradient(135deg,#c08f89,#e0b5a6); }
+    .shot:hover { transform:scale(1.04) rotate(-1deg); border-radius:40px; }
 
-    .contact { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
-    .contact h2 { font-size:clamp(32px,5vw,56px); font-weight:400; }
+    /* История одной клиентки — не список отзывов, а timeline. */
+    .story { max-width:760px; border-left:2px solid var(--rose); padding-left:28px; }
+    .moment { position:relative; padding-bottom:26px; }
+    .moment::before { content:""; position:absolute; left:-36px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--rose); box-shadow:0 0 0 5px var(--bg); }
+    .moment b { color:var(--rose); font-family:Arial,sans-serif; font-size:12px; letter-spacing:2px; }
+    .moment p { margin-top:6px; font-size:18px; }
+
+    .booking { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+    .booking h2 { font-size:clamp(32px,5vw,56px); font-weight:400; }
     label { display:block; font-family:Arial,sans-serif; font-size:12px; color:var(--muted); margin:14px 0 6px; }
     input { width:100%; padding:14px; border:1px solid rgba(217,138,164,.35); border-radius:16px; background:rgba(255,255,255,.75); font-family:Arial,sans-serif; font-size:16px; color:var(--ink); }
     input:focus { outline:2px solid var(--rose); }
     .msg { color:var(--rose); font-family:Arial,sans-serif; font-weight:800; min-height:22px; margin-top:12px; }
     footer { position:relative; z-index:2; padding:26px 6%; border-top:1px solid rgba(217,138,164,.2); color:var(--muted); font-family:Arial,sans-serif; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    @media (max-width:850px) { header { grid-template-columns:1fr auto; } header nav { display:none; } .hero { grid-template-columns:1fr; } .spheres { height:300px; } .masters { grid-template-columns:1fr; } .master:nth-child(n) { margin-top:0; } .contact { grid-template-columns:1fr; } .flower { transform:scale(.85); } }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; } }
+    @media (max-width:900px) { header{grid-template-columns:1fr auto} header nav{display:none} .hero{grid-template-columns:1fr} .spheres{height:300px} .picker,.booking{grid-template-columns:1fr} .palette{grid-template-columns:1fr} .gallery{grid-template-columns:repeat(2,1fr)} .shot:nth-child(n){grid-column:auto;grid-row:auto} }
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
   <div class="blob blob--a"></div><div class="blob blob--b"></div>
-
   <header>
     <div class="brand">ЛОКО<span>Н</span></div>
-    <nav><a href="#services">Услуги</a><a href="#masters">Мастера</a><a href="#reviews">Отзывы</a><a href="#contact">Контакты</a></nav>
-    <div class="clock">ЕЖЕДНЕВНО · 09:00–21:00</div>
+    <nav><a href="#pick">Подбор</a><a href="#palette">Палитра</a><a href="#works">Работы</a><a href="#story">История</a><a href="#book">Запись</a></nav>
+    <div class="hint">НАЖМИ НА ШАР, ЧТОБЫ ВЫБРАТЬ</div>
   </header>
 
   <section class="hero">
-    <div>
-      <h1>Красота, которая <em>ощущается</em></h1>
-      <p>Салон красоты «Локон»: стрижки, окрашивание и уход. Запись онлайн, без ожидания в очереди.</p>
-      <a class="drop" href="#contact"><i>✦</i> Записаться на визит</a>
-    </div>
-    <div class="spheres">
-      <div class="sphere sphere--1"><span>✂</span></div>
-      <div class="sphere sphere--2"><span>✦</span></div>
-      <div class="sphere sphere--3"><span>◕</span></div>
-    </div>
+    <div><h1>Красота, которая <em>ощущается</em></h1><p>Подберём процедуру под твою задачу — без навязанных услуг и лишних вопросов.</p><a class="drop" href="#pick"><i>✦</i> Подобрать процедуру</a></div>
+    <div class="spheres"><div class="sphere sphere--1"><span>✂</span></div><div class="sphere sphere--2"><span>✦</span></div><div class="sphere sphere--3"><span>◕</span></div></div>
   </section>
 
-  <section id="services">
-    <div class="lead">УСЛУГИ · ЛИСТАЙ СТРЕЛКАМИ</div>
-    <h2>Что мы делаем</h2>
-    <div class="carousel">
-      <div class="track" id="track">
-        <div class="card"><div class="ico">✂</div><h3>Женская стрижка</h3><p>Мытьё, стрижка, укладка. 90 минут.</p><strong>2 500 ₽</strong></div>
-        <div class="card"><div class="ico">◈</div><h3>Окрашивание</h3><p>Однотонное окрашивание + уход. 2,5 часа.</p><strong>4 200 ₽</strong></div>
-        <div class="card"><div class="ico">✧</div><h3>Маникюр</h3><p>Классический маникюр с покрытием. 90 минут.</p><strong>1 800 ₽</strong></div>
-        <div class="card"><div class="ico">❋</div><h3>Уход</h3><p>Маска и сыворотка по типу волос.</p><strong>1 200 ₽</strong></div>
+  <section id="pick">
+    <div class="lead">ШАГ 1 · КОЛЕСО ПОДБОРА</div>
+    <h2>Что тебя интересует?</h2>
+    <div class="picker">
+      <div class="wheel">
+        <div class="wheel__core" id="wheel-core">ВЫБЕРИ<br>ШАР</div>
+        <div class="opt opt--1 active" data-key="cut"><div><b>✂</b>Стрижка</div></div>
+        <div class="opt opt--2" data-key="color"><div><b>◈</b>Цвет</div></div>
+        <div class="opt opt--3" data-key="nails"><div><b>✧</b>Руки</div></div>
       </div>
-      <div class="arrows"><button onclick="document.querySelector('#track').scrollBy({left:-310,behavior:'smooth'})" aria-label="Назад">‹</button><button onclick="document.querySelector('#track').scrollBy({left:310,behavior:'smooth'})" aria-label="Вперёд">›</button></div>
+      <div class="panel" id="panel">
+        <h3>Женская стрижка</h3>
+        <p>Форма под твой тип волос и образ жизни. Мытьё, стрижка, укладка и советы по уходу.</p>
+        <div class="cost">2 500 ₽ · 90 минут</div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <div class="lead">ЦИФРЫ САЛОНА</div>
-    <h2>Немного статистики</h2>
-    <div class="flower">
-      <div class="flower__core">ЛОКОН<br>САЛОН</div>
-      <div class="petal petal--1"><div><b>300+</b><small>клиенток в месяц</small></div></div>
-      <div class="petal petal--2"><div><b>4.9</b><small>средняя оценка</small></div></div>
-      <div class="petal petal--3"><div><b>8 лет</b><small>на рынке</small></div></div>
+  <section id="palette">
+    <div class="lead">ШАГ 2 · ПАЛИТРА</div>
+    <h2>Цвет, который подходит</h2>
+    <div class="palette">
+      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#d98aa4)"></div><b>Розовый гранат</b><span>тёплые оттенки</span></div>
+      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#a89ad2)"></div><b>Лаванда</b><span>холодные оттенки</span></div>
+      <div class="swatch"><div class="ball" style="background:radial-gradient(circle at 30% 25%,#fff,#e9c9a8)"></div><b>Песок</b><span>натуральные оттенки</span></div>
     </div>
   </section>
 
-  <section id="masters">
-    <div class="lead">КОМАНДА</div>
-    <h2>Наши мастера</h2>
-    <div class="masters">
-      <div class="master"><div class="avatar"><div>А</div></div><h3>Анна</h3><p>Стилист. Стрижки и укладки.</p></div>
-      <div class="master"><div class="avatar"><div>М</div></div><h3>Мария</h3><p>Колорист. Сложные окрашивания.</p></div>
-      <div class="master"><div class="avatar"><div>Е</div></div><h3>Елена</h3><p>Мастер маникюра и ухода.</p></div>
+  <section id="works">
+    <div class="lead">ШАГ 3 · РАБОТЫ</div>
+    <h2>Что у нас получается</h2>
+    <div class="gallery">
+      <div class="shot">Стрижка</div><div class="shot">Окрашивание</div><div class="shot">Укладка</div><div class="shot">Маникюр</div><div class="shot">Уход</div>
     </div>
   </section>
 
-  <section id="reviews">
-    <div class="lead">ОТЗЫВЫ · НАЖМИ, ЧТОБЫ РАСКРЫТЬ</div>
-    <h2>Что говорят клиентки</h2>
-    <details><summary>Ольга, 31 год</summary><p>«Пришла с растрепанными волосами, ушла с укладкой, которая держится неделю. Спасибо Анне!»</p></details>
-    <details><summary>Кристина, 26 лет</summary><p>«Впервые окрашивание без сюрпризов — цвет именно такой, как на фото. Обязательно вернусь.»</p></details>
+  <section id="story">
+    <div class="lead">ШАГ 4 · ИСТОРИЯ</div>
+    <h2>Одна клиентка, три визита</h2>
+    <div class="story">
+      <div class="moment"><b>ВИЗИТ 01</b><p>«Пришла с идеей, но без понимания, как она выглядит. Мастер нарисовал план на листе.»</p></div>
+      <div class="moment"><b>ВИЗИТ 02</b><p>«Через месяц пришла на коррекцию — форма держалась ровно, как обещали.»</p></div>
+      <div class="moment"><b>ВИЗИТ 03</b><p>«Теперь прихожу просто на поддержание: подправляю длину и цвет раз в шесть недель.»</p></div>
+    </div>
   </section>
 
-  <section id="contact" class="contact">
-    <div><div class="lead">ЗНАКОМСТВО</div><h2>Давайте<br>познакомимся</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Оставь телефон — перезвоним и подберём время.</p></div>
+  <section id="book" class="booking">
+    <div><div class="lead">ШАГ 5 · ЗАПИСЬ</div><h2>Твоя очередь<br> за тобой</h2><p style="color:var(--muted);font-family:Arial;margin-top:14px">Оставь телефон — подтвердим время и подберём мастера.</p></div>
     <form id="booking-form">
       <label for="name">ИМЯ</label><input id="name" name="name" type="text" placeholder="Алина" required>
       <label for="phone">ТЕЛЕФОН</label><input id="phone" name="phone" type="tel" placeholder="+7 999 111-22-33" required>
-      <div style="margin-top:22px"><a class="drop" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;"><i>✦</i> Отправить заявку</a></div>
+      <div style="margin-top:22px"><a class="drop" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;"><i>✦</i> Записаться</a></div>
       <div class="msg" id="form-message"></div>
     </form>
   </section>
-
   <footer><div>© 2026 Салон красоты «Локон»</div><div>ул. Мира, 8 · +7 999 111-22-33</div></footer>
 
   <script>
+    const data = {
+      cut: { title:'Женская стрижка', text:'Форма под твой тип волос и образ жизни. Мытьё, стрижка, укладка и советы по уходу.', price:'2 500 ₽ · 90 минут' },
+      color: { title:'Окрашивание', text:'Подберём оттенок по палитре и коже. Однотон или сложная техника — без сюрпризов.', price:'4 200 ₽ · 2,5 часа' },
+      nails: { title:'Маникюр', text:'Аккуратная форма, уход за кутикулой и покрытие, которое держится.', price:'1 800 ₽ · 90 минут' }
+    };
+    document.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        const item = data[opt.dataset.key];
+        document.querySelector('#wheel-core').innerHTML = item.title.toUpperCase();
+        document.querySelector('#panel').innerHTML = `<h3>${item.title}</h3><p>${item.text}</p><div class="cost">${item.price}</div>`;
+      });
+    });
     const form = document.querySelector('#booking-form');
     form.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-message').textContent = 'Заявка отправлена! Мы свяжемся с вами.'; form.reset(); });
   </script>

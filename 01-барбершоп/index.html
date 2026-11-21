@@ -3,82 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Барбершоп «Бритва» — мужские стрижки и борода</title>
+  <title>Барбершоп «Бритва» — запись на стрижку</title>
   <style>
-    /* БАРБЕРШОП: журнальная асимметрия, боковая рейка, 3D-куб, горизонтальная лента. */
-    :root { --bg:#0b0b0b; --panel:#151515; --line:#2b2b2b; --text:#f5f0e6; --muted:#948d82; --hot:#ff5a1f; --gold:#ffb020; }
+    /* СЦЕНАРИЙ: шаги визита → прайс → что входит → запись. Никаких отзывов и мастеров. */
+    :root { --bg:#0c0c0c; --panel:#161616; --line:#2d2d2d; --text:#f6f1e7; --muted:#958d81; --hot:#ff5a24; --gold:#ffb224; }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { font-family:'Arial Black',Arial,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-    /* Вертикальная рейка слева — вместо обычного логотипа в шапке. */
-    .rail { position:fixed; inset:0 auto 0 0; width:78px; background:#101010; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
-    .rail__brand { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; }
-    .rail__brand b { color:var(--hot); }
-    .rail__icons { display:flex; flex-direction:column; gap:20px; font-size:21px; filter:grayscale(1); transition:.3s; }
-    .rail__icons span { cursor:default; transition:.3s; }
-    .rail__icons span:hover { filter:none; transform:scale(1.35) rotate(-8deg); }
-    .rail__num { font-family:Arial,sans-serif; font-size:10px; color:#666; writing-mode:vertical-rl; }
-    .wrap { margin-left:78px; }
+    .rail { position:fixed; inset:0 auto 0 0; width:74px; background:#101010; border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:22px 0; z-index:50; }
+    .rail b { writing-mode:vertical-rl; transform:rotate(180deg); font-size:12px; letter-spacing:3px; color:var(--hot); }
+    .rail span { font-family:Arial,sans-serif; font-size:10px; color:#666; writing-mode:vertical-rl; }
+    .wrap { margin-left:74px; }
 
     header { display:flex; justify-content:space-between; align-items:center; padding:20px 6%; border-bottom:1px solid var(--line); }
-    header nav { display:flex; gap:26px; }
-    header nav a { color:var(--muted); font-family:Arial,sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+    header nav { display:flex; gap:28px; }
+    header nav a { color:var(--muted); font-family:Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
     header nav a:hover { color:var(--hot); }
-    header .stamp { font-family:Arial,sans-serif; font-size:11px; color:var(--hot); border:1px solid var(--hot); padding:6px 12px; border-radius:20px; }
+    .slot { font-family:Arial,sans-serif; font-size:11px; color:var(--gold); border:1px solid var(--gold); padding:6px 12px; border-radius:20px; }
 
-    .hero { display:grid; grid-template-columns:1.15fr .85fr; gap:30px; align-items:center; padding:70px 6% 50px; min-height:78vh; }
-    .hero h1 { font-size:clamp(46px,8vw,108px); line-height:.84; letter-spacing:-4px; text-transform:uppercase; }
-    .hero h1 i { display:block; font-style:normal; color:transparent; -webkit-text-stroke:2px var(--hot); transform:translateX(26px); }
-    .hero p { max-width:430px; margin:26px 0; color:var(--muted); font-family:Arial,sans-serif; font-size:16px; line-height:1.7; }
-    /* Текстовая ссылка-CTA вместо привычной кнопки. */
-    .link-cta { display:inline-flex; align-items:center; gap:12px; color:var(--hot); font-family:Arial,sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:1px; text-decoration:none; border-bottom:2px solid var(--hot); padding-bottom:5px; transition:gap .3s; }
-    .link-cta:hover { gap:24px; }
-
-    /* 3D-инфографика: куб с четырьмя гранями. */
-    .visual { position:relative; height:380px; display:grid; place-items:center; perspective:900px; }
-    .orbit { position:absolute; width:320px; height:320px; border:1px dashed #3a3a3a; border-radius:50%; animation:spin 22s linear infinite; }
-    .orbit--two { width:240px; height:240px; border-style:solid; border-color:#242424; animation-direction:reverse; }
+    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:30px; align-items:center; padding:75px 6% 55px; min-height:76vh; }
+    .hero h1 { font-size:clamp(48px,8vw,106px); line-height:.84; letter-spacing:-4px; text-transform:uppercase; }
+    .hero h1 i { display:block; font-style:normal; color:transparent; -webkit-text-stroke:2px var(--hot); transform:translateX(24px); }
+    .hero p { max-width:420px; margin:24px 0; color:var(--muted); font-family:Arial,sans-serif; font-size:16px; line-height:1.7; }
+    .textlink { display:inline-flex; gap:12px; align-items:center; color:var(--hot); font-family:Arial,sans-serif; font-weight:800; text-transform:uppercase; text-decoration:none; border-bottom:2px solid var(--hot); padding-bottom:5px; transition:gap .3s; }
+    .textlink:hover { gap:26px; }
+    .visual { position:relative; height:350px; display:grid; place-items:center; perspective:800px; }
+    .ring { position:absolute; width:300px; height:300px; border:1px dashed #3a3a3a; border-radius:50%; animation:spin 20s linear infinite; }
+    .ring--in { width:210px; height:210px; border-style:solid; border-color:#262626; animation-direction:reverse; }
     @keyframes spin { to { transform:rotate(360deg); } }
-    .cube { position:relative; width:180px; height:180px; transform-style:preserve-3d; animation:spin3d 14s ease-in-out infinite; }
-    .cube div { position:absolute; inset:0; display:grid; place-items:center; font-size:52px; border:2px solid var(--hot); background:rgba(255,90,31,.08); box-shadow:inset 0 0 40px rgba(255,90,31,.15); }
-    .cube div:nth-child(1) { transform:translateZ(90px); }
-    .cube div:nth-child(2) { transform:rotateY(90deg) translateZ(90px); }
-    .cube div:nth-child(3) { transform:rotateY(180deg) translateZ(90px); }
-    .cube div:nth-child(4) { transform:rotateY(-90deg) translateZ(90px); }
-    @keyframes spin3d { 0%,100% { transform:rotateX(-18deg) rotateY(0); } 50% { transform:rotateX(-18deg) rotateY(180deg); } }
-    .tag3d { position:absolute; background:var(--gold); color:#111; font-family:Arial,sans-serif; font-size:11px; font-weight:800; padding:7px 12px; transform:rotate(-9deg) translateZ(20px); box-shadow:6px 6px 0 rgba(255,176,32,.25); animation:float 4s ease-in-out infinite; }
-    .tag3d--b { bottom:40px; right:10%; background:#fff; transform:rotate(8deg); animation-delay:-2s; }
-    @keyframes float { 50% { transform:translateY(-14px) rotate(-6deg); } }
-
-    /* Три наклонных 3D-плитки со статистикой. */
-    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:0 6% 60px; }
-    .stat { background:var(--panel); border:1px solid var(--line); padding:22px; transform:skewY(-2deg) rotate(-1deg); transition:transform .4s, border-color .4s; }
-    .stat:nth-child(2) { transform:skewY(2deg) rotate(1deg); }
-    .stat:hover { transform:none; border-color:var(--hot); }
-    .stat b { display:block; font-size:40px; color:var(--gold); line-height:1; }
-    .stat span { font-family:Arial,sans-serif; font-size:12px; color:var(--muted); }
+    .blade { position:relative; width:170px; height:170px; transform-style:preserve-3d; animation:bladeSpin 12s ease-in-out infinite; }
+    .blade div { position:absolute; inset:0; display:grid; place-items:center; font-size:54px; border:2px solid var(--hot); background:rgba(255,90,36,.07); }
+    .blade div:nth-child(1){transform:translateZ(85px)} .blade div:nth-child(2){transform:rotateY(90deg) translateZ(85px)} .blade div:nth-child(3){transform:rotateY(180deg) translateZ(85px)} .blade div:nth-child(4){transform:rotateY(-90deg) translateZ(85px)}
+    @keyframes bladeSpin { 50% { transform:rotateX(-16deg) rotateY(180deg); } }
+    .sticker { position:absolute; background:var(--gold); color:#111; font-family:Arial,sans-serif; font-size:11px; font-weight:800; padding:7px 12px; transform:rotate(-9deg); box-shadow:6px 6px 0 rgba(255,178,36,.25); animation:float 4s ease-in-out infinite; }
+    .sticker--2 { bottom:35px; right:8%; background:#fff; transform:rotate(8deg); animation-delay:-2s; }
+    @keyframes float { 50% { transform:translateY(-14px) rotate(-5deg); } }
 
     section { padding:60px 6%; }
-    h2 { font-size:clamp(28px,4vw,46px); text-transform:uppercase; margin-bottom:24px; letter-spacing:-1px; }
     .kicker { font-family:Arial,sans-serif; font-size:11px; letter-spacing:3px; color:var(--hot); margin-bottom:8px; }
+    h2 { font-size:clamp(28px,4vw,46px); text-transform:uppercase; margin-bottom:26px; letter-spacing:-1px; }
 
-    /* Прайс — не карточки, а строки-таблицы с выездом при наведении. */
-    .price-row { display:grid; grid-template-columns:44px 1fr auto 90px; gap:14px; align-items:center; padding:20px 14px; border-bottom:1px solid var(--line); transition:.35s; }
-    .price-row:hover { transform:translateX(20px); background:var(--panel); }
+    /* 3 шага — наклонные 3D-плитки с огромными номерами. */
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .step { position:relative; background:var(--panel); border:1px solid var(--line); padding:28px; transform:perspective(700px) rotateY(-9deg); transition:transform .45s, border-color .45s; }
+    .step:nth-child(2) { transform:perspective(700px) rotateY(0) translateY(-14px); }
+    .step:nth-child(3) { transform:perspective(700px) rotateY(9deg); }
+    .step:hover { transform:perspective(700px) rotateY(0) translateY(-8px); border-color:var(--hot); }
+    .step b { display:block; font-size:64px; line-height:.9; color:transparent; -webkit-text-stroke:2px var(--hot); margin-bottom:14px; }
+    .step h3 { font-size:20px; text-transform:uppercase; }
+    .step p { color:var(--muted); font-family:Arial,sans-serif; font-size:14px; margin-top:8px; }
+
+    .price-row { display:grid; grid-template-columns:40px 1fr auto 90px; gap:14px; align-items:center; padding:20px 12px; border-bottom:1px solid var(--line); transition:.35s; }
+    .price-row:hover { transform:translateX(18px); background:var(--panel); }
     .price-row em { font-style:normal; color:var(--hot); font-family:Arial,sans-serif; }
-    .price-row .line { height:1px; background:repeating-linear-gradient(90deg,#444 0 4px,transparent 4px 9px); }
-    .price-row strong { font-size:22px; color:var(--gold); }
+    .price-row .dash { height:1px; background:repeating-linear-gradient(90deg,#444 0 4px,transparent 4px 9px); }
+    .price-row strong { color:var(--gold); font-size:22px; }
 
-    /* Горизонтальная лента работ — листается вбок. */
-    .strip { display:flex; gap:16px; overflow-x:auto; padding:10px 0 30px; scroll-snap-type:x mandatory; }
-    .strip article { min-width:290px; height:180px; padding:20px; display:flex; align-items:flex-end; scroll-snap-align:start; background:linear-gradient(135deg,#3a2a18,#7a4f1c); transform:rotate(-2deg); transition:.4s; }
-    .strip article:nth-child(2) { background:linear-gradient(135deg,#1f2d38,#39657a); transform:rotate(2deg); }
-    .strip article:nth-child(3) { background:linear-gradient(135deg,#33202a,#7a3a52); }
-    .strip article:hover { transform:rotate(0) scale(1.05); }
-
-    .quote { max-width:760px; font-size:clamp(22px,3vw,34px); line-height:1.35; position:relative; }
-    .quote::before { content:"“"; position:absolute; left:-46px; top:-30px; font-size:110px; color:var(--hot); opacity:.4; }
+    .chips { display:flex; gap:12px; flex-wrap:wrap; }
+    .chip { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--line); padding:14px 18px; font-family:Arial,sans-serif; font-size:14px; transition:.35s; }
+    .chip i { font-style:normal; font-size:22px; animation:wobble 3s infinite; }
+    .chip:hover { border-color:var(--gold); transform:translateY(-6px) rotate(-2deg); }
+    @keyframes wobble { 50% { transform:rotate(20deg); } }
 
     .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:620px; }
     label { font-family:Arial,sans-serif; font-size:11px; letter-spacing:2px; color:var(--muted); display:block; margin-bottom:6px; }
@@ -86,97 +72,73 @@
     input:focus { outline:2px solid var(--hot); }
     .msg { color:var(--gold); font-family:Arial,sans-serif; font-weight:800; margin-top:14px; min-height:22px; }
 
-    .marquee { overflow:hidden; white-space:nowrap; background:var(--hot); color:#111; padding:9px 0; font-size:12px; letter-spacing:3px; }
-    .marquee div { display:inline-block; animation:slide 18s linear infinite; }
-    @keyframes slide { to { transform:translateX(-50%); } }
-
-    /* Круглая плавающая кнопка — главное взаимодействие только здесь. */
-    .fab { position:fixed; right:26px; bottom:26px; width:72px; height:72px; border-radius:50%; background:var(--hot); color:#111; display:grid; place-items:center; font-size:28px; text-decoration:none; z-index:60; box-shadow:0 10px 30px rgba(255,90,31,.4); animation:pulse 2.5s infinite; }
+    .fab { position:fixed; right:26px; bottom:26px; width:72px; height:72px; border-radius:50%; background:var(--hot); color:#111; display:grid; place-items:center; font-size:28px; text-decoration:none; z-index:60; box-shadow:0 10px 30px rgba(255,90,36,.4); animation:pulse 2.5s infinite; }
     .fab::before { content:""; position:absolute; inset:-10px; border:2px solid var(--hot); border-radius:50%; opacity:.5; animation:ring 2.5s infinite; }
-    @keyframes pulse { 50% { transform:scale(1.08); } }
-    @keyframes ring { to { transform:scale(1.5); opacity:0; } }
-
-    .reveal { opacity:0; transform:translateY(30px); transition:.7s; }
-    .reveal.visible { opacity:1; transform:none; }
+    @keyframes pulse { 50% { transform:scale(1.08); } } @keyframes ring { to { transform:scale(1.5); opacity:0; } }
     footer { padding:26px 6%; border-top:1px solid var(--line); color:var(--muted); font-family:Arial,sans-serif; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    @media (max-width:800px) { .rail { display:none; } .wrap { margin-left:0; } .hero { grid-template-columns:1fr; } .visual { height:300px; } .stats { grid-template-columns:1fr; } .form-grid { grid-template-columns:1fr; } header nav a { display:none; } }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; } .reveal { opacity:1; transform:none; } }
+    @media (max-width:800px) { .rail{display:none} .wrap{margin-left:0} .hero{grid-template-columns:1fr} .visual{height:300px} .steps,.form-grid{grid-template-columns:1fr} header nav a{display:none} }
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <aside class="rail">
-    <div class="rail__brand">БРИТ<b>ВА</b> / MEN'S CLUB</div>
-    <div class="rail__icons"><span>✂</span><span>🪒</span><span>💈</span><span>☕</span></div>
-    <div class="rail__num">01 / 03</div>
-  </aside>
-
+  <aside class="rail"><b>БРИТВА / MEN'S CLUB</b><span>01 — ЗАПИСЬ</span></aside>
   <div class="wrap">
     <header>
-      <nav><a href="#price">Прайс</a><a href="#work">Работы</a><a href="#contact">Контакты</a></nav>
-      <div class="stamp">ЗАПИСЬ 24/7</div>
+      <nav><a href="#steps">Как это работает</a><a href="#price">Прайс</a><a href="#book">Запись</a></nav>
+      <div class="slot">СВОБОДНЫЕ ОКНА НА СЕГОДНЯ</div>
     </header>
 
     <section class="hero">
       <div>
         <h1>Стрижка,<br><i>которая говорит</i><br>за тебя</h1>
-        <p>Мужской барбершоп в центре города. Точная линия, аккуратная борода и кофе в ожидании.</p>
-        <a class="link-cta" href="#contact">Записаться <span>→</span></a>
+        <p>Записывайся за минуту: выбираешь время, приходишь, уходишь с аккуратной линией и кофе в руке.</p>
+        <a class="textlink" href="#book">Записаться <span>→</span></a>
       </div>
-      <div class="visual">
-        <div class="orbit"></div><div class="orbit orbit--two"></div>
-        <div class="cube"><div>✂</div><div>🪒</div><div>💈</div><div>★</div></div>
-        <div class="tag3d">ТОЧНОСТЬ 1 ММ</div>
-        <div class="tag3d tag3d--b">12 ЛЕТ ОПЫТА</div>
-      </div>
+      <div class="visual"><div class="ring"></div><div class="ring ring--in"></div><div class="blade"><div>✂</div><div>🪒</div><div>💈</div><div>★</div></div><div class="sticker">ТОЧНОСТЬ 1 ММ</div><div class="sticker sticker--2">45 МИНУТ</div></div>
     </section>
 
-    <div class="stats">
-      <div class="stat reveal"><b>1 500+</b><span>стрижек в месяц</span></div>
-      <div class="stat reveal"><b>4.9</b><span>рейтинг в 2ГИС</span></div>
-      <div class="stat reveal"><b>45 мин</b><span>средний визит</span></div>
-    </div>
+    <section id="steps">
+      <div class="kicker">СЦЕНАРИЙ ВИЗИТА</div>
+      <h2>Как это работает</h2>
+      <div class="steps">
+        <div class="step"><b>01</b><h3>Выбираешь время</h3><p>Оставляешь телефон — мы подбираем свободный слот и подтверждаем.</p></div>
+        <div class="step"><b>02</b><h3>Мастер работает</h3><p>Консультация, стрижка, борода и кофе. Никакой спешки.</p></div>
+        <div class="step"><b>03</b><h3>Уходишь готовым</h3><p>Укладка, масло для бороды и совет, как сохранить форму.</p></div>
+      </div>
+    </section>
 
     <section id="price">
-      <div class="kicker">ПРАЙС-ЛИСТ</div>
-      <h2 class="reveal">Услуги</h2>
-      <div class="price-row reveal"><em>01</em><span>Мужская стрижка</span><div class="line"></div><strong>1 500 ₽</strong></div>
-      <div class="price-row reveal"><em>02</em><span>Борода</span><div class="line"></div><strong>900 ₽</strong></div>
-      <div class="price-row reveal"><em>03</em><span>Стрижка + борода</span><div class="line"></div><strong>2 200 ₽</strong></div>
-    </section>
-
-    <section id="work">
-      <div class="kicker">ЛИСТАЙ ВБОК →</div>
-      <h2 class="reveal">Работы</h2>
-      <div class="strip">
-        <article>Классика / андеркат</article><article>Борода / fade</article><article>Длинные волосы</article>
-      </div>
+      <div class="kicker">ПРАЙС</div>
+      <h2>Сколько стоит</h2>
+      <div class="price-row"><em>01</em><span>Мужская стрижка</span><div class="dash"></div><strong>1 500 ₽</strong></div>
+      <div class="price-row"><em>02</em><span>Борода</span><div class="dash"></div><strong>900 ₽</strong></div>
+      <div class="price-row"><em>03</em><span>Стрижка + борода</span><div class="dash"></div><strong>2 200 ₽</strong></div>
     </section>
 
     <section>
-      <div class="kicker">ОТЗЫВ</div>
-      <div class="quote reveal">«Наконец-то мастер, который понимает, что я хочу, с первого раза. Хожу полгода.»</div>
-      <p style="color:var(--hot);font-family:Arial;margin-top:16px">— Алексей, 29 лет</p>
+      <div class="kicker">ВКЛЮЧЕНО В КАЖДЫЙ ВИЗИТ</div>
+      <h2>Не просто стрижка</h2>
+      <div class="chips">
+        <div class="chip"><i>☕</i> Кофе в ожидании</div>
+        <div class="chip"><i>🪒</i> Горячее полотенце</div>
+        <div class="chip"><i>✂</i> Укладка после</div>
+        <div class="chip"><i>📋</i> Консультация мастера</div>
+      </div>
     </section>
 
-    <section id="contact">
+    <section id="book">
       <div class="kicker">ЗАПИСЬ</div>
-      <h2 class="reveal">Оставь телефон</h2>
+      <h2>Забери себе время</h2>
       <form class="form-grid" id="booking-form">
         <div><label for="name">ИМЯ</label><input id="name" name="name" type="text" placeholder="Иван" required></div>
         <div><label for="phone">ТЕЛЕФОН</label><input id="phone" name="phone" type="tel" placeholder="+7 999 000-00-00" required></div>
-        <div style="grid-column:1/-1"><a class="link-cta" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;">Отправить заявку →</a><div class="msg" id="form-message"></div></div>
+        <div style="grid-column:1/-1"><a class="textlink" href="#" onclick="document.querySelector('#booking-form').requestSubmit(); return false;">Подтвердить запись →</a><div class="msg" id="form-message"></div></div>
       </form>
     </section>
-
-    <div class="marquee"><div>СТРИЖКА ✦ БОРДА ✦ СТИЛЬ ✦ СТРИЖКА ✦ БОРДА ✦ СТИЛЬ ✦&nbsp;</div></div>
     <footer><div>© 2026 Барбершоп «Бритва»</div><div>ул. Центральная, 12 · +7 999 000-00-00</div></footer>
   </div>
-
-  <a class="fab" href="#contact" aria-label="Записаться">✎</a>
-
+  <a class="fab" href="#book" aria-label="Записаться">✎</a>
   <script>
-    const observer = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold:.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     const form = document.querySelector('#booking-form');
     form.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-message').textContent = 'Готово! Мы свяжемся с вами.'; form.reset(); });
   </script>
