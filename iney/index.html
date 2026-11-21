@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ИНЕЙ — кофейня и десерт-бар в Чебоксарах</title>
+<meta name="description" content="Кофе, завтраки и десерты в холодной палитре. 44 позиции, три объёма, конструктор напитка и заказ в Telegram." />
+<meta name="theme-color" content="#0a1119" />
+<meta property="og:title" content="ИНЕЙ — холодный свет, горячий кофе" />
+<meta property="og:description" content="Кофейня и десерт-бар: 44 позиции, конструктор напитка, честные цены и заказ за 15 минут." />
+<meta property="og:type" content="website" />
+<link rel="stylesheet" href="fonts.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ═══ Иконки ═══ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 8h12v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M4 22h14"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v15"/><path d="m6 13 6 6 6-6"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17"/><path d="m9 4 3 3 3-3M9 20l3-3 3 3M5 9.5l4 .5-.5-4M19 14.5l-4-.5.5 4M19 9.5l-4 .5.5-4M5 14.5l4-.5-.5 4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="m21 4-3 16-6-4-3 3v-5L19 6 7 14l-4-2 18-8Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 5 5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.8 6.3.8-4.6 4.4 1.2 6.2L12 17.1 6.4 20.2l1.2-6.2L3 9.6l6.3-.8L12 3Z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4 0 6-2.7 6-6 0-4-3-5.5-3-9 0 0-4 2-4 6 0-2-2-3-2-3s-3 3-3 6c0 3.3 2 6 6 6Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4C10 4 4 9 4 16c0 2 1 4 2 4 7 0 14-6 14-16Z"/><path d="M4 20C7 14 12 10 17 8"/></symbol>
+  <symbol id="i-milk" viewBox="0 0 24 24"><path d="M8 3h8v3l2 3v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9l2-3V3Z"/><path d="M6 11h12"/></symbol>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═══ Шапка ═══ -->
+<header class="site-head" id="siteHead">
+  <a class="logo" href="#top" aria-label="ИНЕЙ — на главную">
+    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2v28M4.3 9l23.4 14M27.7 9 4.3 23"/><path d="m11 5 5 4 5-4M11 27l5-4 5 4M7 12l5 1-1-5M25 20l-5-1 1 5M25 12l-5 1 1-5M7 20l5-1-1 5"/></svg>
+    <span class="logo-word">ИНЕЙ<em>coffee &amp; dessert bar</em></span>
+  </a>
+
+  <nav class="main-nav" aria-label="Основная навигация">
+    <a href="#menu">Меню</a>
+    <a href="#builder">Конструктор</a>
+    <a href="#infographic">Как варим</a>
+    <a href="#sets">Сеты</a>
+    <a href="#visit">Контакты</a>
+  </nav>
+
+  <div class="head-right">
+    <span class="status" id="openStatus" title="Часы работы: 10:00–23:00">
+      <i></i><span id="statusText">открыто до 23:00</span>
+    </span>
+    <button class="cart-btn" id="cartOpen" aria-label="Открыть корзину">
+      <svg class="ico"><use href="#i-bag"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+      <span class="cart-sum" id="cartSum">0 ₽</span>
+    </button>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav" hidden>
+  <a href="#menu">Меню</a>
+  <a href="#builder">Конструктор</a>
+  <a href="#infographic">Как варим</a>
+  <a href="#sets">Сеты</a>
+  <a href="#guestbook">Гостевая</a>
+  <a href="#visit">Контакты</a>
+  <div class="mobile-nav-foot">
+    <span>10:00–23:00 · Чебоксары</span>
+    <a href="tel:+78352000000">+7 (8352) 00-00-00</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="hero-copy reveal">
+    <p class="eyebrow"><span class="dot"></span> кофейня · чебоксары · с 2019</p>
+    <h1>Холодный свет.<br><span class="mark">Горячий кофе.<svg class="scribble" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15C58 6 108 17 160 10S258 5 317 13"/></svg></span></h1>
+    <p class="hero-lead">44 позиции, три объёма, честные цены и пенка, на которой видно рисунок. Соберите заказ — заберёте через 15 минут или привезём.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#menu">
+        <svg class="ico"><use href="#i-cup"/></svg> Собрать заказ
+      </a>
+      <a class="btn btn-ghost" href="#infographic">Как мы варим <svg class="ico"><use href="#i-down"/></svg></a>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item"><b>4,9</b><span><span class="stars" aria-hidden="true">★★★★★</span>312 отзыва в 2ГИС</span></div>
+      <div class="meta-item"><b>15 мин</b><span>среднее время отдачи</span></div>
+      <div class="meta-item"><b>0 ₽</b><span>доставка от 1 500 ₽</span></div>
+    </div>
+    <p class="hand hand-hero">меню ниже — листайте, всё работает <span aria-hidden="true">↓</span></p>
+  </div>
+
+  <div class="scene" id="scene" aria-label="Фотографии кофе и десертов">
+    <svg class="scene-orbit" viewBox="0 0 600 600" aria-hidden="true">
+      <ellipse cx="300" cy="300" rx="255" ry="235" fill="none" stroke="rgba(159,205,232,.28)" stroke-width="1" stroke-dasharray="2 9"/>
+      <ellipse cx="300" cy="300" rx="205" ry="188" fill="none" stroke="rgba(159,205,232,.16)" stroke-width="1"/>
+      <circle cx="300" cy="65" r="3" fill="#8fd3f2"/>
+      <circle cx="540" cy="330" r="2.5" fill="#8fd3f2" opacity=".7"/>
+      <circle cx="90" cy="420" r="2" fill="#8fd3f2" opacity=".5"/>
+    </svg>
+
+    <figure class="shot shot-main tilt" data-depth="14">
+      <img src="../assets/img/photo-1509042239860-f550ce710b93.jpg" width="760" height="950" alt="Два капучино с рисунком на пенке" />
+      <figcaption class="glass-chip chip-main"><span class="chip-dot"></span>капучино 350 мл · 340 ₽</figcaption>
+    </figure>
+
+    <figure class="shot shot-ice tilt" data-depth="26">
+      <img src="../assets/img/photo-1461023058943-07fcbe16d735.jpg" width="420" height="520" alt="Айс-латте со льдом" loading="lazy" />
+      <figcaption class="glass-chip chip-ice">колд брю · 12 часов</figcaption>
+    </figure>
+
+    <figure class="shot shot-cake tilt" data-depth="20">
+      <img src="../assets/img/photo-1565958011703-44f9829ba187.jpg" width="420" height="420" alt="Чизкейк с земляникой" loading="lazy" />
+    </figure>
+
+    <div class="glass-chip chip-temp" data-depth="34"><svg class="ico"><use href="#i-snow"/></svg> +18 °C в зале</div>
+    <div class="glass-chip chip-roast" data-depth="30"><svg class="ico"><use href="#i-flame"/></svg> обжарка № 021 · 14.11</div>
+
+    <div class="stamp" data-depth="10" aria-hidden="true">
+      <svg viewBox="0 0 120 120">
+        <defs><path id="stampCircle" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+        <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5"/>
+        <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text><textPath href="#stampCircle" startOffset="0">ИНЕЙ · СВЕЖАЯ ОБЖАРКА · КАЖДЫЙ ВТОРНИК · </textPath></text>
+        <path d="M60 44v32M45 53l30 14M75 53 45 67" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+    </div>
+
+    <svg class="doodle doodle-hero" viewBox="0 0 180 90" aria-hidden="true">
+      <path d="M6 78C24 58 52 48 88 46c20-1 38 4 54 14"/>
+      <path d="m126 50 18 11-20 7"/>
+    </svg>
+    <span class="hand hand-scene" data-depth="16">наш флэт уайт, если что</span>
+  </div>
+</section>
+
+<!-- ═══ Бегущая строка ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>свежая обжарка каждый вторник</span><i>✳</i>
+    <span>эфиопия иргачеффе · жасмин и персик</span><i>✳</i>
+    <span>вода 92 °C · 9 бар · 25 секунд</span><i>✳</i>
+    <span>свой стакан −20 ₽</span><i>✳</i>
+    <span>овсяное молоко +40 ₽</span><i>✳</i>
+    <span>пенка с рисунком — бесплатно</span><i>✳</i>
+    <span>свежая обжарка каждый вторник</span><i>✳</i>
+    <span>эфиопия иргачеффе · жасмин и персик</span><i>✳</i>
+    <span>вода 92 °C · 9 бар · 25 секунд</span><i>✳</i>
+    <span>свой стакан −20 ₽</span><i>✳</i>
+    <span>овсяное молоко +40 ₽</span><i>✳</i>
+    <span>пенка с рисунком — бесплатно</span><i>✳</i>
+  </div>
+</div>
+
+<!-- ═══ Меню ═══ -->
+<section class="menu-section" id="menu">
+  <div class="wrap">
+    <header class="section-head reveal">
+      <div>
+        <span class="section-index">01 / меню</span>
+        <h2>Выбирайте <span class="mark mark-ink">медленно</span></h2>
+        <p class="section-sub">Кофе — 16 позиций, авторские — 6, завтраки и еда — 14, десерты — 8. Цены одинаковые в зале и на сайте.</p>
+      </div>
+      <p class="hand hand-head">всё, что видите,<br>есть в наличии сегодня</p>
+    </header>
+
+    <div class="menu-controls reveal">
+      <div class="tabs" id="tabs" role="tablist" aria-label="Категории меню"></div>
+      <div class="search">
+        <svg class="ico"><use href="#i-search"/></svg>
+        <input id="search" type="search" placeholder="Найти: латте, сырники, чизкейк…" aria-label="Поиск по меню" />
+        <button class="search-clear" id="searchClear" aria-label="Очистить поиск" hidden><svg class="ico"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+
+    <div class="menu-bar reveal">
+      <div class="chips" id="filters"></div>
+      <span class="count" id="menuCount">44 позиции</span>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+
+    <div class="menu-empty" id="menuEmpty" hidden>
+      <svg class="empty-doodle" viewBox="0 0 120 120" aria-hidden="true"><path d="M28 40h58v28a22 22 0 0 1-22 22H50a22 22 0 0 1-22-22V40Z"/><path d="M86 46h7a10 10 0 0 1 0 20h-7"/><path d="M26 104h64"/><path d="M45 26c0-6 8-6 8-12M62 26c0-6 8-6 8-12"/></svg>
+      <b>Ничего не нашлось</b>
+      <p>Попробуйте «латте» или сбросьте фильтры — на кухне точно что-то есть.</p>
+      <button class="btn btn-ghost" id="resetMenu">Сбросить фильтры</button>
+    </div>
+
+    <p class="hand hand-menu">не нашли своё? спросите бариста — соберём под вас</p>
+  </div>
+</section>
+
+<!-- ═══ Конструктор ═══ -->
+<section class="builder-section" id="builder">
+  <div class="wrap builder-grid">
+    <div class="builder-copy reveal">
+      <span class="section-index light">02 / конструктор</span>
+      <h2>Соберите свой<br><span class="mark">напиток</span></h2>
+      <p class="section-sub">Четыре решения — объём, молоко, крепость и сироп. Цена считается сразу, без сюрпризов на кассе.</p>
+
+      <div class="cup-stage">
+        <svg class="cup-svg" id="cupSvg" viewBox="0 0 260 320" role="img" aria-label="Предпросмотр напитка">
+          <defs>
+            <linearGradient id="cupGlass" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,.30)"/>
+              <stop offset=".45" stop-color="rgba(255,255,255,.06)"/>
+              <stop offset="1" stop-color="rgba(255,255,255,.16)"/>
+            </linearGradient>
+            <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" class="stop-top"/>
+              <stop offset="1" class="stop-bottom"/>
+            </linearGradient>
+            <clipPath id="cupClip"><path d="M62 92h136l-12 168a22 22 0 0 1-22 20H96a22 22 0 0 1-22-20L62 92Z"/></clipPath>
+          </defs>
+          <ellipse cx="130" cy="292" rx="82" ry="10" fill="rgba(0,0,0,.35)"/>
+          <g clip-path="url(#cupClip)">
+            <rect x="55" y="92" width="150" height="200" fill="url(#cupGlass)"/>
+            <rect class="liquid" id="cupLiquid" x="55" y="150" width="150" height="150" fill="url(#liquidGrad)"/>
+            <rect class="foam" id="cupFoam" x="55" y="140" width="150" height="16" fill="rgba(255,255,255,.55)"/>
+            <g class="ice" id="cupIce" opacity="0">
+              <rect x="92" y="118" width="34" height="34" rx="7" transform="rotate(-14 109 135)" fill="rgba(220,244,255,.55)" stroke="rgba(255,255,255,.7)"/>
+              <rect x="136" y="136" width="30" height="30" rx="6" transform="rotate(12 151 151)" fill="rgba(220,244,255,.45)" stroke="rgba(255,255,255,.6)"/>
+              <rect x="108" y="164" width="28" height="28" rx="6" transform="rotate(22 122 178)" fill="rgba(220,244,255,.4)" stroke="rgba(255,255,255,.55)"/>
+            </g>
+          </g>
+          <path d="M62 92h136l-12 168a22 22 0 0 1-22 20H96a22 22 0 0 1-22-20L62 92Z" fill="none" stroke="rgba(226,242,252,.65)" stroke-width="2.2"/>
+          <ellipse cx="130" cy="92" rx="68" ry="13" fill="rgba(255,255,255,.10)" stroke="rgba(226,242,252,.65)" stroke-width="2.2"/>
+          <ellipse cx="130" cy="92" rx="57" ry="9" fill="rgba(10,17,25,.55)"/>
+          <text x="130" y="318" text-anchor="middle" class="cup-name" id="cupName">ваше имя</text>
+        </svg>
+        <div class="cup-tags">
+          <span class="glass-chip" id="tagVolume">300 мл</span>
+          <span class="glass-chip" id="tagMilk">обычное молоко</span>
+          <span class="glass-chip" id="tagShots">2 шота</span>
+          <span class="glass-chip" id="tagSyrup" hidden>карамель</span>
+        </div>
+        <svg class="doodle doodle-builder" viewBox="0 0 160 60" aria-hidden="true"><path d="M4 48c30-22 62-28 96-22"/><path d="m84 18 18 8-16 11"/></svg>
+        <span class="hand hand-builder">прозрачный стакан — видно слои</span>
+      </div>
+    </div>
+
+    <div class="builder-panel reveal">
+      <div class="builder-row">
+        <label>Объём <b id="lblVolume">300 мл</b></label>
+        <div class="seg" data-group="volume">
+          <button data-val="200">200</button>
+          <button data-val="300" class="on">300</button>
+          <button data-val="400">400</button>
+        </div>
+      </div>
+      <div class="builder-row">
+        <label>Молоко <b id="lblMilk">обычное</b></label>
+        <div class="seg" data-group="milk">
+          <button data-val="regular" class="on">обычное</button>
+          <button data-val="oat">овсяное <em>+40</em></button>
+          <button data-val="almond">миндальное <em>+50</em></button>
+          <button data-val="none">без молока <em>−30</em></button>
+        </div>
+      </div>
+      <div class="builder-row">
+        <label>Крепость <b id="lblShots">2 шота</b></label>
+        <div class="seg" data-group="shots">
+          <button data-val="1">1</button>
+          <button data-val="2" class="on">2</button>
+          <button data-val="3">3</button>
+        </div>
+      </div>
+      <div class="builder-row">
+        <label>Сироп <b id="lblSyrup">без сиропа</b></label>
+        <div class="seg" data-group="syrup">
+          <button data-val="none" class="on">без</button>
+          <button data-val="caramel">карамель <em>+30</em></button>
+          <button data-val="lavender">лаванда <em>+30</em></button>
+          <button data-val="coconut">кокос <em>+40</em></button>
+        </div>
+      </div>
+      <div class="builder-row builder-row--inline">
+        <div>
+          <label>Температура</label>
+          <div class="seg" data-group="temp">
+            <button data-val="hot" class="on">горячий</button>
+            <button data-val="ice">айс</button>
+          </div>
+        </div>
+        <div class="name-field">
+          <label for="cupNameInput">Имя на стакане</label>
+          <input id="cupNameInput" maxlength="14" placeholder="например, Аня" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-lines" id="priceLines"></div>
+        <div class="price-total"><span>Итого</span><b id="builderPrice">320 ₽</b></div>
+        <button class="btn btn-primary btn-wide" id="builderAdd"><svg class="ico"><use href="#i-plus"/></svg> Добавить в заказ</button>
+        <p class="fineprint">Сироп можно попробовать отдельно — попросите ложечку у бариста.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Инфографика ═══ -->
+<section class="info-section" id="infographic">
+  <div class="wrap">
+    <header class="section-head reveal">
+      <div>
+        <span class="section-index">03 / как варим</span>
+        <h2>Всё видно <span class="mark mark-ink">в цифрах</span></h2>
+        <p class="section-sub">Мы нарисовали это маркером на доске у бара. Здесь — та же схема, только её можно потрогать.</p>
+      </div>
+      <p class="hand hand-head">без нейросетей,<br>честно — маркером</p>
+    </header>
+
+    <div class="info-grid">
+      <!-- Экстракция -->
+      <article class="info-card info-card--wide reveal">
+        <div class="info-card-head">
+          <h3>Один шот — 25 секунд</h3>
+          <span class="tag-mono">схема № 1</span>
+        </div>
+        <p class="info-lead">От дозы до чашки: слева направо. Если пролить быстрее — будет кисло, дольше — горько.</p>
+        <div class="diagram-scroll" tabindex="0" aria-label="Схема экстракции, можно прокрутить вбок">
+        <svg class="diagram diagram-extract" viewBox="0 0 900 260" role="img" aria-label="Схема экстракции эспрессо">
+          <!-- портафильтр -->
+          <g class="ink">
+            <path d="M60 78h150l-14 62a26 26 0 0 1-26 22h-70a26 26 0 0 1-26-22L60 78Z"/>
+            <path d="M210 92h58a16 16 0 0 1 0 32h-52"/>
+            <path d="M78 104h114" stroke-dasharray="3 6"/>
+            <path d="M92 62c8-10 18-10 26 0M128 62c8-10 18-10 26 0" class="steam"/>
+          </g>
+          <text x="135" y="196" text-anchor="middle" class="lbl">12 г молотого</text>
+          <text x="135" y="214" text-anchor="middle" class="lbl-sub">помол как сахар</text>
+
+          <path class="arrow" d="M250 150h96" marker-end="url(#ah)"/>
+          <text x="298" y="136" text-anchor="middle" class="lbl">темпер</text>
+
+          <!-- группа -->
+          <g class="ink">
+            <rect x="372" y="58" width="118" height="112" rx="12"/>
+            <rect x="392" y="76" width="78" height="18" rx="9" class="fill-soft"/>
+            <path d="M392 112h78M392 126h78" stroke-dasharray="2 5"/>
+          </g>
+          <text x="431" y="196" text-anchor="middle" class="lbl">9 бар</text>
+          <text x="431" y="214" text-anchor="middle" class="lbl-sub">вода 92 °C</text>
+
+          <path class="arrow" d="M516 112h88" marker-end="url(#ah)"/>
+          <text x="560" y="98" text-anchor="middle" class="lbl">25 сек</text>
+
+          <!-- струйки и чашка -->
+          <g class="ink">
+            <path d="M614 88c0 34 8 52 8 70M638 88c0 30-6 46-6 66" class="stream"/>
+            <path d="M590 172h96l-10 46a18 18 0 0 1-18 15h-40a18 18 0 0 1-18-15l-10-46Z"/>
+            <path d="M686 184h16a12 12 0 0 1 0 24h-13"/>
+            <path d="M604 172h68l-5 18h-58l-5-18Z" class="fill-soft"/>
+          </g>
+          <text x="638" y="252" text-anchor="middle" class="lbl">24 мл</text>
+
+          <path class="arrow" d="M724 172h96" marker-end="url(#ah)"/>
+          <text x="772" y="158" text-anchor="middle" class="lbl">в чашку</text>
+
+          <!-- финальная чашка с рисунком -->
+          <g class="ink">
+            <circle cx="838" cy="140" r="34" class="fill-soft"/>
+            <path d="M818 140c8-14 32-14 40 0M828 132c6-8 16-8 22 0" class="art"/>
+          </g>
+          <text x="838" y="200" text-anchor="middle" class="lbl">пенка</text>
+          <text x="838" y="218" text-anchor="middle" class="lbl-sub">рисунок бесплатно</text>
+
+          <defs>
+            <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0 1 7 4 0 7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            </marker>
+          </defs>
+        </svg>
+        </div>
+        <p class="diagram-hint hand">схему можно листать вбок →</p>
+        <div class="info-foot">
+          <span><i class="sw sw--sour"></i>кисло · недолив</span>
+          <span><i class="sw sw--ok"></i>баланс · 24–26 сек</span>
+          <span><i class="sw sw--bitter"></i>горько · перелив</span>
+        </div>
+      </article>
+
+      <!-- Карта вкуса -->
+      <article class="info-card reveal" id="tasteCard">
+        <div class="info-card-head">
+          <h3>Карта вкуса</h3>
+          <span class="tag-mono">схема № 2</span>
+        </div>
+        <p class="info-lead">Нажмите на ноту — подскажем напиток, в котором она звучит громче всего.</p>
+        <div class="wheel" id="wheel">
+          <svg viewBox="0 0 320 320" aria-hidden="true">
+            <circle cx="160" cy="160" r="122" fill="none" stroke="rgba(20,42,60,.18)" stroke-dasharray="2 7"/>
+            <circle cx="160" cy="160" r="86" fill="none" stroke="rgba(20,42,60,.12)"/>
+            <path d="M160 38v244M38 160h244" stroke="rgba(20,42,60,.10)" stroke-dasharray="4 8"/>
+            <circle cx="160" cy="160" r="42" fill="rgba(127,212,240,.18)" stroke="rgba(20,42,60,.35)"/>
+            <text x="160" y="157" text-anchor="middle" class="wheel-center">вкус</text>
+            <text x="160" y="174" text-anchor="middle" class="wheel-center-sub">кофе</text>
+            <g id="wheelLinks" stroke="rgba(20,42,60,.22)" stroke-dasharray="2 5"></g>
+          </svg>
+          <div id="wheelNodes"></div>
+        </div>
+        <div class="taste-result" id="tasteResult">
+          <span class="taste-hint">выберите ноту — покажем напиток</span>
+        </div>
+      </article>
+
+      <!-- Объёмы -->
+      <article class="info-card reveal">
+        <div class="info-card-head">
+          <h3>Сколько это — <span style="white-space:nowrap">300 мл</span></h3>
+          <span class="tag-mono">схема № 3</span>
+        </div>
+        <p class="info-lead">Одинаковая чашка, разное количество эспрессо и молока. Пропорция меняет вкус сильнее, чем кажется.</p>
+        <svg class="diagram diagram-cups" viewBox="0 0 420 250" role="img" aria-label="Сравнение объёмов 200, 300 и 400 мл">
+          <g class="ink">
+            <!-- 200 -->
+            <path d="M42 58h78l-8 118a16 16 0 0 1-16 14H66a16 16 0 0 1-16-14L42 58Z"/>
+            <path d="M120 72h14a13 13 0 0 1 0 26h-11"/>
+            <rect x="47" y="96" width="68" height="76" class="fill-coffee"/>
+            <rect x="47" y="86" width="68" height="12" class="fill-foam"/>
+            <text x="81" y="224" text-anchor="middle" class="lbl">200 мл</text>
+            <text x="81" y="242" text-anchor="middle" class="lbl-sub">40 мл кофе</text>
+            <!-- 300 -->
+            <path d="M170 40h86l-9 136a17 17 0 0 1-17 15h-34a17 17 0 0 1-17-15L170 40Z"/>
+            <path d="M256 56h15a14 14 0 0 1 0 28h-12"/>
+            <rect x="176" y="98" width="74" height="80" class="fill-coffee"/>
+            <rect x="176" y="86" width="74" height="14" class="fill-foam"/>
+            <text x="213" y="224" text-anchor="middle" class="lbl">300 мл</text>
+            <text x="213" y="242" text-anchor="middle" class="lbl-sub">60 мл кофе</text>
+            <!-- 400 -->
+            <path d="M304 24h92l-9 152a18 18 0 0 1-18 16h-38a18 18 0 0 1-18-16L304 24Z"/>
+            <path d="M396 40h16a15 15 0 0 1 0 30h-13"/>
+            <rect x="310" y="100" width="80" height="80" class="fill-coffee"/>
+            <rect x="310" y="86" width="80" height="16" class="fill-foam"/>
+            <text x="350" y="224" text-anchor="middle" class="lbl">400 мл</text>
+            <text x="350" y="242" text-anchor="middle" class="lbl-sub">80 мл кофе</text>
+          </g>
+          <path d="M42 118c26 10 52 10 78 0M170 118c28 10 57 10 86 0M304 122c28 10 56 10 92 0" stroke="rgba(255,255,255,.35)" stroke-dasharray="2 6"/>
+        </svg>
+        <p class="info-note">В 450 мл капучино кофе столько же, сколько в 250 мл — просто больше молока. Крепость не растёт.</p>
+      </article>
+
+      <!-- Температура -->
+      <article class="info-card reveal">
+        <div class="info-card-head">
+          <h3>Температура имеет значение</h3>
+          <span class="tag-mono">схема № 4</span>
+        </div>
+        <p class="info-lead">Горячее пьётся при 65–70 °C: не обжигает и не теряет аромат. Айс-кофе — от 0 до 4 °C.</p>
+        <svg class="diagram diagram-temp" viewBox="0 0 420 220" role="img" aria-label="Температурная шкала от −2 до 92 градусов">
+          <g class="ink">
+            <path d="M40 120h340" class="axis"/>
+            <g class="ticks">
+              <path d="M40 112v16M74 116v8M108 116v8M142 112v16M176 116v8M210 116v8M244 112v16M278 116v8M312 116v8M346 112v16M380 112v16"/>
+            </g>
+            <text x="40" y="154" text-anchor="middle" class="lbl">−2°</text>
+            <text x="142" y="154" text-anchor="middle" class="lbl">4°</text>
+            <text x="244" y="154" text-anchor="middle" class="lbl">40°</text>
+            <text x="346" y="154" text-anchor="middle" class="lbl">70°</text>
+            <text x="380" y="154" text-anchor="middle" class="lbl">92°</text>
+            <path d="M40 100c0-12 6-18 14-18s14 6 14 18" class="thermo"/>
+            <circle cx="54" cy="86" r="10" class="fill-soft"/>
+            <path d="M54 98v22M54 120v20" class="thermo"/>
+            <!-- маркеры -->
+            <g class="marker">
+              <path d="M104 120v-42"/><circle cx="104" cy="72" r="5"/>
+              <text x="104" y="58" text-anchor="middle" class="lbl">айс-латте</text>
+            </g>
+            <g class="marker marker--accent">
+              <path d="M322 120v-64"/><circle cx="322" cy="50" r="6"/>
+              <text x="322" y="36" text-anchor="middle" class="lbl">флэт уайт</text>
+            </g>
+          </g>
+        </svg>
+        <p class="info-note">Если кофе кажется слишком горячим — подождите минуту. За это время раскроется шоколад.</p>
+      </article>
+
+      <!-- Рецепт -->
+      <article class="info-card reveal">
+        <div class="info-card-head">
+          <h3>Рецепт флэт уайта</h3>
+          <span class="tag-mono">схема № 5</span>
+        </div>
+        <ol class="recipe">
+          <li><b>01</b><span>Смолоть 18 г на мелком помоле.</span><em>10 сек</em></li>
+          <li><b>02</b><span>Пролить 36 г эспрессо.</span><em>25–27 сек</em></li>
+          <li><b>03</b><span>Взбить молоко до 55 °C, без пузырей.</span><em>15 сек</em></li>
+          <li><b>04</b><span>Влить молоко тонкой струёй, нарисовать лист.</span><em>5 сек</em></li>
+        </ol>
+        <p class="hand hand-card">итого меньше минуты —<br>и можно пить</p>
+      </article>
+
+      <!-- Чек-лист -->
+      <article class="info-card info-card--check reveal">
+        <div class="info-card-head">
+          <h3>Проверьте себя</h3>
+          <span class="tag-mono">чек-лист</span>
+        </div>
+        <p class="info-lead">Пять признаков, что кофе удался. Отмечайте — галочки сохранятся до перезагрузки.</p>
+        <ul class="checklist" id="checklist">
+          <li><label><input type="checkbox" data-key="c1"><span>Пенка блестит и держит ложку</span></label></li>
+          <li><label><input type="checkbox" data-key="c2"><span>Аромат чувствуется до первого глотка</span></label></li>
+          <li><label><input type="checkbox" data-key="c3"><span>Нет ощущения «песка» на дне</span></label></li>
+          <li><label><input type="checkbox" data-key="c4"><span>Послевкусие сладкое, не горькое</span></label></li>
+          <li><label><input type="checkbox" data-key="c5"><span>Хочется второй — но не потому, что первый был плох</span></label></li>
+        </ul>
+        <div class="check-progress"><i id="checkBar"></i><span id="checkText">0 из 5</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Сеты ═══ -->
+<section class="sets-section" id="sets">
+  <div class="wrap">
+    <header class="section-head section-head--dark reveal">
+      <div>
+        <span class="section-index light">04 / сеты</span>
+        <h2>Собрано <span class="mark">за вас</span></h2>
+        <p class="section-sub">Три комбинации, которые заказывают чаще всего. Экономия уже посчитана.</p>
+      </div>
+      <p class="hand hand-head hand-light">выгоднее,<br>чем по отдельности</p>
+    </header>
+    <div class="sets-grid" id="setsGrid"></div>
+    <p class="hand hand-sets">сет «Два берега» — лучший повод<br>остаться ещё на полчаса</p>
+  </div>
+</section>
+
+<!-- ═══ Гостевая ═══ -->
+<section class="guest-section" id="guestbook">
+  <div class="wrap">
+    <header class="section-head reveal">
+      <div>
+        <span class="section-index">05 / гостевая</span>
+        <h2>Что пишут <span class="mark mark-ink">на салфетках</span></h2>
+        <p class="section-sub">Настоящая книга отзывов у стойки. Мы перенесли её сюда, чтобы не потерялась.</p>
+      </div>
+      <p class="hand hand-head">орфография<br>авторская</p>
+    </header>
+
+    <div class="guest-grid">
+      <article class="note reveal" style="--rot:-2.4deg">
+        <p>«Пришла за одним латте, осталась на два часа и съела сырники. Не жалею ни о чём, кроме того, что не взяла чизкейк».</p>
+        <footer><b>Марина</b><span>14 ноября · 11:40</span></footer>
+        <span class="tape" aria-hidden="true"></span>
+      </article>
+      <article class="note reveal" style="--rot:1.8deg">
+        <p>«Флэт уайт здесь правда как надо: не горячий, молоко сладкое. Бариста объяснил, что такое 25 секунд. Теперь я знаю больше, чем хотел».</p>
+        <footer><b>Дима</b><span>9 ноября · 19:05</span></footer>
+        <span class="tape tape--r" aria-hidden="true"></span>
+      </article>
+      <article class="note reveal" style="--rot:-1.2deg">
+        <p>«Работаю тут с ноутбуком по утрам. Wi-Fi не спрашивала — он сам нашёлся. Розетки у окна, никто не выгоняет. Спасибо».</p>
+        <footer><b>Ксения</b><span>2 ноября · 09:20</span></footer>
+        <span class="tape" aria-hidden="true"></span>
+      </article>
+      <article class="note reveal" style="--rot:2.2deg">
+        <p>«Взял набор домой: два капучино и панна котту. Донёс, не расплескал. Жена спросила, где это. Скажите ей, пожалуйста, что это было далеко».</p>
+        <footer><b>Антон</b><span>28 октября · 20:15</span></footer>
+        <span class="tape tape--r" aria-hidden="true"></span>
+      </article>
+    </div>
+
+    <div class="polaroids reveal">
+      <figure class="polaroid" style="--rot:-3deg"><img src="../assets/img/photo-1517832606299-7ae9b720a186.jpg" alt="Бариста за работой" loading="lazy"><figcaption>утро, до открытия</figcaption></figure>
+      <figure class="polaroid" style="--rot:2deg"><img src="../assets/img/photo-1511920170033-f8396924c348.jpg" alt="Латте и темпер" loading="lazy"><figcaption>12 г, не больше</figcaption></figure>
+      <figure class="polaroid" style="--rot:-1.5deg"><img src="../assets/img/photo-1567620905732-2d1ec7ab7445.jpg" alt="Панкейки с черникой" loading="lazy"><figcaption>завтрак до 12:00</figcaption></figure>
+      <figure class="polaroid" style="--rot:2.6deg"><img src="../assets/img/photo-1495474472287-4d71bcdd2085.jpg" alt="Капучино с рисунком" loading="lazy"><figcaption>рисунок бесплатно</figcaption></figure>
+      <p class="hand hand-polaroid">наши фото, без стока<br>и фильтров</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Визит ═══ -->
+<section class="visit-section" id="visit">
+  <div class="wrap visit-grid">
+    <div class="visit-copy reveal">
+      <span class="section-index light">06 / визит</span>
+      <h2>Заходите <span class="mark">погреться</span></h2>
+      <p class="section-sub">Чебоксары, ул. Дзержинского, 12. Вход со двора, под вывеской с снежинкой. Если заблудились — звоните, выйдем встретить.</p>
+
+      <div class="visit-facts">
+        <div class="fact">
+          <svg class="ico"><use href="#i-clock"/></svg>
+          <div><b>Пн–Чт</b><span>10:00 — 23:00</span></div>
+        </div>
+        <div class="fact">
+          <svg class="ico"><use href="#i-clock"/></svg>
+          <div><b>Пт–Вс</b><span>09:00 — 00:00</span></div>
+        </div>
+        <div class="fact">
+          <svg class="ico"><use href="#i-phone"/></svg>
+          <div><b>Телефон</b><a href="tel:+78352000000">+7 (8352) 00-00-00</a></div>
+        </div>
+        <div class="fact">
+          <svg class="ico"><use href="#i-tg"/></svg>
+          <div><b>Telegram</b><a href="https://t.me/" target="_blank" rel="noopener">@iney_coffee</a></div>
+        </div>
+      </div>
+
+      <div class="visit-actions">
+        <a class="btn btn-primary" href="tel:+78352000000"><svg class="ico"><use href="#i-phone"/></svg> Позвонить</a>
+        <a class="btn btn-glass" href="https://2gis.ru/cheboksary" target="_blank" rel="noopener"><svg class="ico"><use href="#i-pin"/></svg> Открыть в 2ГИС</a>
+      </div>
+      <p class="fineprint light">Демо-проект: адрес и телефон вымышлены, заказ уходит в Telegram-бота.</p>
+    </div>
+
+    <div class="map-card reveal">
+      <div class="map-head"><b>как добраться</b><span>нарисовано от руки</span></div>
+      <svg class="map" viewBox="0 0 460 360" role="img" aria-label="Рукописная карта: улица Дзержинского и кофейня">
+        <g class="map-ink">
+          <path d="M-10 96c70 8 120 0 190 12s130 4 190-10 70-8 110 0" class="road"/>
+          <path d="M-10 250c80-14 150 6 220 0s150-16 260 4" class="road"/>
+          <path d="M84 -10c8 60 0 110 12 170s6 120-4 210" class="road"/>
+          <path d="M330 -10c-6 70 4 120-6 170s-4 130 8 210" class="road"/>
+          <path d="M-10 180c50 4 80-2 130 4s80 0 120-6 90-2 130 4 60 2 100-2" class="road road--thin"/>
+          <path d="M180 -10c4 40 0 70 6 100" class="road road--thin"/>
+          <path d="M240 270c20 20 40 40 50 80" class="road road--thin"/>
+          <text x="20" y="86" class="map-lbl">ул. Дзержинского</text>
+          <text x="290" y="242" class="map-lbl">ул. К. Маркса</text>
+          <text x="96" y="320" class="map-lbl map-lbl--small">р. Волга →</text>
+          <path d="M120 300c40 18 80 22 130 14" class="river"/>
+          <path d="M150 60c20-18 44-26 70-24s50 12 66 30" class="route"/>
+          <path d="M286 66c14 16 22 34 24 54" class="route"/>
+          <g class="pin-here">
+            <circle cx="310" cy="120" r="16"/>
+            <circle cx="310" cy="120" r="5" class="fill-ink"/>
+            <text x="310" y="152" text-anchor="middle" class="map-here">мы здесь</text>
+          </g>
+          <text x="40" y="140" class="map-lbl map-lbl--small">двор</text>
+          <path d="M300 200v50M300 250l-14-16M300 250l14-16" class="north" transform="translate(110 -170)"/>
+          <text x="410" y="108" text-anchor="middle" class="map-lbl map-lbl--small">С</text>
+        </g>
+      </svg>
+      <p class="hand hand-map">вход со двора,<br>ищите снежинку →</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ Подвал ═══ -->
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2v28M4.3 9l23.4 14M27.7 9 4.3 23"/><path d="m11 5 5 4 5-4M11 27l5-4 5 4M7 12l5 1-1-5M25 20l-5-1 1 5M25 12l-5 1 1-5M7 20l5-1-1 5"/></svg>
+      <div><b>ИНЕЙ</b><span>холодный свет, горячий кофе</span></div>
+    </div>
+    <nav class="foot-nav" aria-label="Подвал">
+      <a href="#menu">Меню</a>
+      <a href="#builder">Конструктор</a>
+      <a href="#infographic">Как варим</a>
+      <a href="#sets">Сеты</a>
+      <a href="#visit">Контакты</a>
+    </nav>
+    <div class="foot-meta">
+      <a href="https://t.me/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-tg"/></svg> Telegram</a>
+      <a href="tel:+78352000000"><svg class="ico"><use href="#i-phone"/></svg> +7 (8352) 00-00-00</a>
+      <span>© 2026 ИНЕЙ · демо</span>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>нарисовано маркером, свёрстано вручную</span>
+    <a href="#top" class="to-top">наверх <svg class="ico"><use href="#i-arrow"/></svg></a>
+  </div>
+</footer>
+
+<!-- ═══ Корзина ═══ -->
+<div class="drawer-overlay" id="overlay" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Корзина" aria-hidden="true">
+  <header class="drawer-head">
+    <div>
+      <span class="section-index">ваш заказ</span>
+      <h2>Корзина</h2>
+    </div>
+    <button class="icon-btn" id="cartClose" aria-label="Закрыть корзину"><svg class="ico"><use href="#i-x"/></svg></button>
+  </header>
+
+  <div class="drawer-body">
+    <div class="cart-empty" id="cartEmpty">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><path d="M30 42h54v26a20 20 0 0 1-20 20H50a20 20 0 0 1-20-20V42Z"/><path d="M84 48h6a9 9 0 0 1 0 18h-6"/><path d="M28 102h58"/><path d="M47 30c0-5 7-5 7-10M62 30c0-5 7-5 7-10"/></svg>
+      <b>Пока пусто</b>
+      <p>Добавьте кофе из меню или соберите напиток в конструкторе.</p>
+      <a class="btn btn-ghost" href="#menu" id="emptyToMenu">В меню</a>
+    </div>
+
+    <div id="cartContent" hidden>
+      <ul class="cart-list" id="cartList"></ul>
+
+      <div class="promo">
+        <input id="promoInput" placeholder="Промокод" aria-label="Промокод" autocomplete="off" />
+        <button class="btn btn-mini" id="promoApply">Применить</button>
+      </div>
+      <p class="promo-hint" id="promoHint">Подсказка: ИНЕЙ10 даёт −10%</p>
+
+      <div class="fulfil" role="group" aria-label="Способ получения">
+        <button data-mode="pickup" class="on">Самовывоз</button>
+        <button data-mode="delivery">Доставка <em>149 ₽</em></button>
+      </div>
+
+      <dl class="totals">
+        <div><dt>Позиции</dt><dd id="tItems">0 ₽</dd></div>
+        <div id="tDiscountRow" hidden><dt>Скидка</dt><dd id="tDiscount">0 ₽</dd></div>
+        <div id="tDeliveryRow" hidden><dt>Доставка</dt><dd id="tDelivery">149 ₽</dd></div>
+        <div class="totals-grand"><dt>К оплате</dt><dd id="tGrand">0 ₽</dd></div>
+      </dl>
+
+      <form class="order-form" id="orderForm" novalidate>
+        <div class="field"><label for="fName">Имя</label><input id="fName" name="name" placeholder="Как к вам обращаться" autocomplete="name" required /></div>
+        <div class="field"><label for="fPhone">Телефон</label><input id="fPhone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" required /></div>
+        <div class="field-row">
+          <div class="field"><label for="fTime">Когда</label>
+            <select id="fTime" name="time">
+              <option>Как можно скорее</option>
+              <option>Через 30 минут</option>
+              <option>Через час</option>
+              <option>К 12:00</option>
+              <option>К 15:00</option>
+              <option>К 18:00</option>
+              <option>К 21:00</option>
+            </select>
+          </div>
+          <div class="field"><label for="fPeople">Приборов</label>
+            <select id="fPeople" name="people"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="fComment">Комментарий</label><textarea id="fComment" name="comment" rows="2" placeholder="Без сахара, овсяное молоко, позвонить у входа…"></textarea></div>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <button class="btn btn-primary btn-wide" id="submitOrder" type="submit"><svg class="ico"><use href="#i-tg"/></svg> Отправить заказ</button>
+        <p class="fineprint">Демо: заказ уйдёт в Telegram-бота кофейни. Оплата — на месте или при получении.</p>
+      </form>
+    </div>
+
+    <div class="order-success" id="orderSuccess" hidden>
+      <svg class="success-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44"/><path d="m30 51 14 14 27-30"/></svg>
+      <h3>Заказ принят</h3>
+      <p id="successText">Номер заказа — ИН-0000. Мы позвоним, чтобы подтвердить время.</p>
+      <div class="success-tags"><span class="glass-chip">15 минут</span><span class="glass-chip">оплата на месте</span></div>
+      <button class="btn btn-ghost btn-wide" id="successClose">Вернуться в меню</button>
+    </div>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../assets/js/telegram.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
