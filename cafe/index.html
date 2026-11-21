@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
     .hero h1 { font-size:clamp(38px,5.4vw,66px); line-height:1.05; letter-spacing:-1.5px; } .hero h1 span { color:var(--terra); }
     .hero p { max-width:430px; margin:20px 0 26px; color:var(--muted); font-size:16px; line-height:1.65; }
     /* КНОПКИ-СТЕКЛО: матовое размытие и светлая рамка, как на iPhone. */
-    .btn3d { display:inline-block; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,233,216,.88)); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(194,112,77,.85); color:var(--ink); text-decoration:none; font-weight:800; padding:15px 28px; border-radius:16px; box-shadow:0 14px 32px rgba(91,70,54,.22), 0 0 0 3px rgba(194,112,77,.12), inset 0 1px 0 #fff; transition:.25s; }
+    .btn3d { display:inline-block; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,233,216,.88)); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid rgba(194,112,77,.85); color:var(--ink); text-decoration:none; font-weight:800; padding:15px 28px; border-radius:16px; box-shadow:0 14px 32px rgba(91,70,54,.22), 0 0 0 3px rgba(194,112,77,.12), inset 0 1px 0 #fff; transition:.25s; }
     .btn3d:hover { transform:translateY(-3px); background:linear-gradient(135deg,rgba(255,255,255,1),rgba(255,222,199,.95)); border-color:var(--terra); box-shadow:0 20px 40px rgba(91,70,54,.28), 0 0 0 4px rgba(194,112,77,.18), inset 0 1px 0 #fff; }
     .btn3d:active { transform:translateY(1px); }
     .photos { position:relative; height:400px; }
@@ -83,7 +83,7 @@
     .qty { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
     .qty button { width:34px; height:34px; border:1px solid rgba(91,70,54,.45); background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(14px) saturate(160%); backdrop-filter:blur(14px) saturate(160%); color:var(--ink); border-radius:10px; font-size:18px; font-weight:800; cursor:pointer; box-shadow:0 6px 16px rgba(91,70,54,.18), 0 0 0 2px rgba(91,70,54,.08), inset 0 1px 0 #fff; }
     .qty span { font-size:20px; font-weight:800; min-width:26px; text-align:center; }
-    .submit-book { width:100%; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,233,216,.88)); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid var(--terra); color:var(--terra); border-radius:14px; padding:14px; font-family:inherit; font-weight:900; font-size:15px; cursor:pointer; box-shadow:0 14px 32px rgba(91,70,54,.24), 0 0 0 3px rgba(194,112,77,.14), inset 0 1px 0 #fff; transition:.2s; }
+    .submit-book { width:100%; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,233,216,.88)); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid var(--terra); color:var(--terra); border-radius:14px; padding:14px; font-family:inherit; font-weight:900; font-size:15px; cursor:pointer; box-shadow:0 14px 32px rgba(91,70,54,.24), 0 0 0 3px rgba(194,112,77,.14), inset 0 1px 0 #fff; transition:.2s; }
     .submit-book:hover { background:linear-gradient(135deg,rgba(255,255,255,1),rgba(255,222,199,.95)); transform:translateY(-2px); box-shadow:0 18px 38px rgba(91,70,54,.3), 0 0 0 4px rgba(194,112,77,.2), inset 0 1px 0 #fff; }
     .submit-book:active { transform:translateY(1px); }
     .book-msg { margin-top:12px; color:var(--terra); font-weight:800; font-size:13px; min-height:20px; }
@@ -96,7 +96,7 @@
     .point b { display:block; color:var(--terra); } .point span { color:var(--muted); font-size:13px; }
 
     footer { padding:26px 6%; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; border-top:1px solid var(--line); }
-    .float-book { position:fixed; right:26px; bottom:26px; z-index:40; background:rgba(255,255,255,.92); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(194,112,77,.8); color:var(--espresso); border-radius:50%; width:64px; height:64px; font-size:24px; cursor:pointer; box-shadow:0 14px 34px rgba(91,70,54,.26), 0 0 0 4px rgba(194,112,77,.14), inset 0 1px 0 #fff; text-decoration:none; display:grid; place-items:center; transition:.25s; }
+    .float-book { position:fixed; right:26px; bottom:26px; z-index:40; background:rgba(255,255,255,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid rgba(194,112,77,.8); color:var(--espresso); border-radius:50%; width:64px; height:64px; font-size:24px; cursor:pointer; box-shadow:0 14px 34px rgba(91,70,54,.26), 0 0 0 4px rgba(194,112,77,.14), inset 0 1px 0 #fff; text-decoration:none; display:grid; place-items:center; transition:.25s; }
     .float-book:hover { background:rgba(255,255,255,1); border-color:var(--terra); transform:translateY(-3px); box-shadow:0 18px 40px rgba(91,70,54,.3), 0 0 0 5px rgba(194,112,77,.2), inset 0 1px 0 #fff; }
     @media (max-width:900px) { header{grid-template-columns:1fr auto} header nav{display:none} .hero,.menu-grid,.book-grid{grid-template-columns:1fr} .photos{height:320px} .path{grid-template-columns:repeat(2,1fr)} .path::before{display:none} }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -112,9 +112,9 @@
   <section class="hero">
     <div><h1>Кофе, к которому <span>хочется возвращаться</span></h1><p>Завтраки весь день, свежая выпечка и кофе с красивой пенкой. Выбери блюдо в меню и забронируй его за минуту.</p><a class="btn3d" href="#menu">Смотреть меню ↓</a></div>
     <div class="photos">
-      <div class="photo-main"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1280&q=75" srcset="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=640&q=70 640w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1280&q=75 1280w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&q=80 1920w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=3840&q=84 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Капучино с латте-артом"></div>
-      <div class="photo-small photo-small--a"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1280&q=75" srcset="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=640&q=70 640w, https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1280&q=75 1280w, https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1920&q=80 1920w, https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=3840&q=84 3840w" sizes="(max-width:900px) 120px, 140px" alt="Латте с узором на пенке"></div>
-      <div class="photo-small photo-small--b"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1280&q=75" srcset="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=640&q=70 640w, https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1280&q=75 1280w, https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&q=80 1920w, https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=3840&q=84 3840w" sizes="(max-width:900px) 120px, 140px" alt="Чашка кофе"></div>
+      <div class="photo-main"><img loading="lazy" decoding="async" src="../assets/img/photo-1509042239860-f550ce710b93.jpg" srcset="../assets/img/photo-1509042239860-f550ce710b93.jpg 640w, ../assets/img/photo-1509042239860-f550ce710b93.jpg 1280w, ../assets/img/photo-1509042239860-f550ce710b93.jpg 1920w, ../assets/img/photo-1509042239860-f550ce710b93.jpg 3840w" sizes="(max-width:900px) 100vw, 50vw" alt="Капучино с латте-артом"></div>
+      <div class="photo-small photo-small--a"><img loading="lazy" decoding="async" src="../assets/img/photo-1514432324607-a09d9b4aefdd.jpg" srcset="../assets/img/photo-1514432324607-a09d9b4aefdd.jpg 640w, ../assets/img/photo-1514432324607-a09d9b4aefdd.jpg 1280w, ../assets/img/photo-1514432324607-a09d9b4aefdd.jpg 1920w, ../assets/img/photo-1514432324607-a09d9b4aefdd.jpg 3840w" sizes="(max-width:900px) 120px, 140px" alt="Латте с узором на пенке"></div>
+      <div class="photo-small photo-small--b"><img loading="lazy" decoding="async" src="../assets/img/photo-1495474472287-4d71bcdd2085.jpg" srcset="../assets/img/photo-1495474472287-4d71bcdd2085.jpg 640w, ../assets/img/photo-1495474472287-4d71bcdd2085.jpg 1280w, ../assets/img/photo-1495474472287-4d71bcdd2085.jpg 1920w, ../assets/img/photo-1495474472287-4d71bcdd2085.jpg 3840w" sizes="(max-width:900px) 120px, 140px" alt="Чашка кофе"></div>
     </div>
   </section>
 
@@ -214,7 +214,7 @@
     ];
 
     /* Адаптивные фото: лёгкие размеры на обычных экранах, 4K — только для больших мониторов. */
-    const photoUrl = (id, w, q) => 'https://images.unsplash.com/' + id + '?w=' + w + '&q=' + q;
+    const photoUrl = (id, w, q) => '../assets/img/' + id + '.jpg';
     const srcset = id => [[640,70],[1280,75],[1920,80],[3840,84]].map(([w,q]) => photoUrl(id, w, q) + ' ' + w + 'w').join(', ');
 
     const grid = document.querySelector('#menu-grid');

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -35,7 +35,7 @@
     .brand { font-weight:800; letter-spacing:3px; font-size:14px; }
     .brand b { color:var(--ice); }
     /* КНОПКИ-СТЕКЛО: полупрозрачный фон + размытие, как на iOS. */
-    .pill { font-size:12px; color:var(--ice); font-weight:800; background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(224,238,249,.82)); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1px solid rgba(47,111,158,.75); padding:8px 14px; border-radius:20px; box-shadow:0 8px 22px rgba(40,75,110,.20), 0 0 0 3px rgba(47,111,158,.10), inset 0 1px 0 #fff; transition:.3s; }
+    .pill { font-size:12px; color:var(--ice); font-weight:800; background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(224,238,249,.82)); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid rgba(47,111,158,.75); padding:8px 14px; border-radius:20px; box-shadow:0 8px 22px rgba(40,75,110,.20), 0 0 0 3px rgba(47,111,158,.10), inset 0 1px 0 #fff; transition:.3s; }
     .pill:hover { color:#fff; background:linear-gradient(135deg,rgba(47,111,158,.95),rgba(75,127,164,.92)); border-color:var(--ice); transform:translateY(-2px); box-shadow:0 14px 30px rgba(40,75,110,.26), 0 0 0 4px rgba(47,111,158,.16), inset 0 1px 0 rgba(255,255,255,.45); }
 
     .hero { padding:80px 6% 46px; max-width:1000px; }
@@ -72,7 +72,7 @@
     .body p { color:var(--muted); font-size:14px; line-height:1.6; min-height:68px; }
     .tags { display:flex; gap:7px; flex-wrap:wrap; margin:16px 0 20px; }
     .tags span { font-size:11px; color:var(--accent); background:rgba(255,255,255,.7); border:1px solid var(--line); padding:5px 10px; border-radius:12px; }
-    .go { display:inline-flex; align-items:center; gap:10px; color:var(--accent); background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(18px) saturate(160%); backdrop-filter:blur(18px) saturate(160%); border:1.5px solid var(--accent); font-weight:800; font-size:13px; padding:13px 20px; border-radius:14px; box-shadow:0 10px 24px rgba(40,75,110,.18), 0 0 0 3px rgba(255,255,255,.9), inset 0 1px 0 #fff; transition:.25s; }
+    .go { display:inline-flex; align-items:center; gap:10px; color:var(--accent); background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1.5px solid var(--accent); font-weight:800; font-size:13px; padding:13px 20px; border-radius:14px; box-shadow:0 10px 24px rgba(40,75,110,.18), 0 0 0 3px rgba(255,255,255,.9), inset 0 1px 0 #fff; transition:.25s; }
     .go:hover { transform:translateY(-3px); background:rgba(255,255,255,.98); box-shadow:0 16px 32px rgba(40,75,110,.26), 0 0 0 4px rgba(255,255,255,.95), inset 0 1px 0 #fff; }
     .card--barber { --accent:var(--ice); } .card--salon { --accent:var(--mint); } .card--cafe { --accent:var(--steel); }
 
@@ -102,15 +102,15 @@
 
   <section class="grid">
     <a class="card card--barber" href="./barbershop/">
-      <div class="shot"><span class="num">01 / ЗАПИСЬ</span><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=640&q=70" srcset="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=640&q=70 640w, https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1280&q=75 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Барбершоп"></div>
+      <div class="shot"><span class="num">01 / ЗАПИСЬ</span><img loading="lazy" decoding="async" src="assets/img/photo-1585747860715-2ba37e788b70.jpg" srcset="assets/img/photo-1585747860715-2ba37e788b70.jpg 640w, assets/img/photo-1585747860715-2ba37e788b70.jpg 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Барбершоп"></div>
       <div class="body"><h2>Барбершоп «Бритва»</h2><p>Сценарий записи: галерея стрижек, выбор «сферы» и крупная 3D-кнопка. Тёмная палитра, боковая навигация.</p><div class="tags"><span>фото 4K</span><span>3D-сферы</span><span>форма записи</span></div><span class="go">Открыть сайт →</span></div>
     </a>
     <a class="card card--salon" href="./salon/">
-      <div class="shot"><span class="num">02 / ПОДБОР</span><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=640&q=70" srcset="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=640&q=70 640w, https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1280&q=75 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Салон красоты"></div>
+      <div class="shot"><span class="num">02 / ПОДБОР</span><img loading="lazy" decoding="async" src="assets/img/photo-1595476108010-b4d1f102b1b1.jpg" srcset="assets/img/photo-1595476108010-b4d1f102b1b1.jpg 640w, assets/img/photo-1595476108010-b4d1f102b1b1.jpg 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Салон красоты"></div>
       <div class="body"><h2>Салон «Локон»</h2><p>Колесо подбора, памятка по уходу, галерея с ценами и длительностью прямо на фото, фильтр отзывов.</p><div class="tags"><span>колесо</span><span>цены на фото</span><span>фильтр отзывов</span></div><span class="go">Открыть сайт →</span></div>
     </a>
     <a class="card card--cafe" href="./cafe/">
-      <div class="shot"><span class="num">03 / МЕНЮ</span><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=640&q=70" srcset="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=640&q=70 640w, https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1280&q=75 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Кафе"></div>
+      <div class="shot"><span class="num">03 / МЕНЮ</span><img loading="lazy" decoding="async" src="assets/img/photo-1509042239860-f550ce710b93.jpg" srcset="assets/img/photo-1509042239860-f550ce710b93.jpg 640w, assets/img/photo-1509042239860-f550ce710b93.jpg 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Кафе"></div>
       <div class="body"><h2>Кафе «Зёрно»</h2><p>26 позиций с фото и ценами, вкладки меню, бронирование блюда с расчётом суммы и часы работы внизу.</p><div class="tags"><span>26 позиций</span><span>вкладки</span><span>бронь блюда</span></div><span class="go">Открыть сайт →</span></div>
     </a>
   </section>
