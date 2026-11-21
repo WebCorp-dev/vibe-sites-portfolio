@@ -204,6 +204,7 @@
     <footer><div>© 2026 Барбершоп «Бритва»</div><div>ул. Центральная, 12 · +7 999 000-00-00</div></footer>
   </div>
 
+  <script src="../assets/js/telegram.js"></script>
   <script>
     const services = {
       cut:   { num:'СФЕРА 01 / 04', title:'Классическая стрижка', text:'Точная форма, аккуратные линии и укладка. Подойдёт, если нужно выглядеть собранно каждый день.', price:'1 500 ₽', time:'45 мин' },
@@ -222,10 +223,16 @@
       });
     });
     const form = document.querySelector('#booking-form');
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const service = document.querySelector('#service').value;
-      document.querySelector('#form-message').textContent = `Готово! Запись на «${service}» принята — мы свяжемся с вами.`;
+      const name = document.querySelector('#name').value.trim();
+      const phone = document.querySelector('#phone').value.trim();
+      await window.sendLead('Барбершоп «Бритва»', [
+        'Имя: ' + name,
+        'Телефон: ' + phone,
+        'Услуга: ' + service
+      ], document.querySelector('#form-message'));
       form.reset();
     });
   </script>

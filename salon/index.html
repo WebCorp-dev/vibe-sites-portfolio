@@ -208,6 +208,7 @@
   </section>
   <footer><div>© 2026 Салон красоты «Локон»</div><div>ул. Мира, 8 · +7 999 111-22-33</div></footer>
 
+  <script src="../assets/js/telegram.js"></script>
   <script>
     const data = {
       cut: { title:'Женская стрижка', text:'Форма под твой тип волос и образ жизни. Мытьё, стрижка, укладка и советы по уходу.', price:'2 500 ₽ · 90 минут' },
@@ -240,11 +241,18 @@
       });
     });
     const form = document.querySelector('#booking-form');
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const dir = document.querySelector('#direction').value;
       const meta = document.querySelector('.dirs button.active').dataset.meta;
-      document.querySelector('#form-message').textContent = 'Готово! Запись на «' + dir + '» (' + meta + ') принята — мы свяжемся с вами.';
+      const name = document.querySelector('#name').value.trim();
+      const phone = document.querySelector('#phone').value.trim();
+      await window.sendLead('Салон «Локон»', [
+        'Имя: ' + name,
+        'Телефон: ' + phone,
+        'Направление: ' + dir,
+        'Цена/время: ' + meta
+      ], document.querySelector('#form-message'));
       form.reset();
     });
   </script>

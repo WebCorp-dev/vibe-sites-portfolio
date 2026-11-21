@@ -179,6 +179,7 @@
   <footer><div>© 2026 Кафе «Зёрно»</div><div>ул. Садовая, 5 · +7 999 222-33-44</div></footer>
   <a class="float-book" href="#booking" title="Забронировать">☕</a>
 
+  <script src="../assets/js/telegram.js"></script>
   <script>
     /* ОДИН СПИСОК на всё меню и бронирование: добавь позицию здесь — она появится в двух местах сразу. */
     const catalog = [
@@ -271,12 +272,18 @@
     });
     document.querySelector('#plus').addEventListener('click', () => { qty++; document.querySelector('#qty').textContent = qty; });
     document.querySelector('#minus').addEventListener('click', () => { if (qty > 1) qty--; document.querySelector('#qty').textContent = qty; });
-    document.querySelector('#submit-book').addEventListener('click', () => {
+    document.querySelector('#submit-book').addEventListener('click', async () => {
       const name = document.querySelector('#bk-name').value.trim();
       const phone = document.querySelector('#bk-phone').value.trim();
       if (!name || !phone) { document.querySelector('#book-msg').textContent = 'Заполни имя и телефон'; return; }
       const total = chosen.p * qty;
-      document.querySelector('#book-msg').textContent = 'Готово, ' + name + '! ' + chosen.n + ' × ' + qty + ' = ' + total + ' ₽. Мы свяжемся с тобой.';
+      await window.sendLead('Кафе «Зёрно»', [
+        'Имя: ' + name,
+        'Телефон: ' + phone,
+        'Позиция: ' + chosen.n,
+        'Количество: ' + qty,
+        'Сумма: ' + total + ' ₽'
+      ], document.querySelector('#book-msg'));
     });
   </script>
 </body>
