@@ -1,4 +1,4 @@
-/* ИНЕЙ — вся интерактивность. Без зависимостей и сборки. */
+/* Cup of Joy — вся интерактивность. Без зависимостей и сборки. */
 (function () {
   'use strict';
 
@@ -245,7 +245,7 @@
     const count = cartCount();
     $('#cartCount').textContent = count;
     $('#cartSum').textContent = money(cartSubtotal());
-    document.title = count ? '(' + count + ') ИНЕЙ — кофейня и десерт-бар' : 'ИНЕЙ — кофейня и десерт-бар в Чебоксарах';
+    document.title = count ? '(' + count + ') Cup of Joy — кофейня и десерт-бар' : 'Cup of Joy — кофейня и десерт-бар в Чебоксарах';
   }
 
   function addToCart(entry, silent) {
@@ -390,8 +390,8 @@
     const input = $('#promoInput');
     const hint = $('#promoHint');
     const val = input.value.trim().toUpperCase().replace(/\s+/g, '');
-    if (val === 'ИНЕЙ10' || val === 'INEY10') {
-      promo = 'ИНЕЙ10';
+    if (val === 'JOY10' || val === 'CUPOFJOY10') {
+      promo = 'JOY10';
       hint.textContent = 'Промокод применён: −10% на позиции';
       hint.className = 'promo-hint ok';
     } else if (!val) {
@@ -399,7 +399,7 @@
       hint.className = 'promo-hint';
     } else {
       promo = null;
-      hint.textContent = 'Такого промокода нет. Попробуйте ИНЕЙ10';
+      hint.textContent = 'Такого промокода нет. Попробуйте JOY10';
       hint.className = 'promo-hint err';
     }
     renderCart();
@@ -445,7 +445,7 @@
     let ok = false;
     try {
       if (typeof window.sendLead === 'function') {
-        ok = await window.sendLead('ИНЕЙ · сайт', lines, null);
+        ok = await window.sendLead('Cup of Joy · сайт', lines, null);
       }
     } catch (e2) { ok = false; }
 
@@ -458,7 +458,7 @@
       return;
     }
 
-    const num = 'ИН-' + String(Math.floor(1000 + Math.random() * 9000));
+    const num = 'CJ-' + String(Math.floor(1000 + Math.random() * 9000));
     $('#successText').textContent = 'Номер заказа — ' + num + '. Позвоним на ' + phone + ', чтобы подтвердить время.';
     $('#cartContent').hidden = true;
     $('#cartEmpty').hidden = true;
@@ -466,7 +466,7 @@
     cart = []; promo = null; mode = 'pickup';
     saveCart(); updateBadge();
     $('#orderForm').reset();
-    $('#promoHint').textContent = 'Подсказка: ИНЕЙ10 даёт −10%';
+    $('#promoHint').textContent = 'Подсказка: JOY10 даёт −10%';
     $('#promoHint').className = 'promo-hint';
     $$('.fulfil button').forEach(b => b.classList.toggle('on', b.dataset.mode === 'pickup'));
     $('#drawer').scrollTop = 0;
@@ -579,12 +579,13 @@
       const name = B.drinkName[builder.drink] + (custom ? ' «' + custom + '»' : ' · свой');
       const sugarText = builder.sugar ? 'сахар ' + builder.sugar + '%' : 'без сахара';
       const detail = builder.volume + ' мл · ' + B.milkName[builder.milk] + ' · ' + builder.shots + ' шот' + (builder.shots === 1 ? '' : 'а') + ' · ' + B.syrupName[builder.syrup] + ' · ' + sugarText + (builder.temp === 'ice' ? ' · айс' : '');
+      const drinkItem = MENU.find(m => m.id === builder.drink);
       addToCart({
         key: 'custom:' + name + ':' + detail,
         name: name,
         detail: detail,
         price: builderTotal(),
-        img: '../assets/img/photo-1495474472287-4d71bcdd2085.jpg'
+        img: drinkItem ? drinkItem.img : '../assets/img/photo-1495474472287-4d71bcdd2085.jpg'
       });
       const btn = $('#builderAdd');
       const old = btn.innerHTML;
