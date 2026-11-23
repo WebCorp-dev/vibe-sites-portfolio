@@ -794,6 +794,78 @@ h2 .mark::after{content:"";position:absolute;left:0;right:0;bottom:-.06em;height
 .toast::before{content:"✓";color:var(--ice);font-family:var(--mono)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+/* ═══ Иллюстрированный фон ═══ */
+/* Рисованные мотивы — чашки, зёрна, вишня, печенье, круассаны и веточки.
+   Слой тихий: он даёт бумаге и обжаренному зерну фактуру, но не спорит с текстом. */
+
+.hero,
+.builder-section,
+.sets-section,
+.visit-section,
+.site-foot{
+  background-image:url("img/pattern-dark.svg");
+  background-size:480px 480px;
+  background-repeat:repeat;
+}
+
+.menu-section,
+.guest-section{
+  background-color:var(--paper);
+  background-image:
+    url("img/pattern-light.svg"),
+    radial-gradient(120% 70% at 50% 0%,#fffaf3 0%,transparent 62%);
+  background-size:480px 480px,auto;
+  background-repeat:repeat,no-repeat;
+}
+.guest-section{background-color:var(--paper-2)}
+
+.info-section{
+  background-image:
+    url("img/pattern-light.svg"),
+    radial-gradient(90% 60% at 50% 0%,#fffaf3 0%,transparent 70%);
+  background-size:480px 480px,auto;
+  background-repeat:repeat,no-repeat;
+}
+
+/* Hero: вместо сетки — большая ветка и тёплое пятно света */
+.hero::after{
+  inset:auto;
+  left:-7%;bottom:-12%;width:32%;height:76%;
+  background:url("img/sprig-dark.svg") no-repeat left bottom/contain;
+  opacity:.55;
+  transform:rotate(6deg);
+  mask-image:linear-gradient(160deg,#000 45%,transparent 92%);
+  -webkit-mask-image:linear-gradient(160deg,#000 45%,transparent 92%);
+}
+.hero::before{
+  background:
+    radial-gradient(58% 46% at 72% 32%,rgba(196,127,66,.22),transparent 70%),
+    radial-gradient(40% 34% at 88% 68%,rgba(217,160,102,.12),transparent 70%),
+    radial-gradient(46% 44% at 8% 92%,rgba(196,127,66,.10),transparent 70%);
+}
+
+/* След от чашки на «бумаге» меню */
+.menu-section{position:relative}
+.menu-section::after{
+  content:"";position:absolute;right:-110px;bottom:-130px;width:400px;height:400px;border-radius:50%;
+  background-image:radial-gradient(circle,transparent 0 61%,rgba(138,82,39,.07) 61% 62.6%,transparent 62.6% 73%,rgba(138,82,39,.05) 73% 74.4%,transparent 74.4%);
+  transform:rotate(-8deg);
+  pointer-events:none;
+}
+
+/* Визит: ветка в углу, чтобы тёмный блок не был плоским */
+.visit-section{position:relative}
+.visit-section::before{
+  content:"";position:absolute;right:-9%;bottom:-24%;width:28%;height:96%;
+  background:url("img/sprig-dark.svg") no-repeat right bottom/contain;
+  transform:rotate(-7deg);
+  opacity:.5;
+  pointer-events:none;
+}
+
+/* Подвал: рисунок чуть плотнее, чтобы низ страницы «собирался» */
+.site-foot{background-color:#1c130d;background-position:130px 30px}
+
 /* ═══ Адаптив ═══ */
 @media (max-width:1120px){
   .main-nav{display:none}

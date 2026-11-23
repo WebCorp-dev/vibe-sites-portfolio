@@ -16,7 +16,24 @@ while ($listener.IsListening) {
 
     if (Test-Path -LiteralPath $file -PathType Leaf) {
         $bytes = [System.IO.File]::ReadAllBytes($file)
-        $context.Response.ContentType = 'text/html; charset=utf-8'
+        $types = @{
+            '.html' = 'text/html; charset=utf-8'
+            '.css'  = 'text/css; charset=utf-8'
+            '.js'   = 'application/javascript; charset=utf-8'
+            '.json' = 'application/json; charset=utf-8'
+            '.svg'  = 'image/svg+xml'
+            '.jpg'  = 'image/jpeg'
+            '.jpeg' = 'image/jpeg'
+            '.png'  = 'image/png'
+            '.webp' = 'image/webp'
+            '.avif' = 'image/avif'
+            '.ico'  = 'image/x-icon'
+            '.woff' = 'font/woff'
+            '.woff2'= 'font/woff2'
+            '.txt'  = 'text/plain; charset=utf-8'
+        }
+        $ext = [System.IO.Path]::GetExtension($file).ToLowerInvariant()
+        $context.Response.ContentType = if ($types.ContainsKey($ext)) { $types[$ext] } else { 'application/octet-stream' }
         $context.Response.ContentLength64 = $bytes.Length
         $context.Response.OutputStream.Write($bytes, 0, $bytes.Length)
     } else {
