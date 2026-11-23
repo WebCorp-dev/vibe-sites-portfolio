@@ -74,6 +74,7 @@
           '<p class="card-desc">' + item.desc + '</p>' +
           '<div class="card-meta">' +
             (volLabel ? '<span>' + volLabel + '</span>' : '') +
+            (item.weight ? '<span class="card-weight">' + item.weight + '</span>' : '') +
             '<span>' + item.kcal + ' ккал</span>' +
             (tags.length ? '<span class="tag">' + tags[0] + '</span>' : '') +
           '</div>' +
@@ -194,7 +195,7 @@
       addToCart({
         key: item.id + ':' + vi,
         name: item.name,
-        detail: vol ? vol.ml + ' мл' : (item.cat === 'dessert' ? 'десерт' : 'порция'),
+        detail: vol ? vol.ml + ' мл' : (item.weight || (item.cat === 'dessert' ? 'десерт' : 'порция')),
         price: vol ? vol.price : item.price,
         img: item.img
       });
@@ -473,12 +474,21 @@
   }
 
   /* ═══════════════ 4. Конструктор ═══════════════ */
-  const builder = { volume: 300, milk: 'regular', shots: 2, syrup: 'none', temp: 'hot' };
+  const builder = { drink: 'latte', volume: 300, milk: 'regular', shots: 2, syrup: 'none', sugar: 50, temp: 'hot' };
   const B = {
-    base: 180,
+    drinks: {
+      espresso: 180, americano: 220, cappuccino: 290, latte: 320, flatwhite: 290,
+      raf: 340, mocha: 350, coldbrew: 330, matcha: 340, cocoa: 280, tea: 190
+    },
+    drinkName: {
+      espresso: 'Эспрессо', americano: 'Американо', cappuccino: 'Капучино', latte: 'Латте',
+      flatwhite: 'Флэт уайт', raf: 'Раф', mocha: 'Мокко', coldbrew: 'Колд брю',
+      matcha: 'Матча-латте', cocoa: 'Какао', tea: 'Чай листовой'
+    },
     volume: { 200: 0, 300: 40, 400: 80 },
     milk: { regular: 0, oat: 40, almond: 50, none: -30 },
     syrup: { none: 0, caramel: 30, lavender: 30, coconut: 40 },
+    sugarName: { 0: 'без сахара', 30: '30%', 50: '50%', 100: '100%' },
     milkName: { regular: 'обычное молоко', oat: 'овсяное молоко', almond: 'миндальное молоко', none: 'без молока' },
     syrupName: { none: 'без сиропа', caramel: 'карамель', lavender: 'лаванда', coconut: 'кокос' },
     syrupColor: { none: null, caramel: ['#c99a5b', '#8a5f2c'], lavender: ['#a99ac2', '#6c5b86'], coconut: ['#d9c7a8', '#a58a63'] },
@@ -486,24 +496,30 @@
   };
 
   function builderTotal() {
-    return B.base + B.volume[builder.volume] + B.milk[builder.milk] + (builder.shots - 1) * 40 + B.syrup[builder.syrup];
+    return B.drinks[builder.drink] + B.volume[builder.volume] + B.milk[builder.milk] + (builder.shots - 1) * 40 + B.syrup[builder.syrup];
   }
 
   function updateBuilder() {
     const total = builderTotal();
+    const base = B.drinks[builder.drink];
+    const drinkName = B.drinkName[builder.drink];
+    $('#lblDrink').textContent = drinkName;
+    $('#tagDrink').textContent = drinkName;
     $('#lblVolume').textContent = builder.volume + ' мл';
     $('#lblMilk').textContent = B.milkName[builder.milk].replace(' молоко', '');
     $('#lblShots').textContent = builder.shots + (builder.shots === 1 ? ' шот' : ' шота');
     $('#lblSyrup').textContent = B.syrupName[builder.syrup];
+    $('#lblSugar').textContent = B.sugarName[builder.sugar];
     $('#tagVolume').textContent = builder.volume + ' мл';
     $('#tagMilk').textContent = B.milkName[builder.milk];
     $('#tagShots').textContent = builder.shots + (builder.shots === 1 ? ' шот' : ' шота');
     const ts = $('#tagSyrup');
     ts.hidden = builder.syrup === 'none';
     ts.textContent = B.syrupName[builder.syrup];
+    $('#tagSugar').textContent = builder.sugar ? 'сахар ' + builder.sugar + '%' : 'без сахара';
     $('#builderPrice').textContent = money(total);
 
-    const lines = [['Основа (эспрессо)', money(B.base)]];
+    const lines = [['Основа · ' + drinkName, money(base)]];
     if (B.volume[builder.volume]) lines.push(['Объём ' + builder.volume + ' мл', '+' + money(B.volume[builder.volume])]);
     if (B.milk[builder.milk]) lines.push([B.milkName[builder.milk], (B.milk[builder.milk] > 0 ? '+' : '−') + money(Math.abs(B.milk[builder.milk]))]);
     if ((builder.shots - 1) * 40) lines.push(['Доп. шоты × ' + (builder.shots - 1), '+' + money((builder.shots - 1) * 40)]);
@@ -547,16 +563,22 @@
         if (group === 'shots') builder.shots = Number(btn.dataset.val);
         if (group === 'milk') builder.milk = btn.dataset.val;
         if (group === 'syrup') builder.syrup = btn.dataset.val;
+        if (group === 'sugar') builder.sugar = Number(btn.dataset.val);
         if (group === 'temp') builder.temp = btn.dataset.val;
         updateBuilder();
       });
+    });
+    $('#builderDrink').addEventListener('change', (e) => {
+      builder.drink = e.target.value;
+      updateBuilder();
     });
     $('#cupNameInput').addEventListener('input', updateBuilder);
 
     $('#builderAdd').addEventListener('click', () => {
       const custom = $('#cupNameInput').value.trim();
-      const name = 'Свой напиток' + (custom ? ' «' + custom + '»' : '');
-      const detail = builder.volume + ' мл · ' + B.milkName[builder.milk] + ' · ' + builder.shots + ' шот' + (builder.shots === 1 ? '' : 'а') + ' · ' + B.syrupName[builder.syrup] + (builder.temp === 'ice' ? ' · айс' : '');
+      const name = B.drinkName[builder.drink] + (custom ? ' «' + custom + '»' : ' · свой');
+      const sugarText = builder.sugar ? 'сахар ' + builder.sugar + '%' : 'без сахара';
+      const detail = builder.volume + ' мл · ' + B.milkName[builder.milk] + ' · ' + builder.shots + ' шот' + (builder.shots === 1 ? '' : 'а') + ' · ' + B.syrupName[builder.syrup] + ' · ' + sugarText + (builder.temp === 'ice' ? ' · айс' : '');
       addToCart({
         key: 'custom:' + name + ':' + detail,
         name: name,

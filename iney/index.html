@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ИНЕЙ — кофейня и десерт-бар в Чебоксарах</title>
-<meta name="description" content="Кофе, завтраки и десерты в холодной палитре. 44 позиции, три объёма, конструктор напитка и заказ в Telegram." />
-<meta name="theme-color" content="#0a1119" />
-<meta property="og:title" content="ИНЕЙ — холодный свет, горячий кофе" />
+<meta name="description" content="Кофе, завтраки и десерты в тёплой палитре: зерно, карамель и молоко. 44 позиции, сеты, конструктор напитка и заказ в Telegram." />
+<meta name="theme-color" content="#241a13" />
+<meta property="og:title" content="ИНЕЙ — тёплый свет, горячий кофе" />
 <meta property="og:description" content="Кофейня и десерт-бар: 44 позиции, конструктор напитка, честные цены и заказ за 15 минут." />
 <meta property="og:type" content="website" />
 <link rel="stylesheet" href="fonts.css" />
@@ -87,7 +87,7 @@
 <section class="hero">
   <div class="hero-copy reveal">
     <p class="eyebrow"><span class="dot"></span> кофейня · чебоксары · с 2019</p>
-    <h1>Холодный свет.<br><span class="mark">Горячий кофе.<svg class="scribble" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15C58 6 108 17 160 10S258 5 317 13"/></svg></span></h1>
+    <h1>Тёплый свет.<br><span class="mark">Горячий кофе.<svg class="scribble" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15C58 6 108 17 160 10S258 5 317 13"/></svg></span></h1>
     <p class="hero-lead">44 позиции, три объёма, честные цены и пенка, на которой видно рисунок. Соберите заказ — заберёте через 15 минут или привезём.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#menu">
@@ -105,11 +105,11 @@
 
   <div class="scene" id="scene" aria-label="Фотографии кофе и десертов">
     <svg class="scene-orbit" viewBox="0 0 600 600" aria-hidden="true">
-      <ellipse cx="300" cy="300" rx="255" ry="235" fill="none" stroke="rgba(159,205,232,.28)" stroke-width="1" stroke-dasharray="2 9"/>
-      <ellipse cx="300" cy="300" rx="205" ry="188" fill="none" stroke="rgba(159,205,232,.16)" stroke-width="1"/>
-      <circle cx="300" cy="65" r="3" fill="#8fd3f2"/>
-      <circle cx="540" cy="330" r="2.5" fill="#8fd3f2" opacity=".7"/>
-      <circle cx="90" cy="420" r="2" fill="#8fd3f2" opacity=".5"/>
+      <ellipse cx="300" cy="300" rx="255" ry="235" fill="none" stroke="rgba(214,169,121,.28)" stroke-width="1" stroke-dasharray="2 9"/>
+      <ellipse cx="300" cy="300" rx="205" ry="188" fill="none" stroke="rgba(214,169,121,.16)" stroke-width="1"/>
+      <circle cx="300" cy="65" r="3" fill="#d9a066"/>
+      <circle cx="540" cy="330" r="2.5" fill="#d9a066" opacity=".7"/>
+      <circle cx="90" cy="420" r="2" fill="#d9a066" opacity=".5"/>
     </svg>
 
     <figure class="shot shot-main tilt" data-depth="14">
@@ -210,7 +210,7 @@
     <div class="builder-copy reveal">
       <span class="section-index light">02 / конструктор</span>
       <h2>Соберите свой<br><span class="mark">напиток</span></h2>
-      <p class="section-sub">Четыре решения — объём, молоко, крепость и сироп. Цена считается сразу, без сюрпризов на кассе.</p>
+      <p class="section-sub">Напиток, объём, молоко, крепость, сироп, сахар и температура. Цена считается сразу, без сюрпризов на кассе.</p>
 
       <div class="cup-stage">
         <svg class="cup-svg" id="cupSvg" viewBox="0 0 260 320" role="img" aria-label="Предпросмотр напитка">
@@ -243,10 +243,12 @@
           <text x="130" y="318" text-anchor="middle" class="cup-name" id="cupName">ваше имя</text>
         </svg>
         <div class="cup-tags">
+          <span class="glass-chip" id="tagDrink">Латте</span>
           <span class="glass-chip" id="tagVolume">300 мл</span>
           <span class="glass-chip" id="tagMilk">обычное молоко</span>
           <span class="glass-chip" id="tagShots">2 шота</span>
           <span class="glass-chip" id="tagSyrup" hidden>карамель</span>
+          <span class="glass-chip" id="tagSugar">сахар 50%</span>
         </div>
         <svg class="doodle doodle-builder" viewBox="0 0 160 60" aria-hidden="true"><path d="M4 48c30-22 62-28 96-22"/><path d="m84 18 18 8-16 11"/></svg>
         <span class="hand hand-builder">прозрачный стакан — видно слои</span>
@@ -254,6 +256,22 @@
     </div>
 
     <div class="builder-panel reveal">
+      <div class="builder-row">
+        <label for="builderDrink">Напиток <b id="lblDrink">Латте</b></label>
+        <select class="drink-select" id="builderDrink">
+          <option value="espresso">Эспрессо — 180 ₽</option>
+          <option value="americano">Американо — 220 ₽</option>
+          <option value="cappuccino">Капучино — 290 ₽</option>
+          <option value="latte" selected>Латте — 320 ₽</option>
+          <option value="flatwhite">Флэт уайт — 290 ₽</option>
+          <option value="raf">Раф — 340 ₽</option>
+          <option value="mocha">Мокко — 350 ₽</option>
+          <option value="coldbrew">Колд брю — 330 ₽</option>
+          <option value="matcha">Матча-латте — 340 ₽</option>
+          <option value="cocoa">Какао — 280 ₽</option>
+          <option value="tea">Чай листовой — 190 ₽</option>
+        </select>
+      </div>
       <div class="builder-row">
         <label>Объём <b id="lblVolume">300 мл</b></label>
         <div class="seg" data-group="volume">
@@ -288,6 +306,15 @@
           <button data-val="coconut">кокос <em>+40</em></button>
         </div>
       </div>
+      <div class="builder-row">
+        <label>Сахар <b id="lblSugar">50%</b></label>
+        <div class="seg" data-group="sugar">
+          <button data-val="0">0%</button>
+          <button data-val="30">30%</button>
+          <button data-val="50" class="on">50%</button>
+          <button data-val="100">100%</button>
+        </div>
+      </div>
       <div class="builder-row builder-row--inline">
         <div>
           <label>Температура</label>
@@ -304,7 +331,7 @@
 
       <div class="price-card">
         <div class="price-lines" id="priceLines"></div>
-        <div class="price-total"><span>Итого</span><b id="builderPrice">320 ₽</b></div>
+        <div class="price-total"><span>Итого</span><b id="builderPrice">400 ₽</b></div>
         <button class="btn btn-primary btn-wide" id="builderAdd"><svg class="ico"><use href="#i-plus"/></svg> Добавить в заказ</button>
         <p class="fineprint">Сироп можно попробовать отдельно — попросите ложечку у бариста.</p>
       </div>
@@ -426,30 +453,41 @@
         </div>
         <p class="info-lead">Одинаковая чашка, разное количество эспрессо и молока. Пропорция меняет вкус сильнее, чем кажется.</p>
         <svg class="diagram diagram-cups" viewBox="0 0 420 250" role="img" aria-label="Сравнение объёмов 200, 300 и 400 мл">
+          <defs>
+            <clipPath id="cupClip200"><path d="M42 58h78l-8 118a16 16 0 0 1-16 14H66a16 16 0 0 1-16-14L42 58Z"/></clipPath>
+            <clipPath id="cupClip300"><path d="M170 40h86l-9 136a17 17 0 0 1-17 15h-34a17 17 0 0 1-17-15L170 40Z"/></clipPath>
+            <clipPath id="cupClip400"><path d="M304 24h92l-9 152a18 18 0 0 1-18 16h-38a18 18 0 0 1-18-16L304 24Z"/></clipPath>
+          </defs>
           <g class="ink">
             <!-- 200 -->
             <path d="M42 58h78l-8 118a16 16 0 0 1-16 14H66a16 16 0 0 1-16-14L42 58Z"/>
             <path d="M120 72h14a13 13 0 0 1 0 26h-11"/>
-            <rect x="47" y="96" width="68" height="76" class="fill-coffee"/>
-            <rect x="47" y="86" width="68" height="12" class="fill-foam"/>
+            <g clip-path="url(#cupClip200)">
+              <rect x="47" y="96" width="68" height="92" class="fill-coffee"/>
+              <rect x="47" y="86" width="68" height="12" class="fill-foam"/>
+            </g>
             <text x="81" y="224" text-anchor="middle" class="lbl">200 мл</text>
             <text x="81" y="242" text-anchor="middle" class="lbl-sub">40 мл кофе</text>
             <!-- 300 -->
             <path d="M170 40h86l-9 136a17 17 0 0 1-17 15h-34a17 17 0 0 1-17-15L170 40Z"/>
             <path d="M256 56h15a14 14 0 0 1 0 28h-12"/>
-            <rect x="176" y="98" width="74" height="80" class="fill-coffee"/>
-            <rect x="176" y="86" width="74" height="14" class="fill-foam"/>
+            <g clip-path="url(#cupClip300)">
+              <rect x="176" y="98" width="74" height="96" class="fill-coffee"/>
+              <rect x="176" y="86" width="74" height="14" class="fill-foam"/>
+            </g>
             <text x="213" y="224" text-anchor="middle" class="lbl">300 мл</text>
             <text x="213" y="242" text-anchor="middle" class="lbl-sub">60 мл кофе</text>
             <!-- 400 -->
             <path d="M304 24h92l-9 152a18 18 0 0 1-18 16h-38a18 18 0 0 1-18-16L304 24Z"/>
             <path d="M396 40h16a15 15 0 0 1 0 30h-13"/>
-            <rect x="310" y="100" width="80" height="80" class="fill-coffee"/>
-            <rect x="310" y="86" width="80" height="16" class="fill-foam"/>
+            <g clip-path="url(#cupClip400)">
+              <rect x="310" y="100" width="80" height="96" class="fill-coffee"/>
+              <rect x="310" y="86" width="80" height="16" class="fill-foam"/>
+            </g>
             <text x="350" y="224" text-anchor="middle" class="lbl">400 мл</text>
             <text x="350" y="242" text-anchor="middle" class="lbl-sub">80 мл кофе</text>
           </g>
-          <path d="M42 118c26 10 52 10 78 0M170 118c28 10 57 10 86 0M304 122c28 10 56 10 92 0" stroke="rgba(255,255,255,.35)" stroke-dasharray="2 6"/>
+          <path d="M42 118c26 10 52 10 78 0M170 118c28 10 57 10 86 0M304 122c28 10 56 10 92 0" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
         <p class="info-note">В 450 мл капучино кофе столько же, сколько в 250 мл — просто больше молока. Крепость не растёт.</p>
       </article>
@@ -531,7 +569,7 @@
       <div>
         <span class="section-index light">04 / сеты</span>
         <h2>Собрано <span class="mark">за вас</span></h2>
-        <p class="section-sub">Три комбинации, которые заказывают чаще всего. Экономия уже посчитана.</p>
+        <p class="section-sub">Двенадцать готовых комбинаций на любой аппетит — от завтрака до десерта. Экономия уже посчитана.</p>
       </div>
       <p class="hand hand-head hand-light">выгоднее,<br>чем по отдельности</p>
     </header>
@@ -576,7 +614,7 @@
     </div>
 
     <div class="polaroids reveal">
-      <figure class="polaroid" style="--rot:-3deg"><img src="../assets/img/photo-1517832606299-7ae9b720a186.jpg" alt="Бариста за работой" loading="lazy"><figcaption>утро, до открытия</figcaption></figure>
+      <figure class="polaroid" style="--rot:-3deg"><img src="../assets/img/photo-1557512637-6f8199b5092b.jpg" alt="Чашка кофе у окна" loading="lazy"><figcaption>кофе у окна</figcaption></figure>
       <figure class="polaroid" style="--rot:2deg"><img src="../assets/img/photo-1511920170033-f8396924c348.jpg" alt="Латте и темпер" loading="lazy"><figcaption>12 г, не больше</figcaption></figure>
       <figure class="polaroid" style="--rot:-1.5deg"><img src="../assets/img/photo-1567620905732-2d1ec7ab7445.jpg" alt="Панкейки с черникой" loading="lazy"><figcaption>завтрак до 12:00</figcaption></figure>
       <figure class="polaroid" style="--rot:2.6deg"><img src="../assets/img/photo-1495474472287-4d71bcdd2085.jpg" alt="Капучино с рисунком" loading="lazy"><figcaption>рисунок бесплатно</figcaption></figure>
@@ -658,7 +696,7 @@
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2v28M4.3 9l23.4 14M27.7 9 4.3 23"/><path d="m11 5 5 4 5-4M11 27l5-4 5 4M7 12l5 1-1-5M25 20l-5-1 1 5M25 12l-5 1 1-5M7 20l5-1-1 5"/></svg>
-      <div><b>ИНЕЙ</b><span>холодный свет, горячий кофе</span></div>
+      <div><b>ИНЕЙ</b><span>тёплый свет, горячий кофе</span></div>
     </div>
     <nav class="foot-nav" aria-label="Подвал">
       <a href="#menu">Меню</a>
